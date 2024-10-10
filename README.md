@@ -4,6 +4,8 @@
 CaDiCaL Simplified Satisfiability Solver
 ===============================================================================
 
+Our goal is to augment Cadical with support for conditional autarkies in order to discover globally blocked clauses
+
 The goal of the development of CaDiCaL was to obtain a CDCL solver,
 which is easy to understand and change, while at the same time not being
 much slower than other state-of-the-art CDCL solvers.
