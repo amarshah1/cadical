@@ -19,6 +19,7 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+#include <map>
 
 // Less common 'C' header.
 
@@ -1080,6 +1081,11 @@ struct Internal {
   int next_probe ();
   bool probe_round ();
   void probe (bool update_limits = true);
+  // Amar: stuff i added
+  bool globalling ();
+  void global();
+  void least_conditional_part();
+  void print_assignment();
 
   // ProbSAT/WalkSAT implementation called initially or from 'rephase'.
   //
@@ -1573,6 +1579,7 @@ inline bool Internal::search_limits_hit () {
 
   return false;
 }
+
 
 /*------------------------------------------------------------------------*/
 

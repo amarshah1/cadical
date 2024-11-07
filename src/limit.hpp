@@ -23,6 +23,8 @@ struct Limit {
   int64_t restart;   // conflict limit for next 'restart'
   int64_t stabilize; // conflict limit for next 'stabilize'
   int64_t subsume;   // conflict limit for next 'subsume'
+  int64_t global;   // conflict limit for next 'global'
+
 
   int keptsize; // maximum kept size in 'reduce'
   int keptglue; // maximum kept glue in 'reduce'

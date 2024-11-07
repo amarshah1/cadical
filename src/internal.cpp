@@ -301,6 +301,8 @@ int Internal::cdcl_loop_with_inprocessing () {
       compact (); // collect variables
     else if (conditioning ())
       condition (); // globally blocked clauses
+    else if (globalling ())
+      least_conditional_part(); // amar : adding globaly blocked clauses
     else
       res = decide (); // next decision
   }

@@ -278,6 +278,7 @@ inline void Internal::analyze_literal (int lit, int &open,
   assert (v.level <= level);
   assert (v.reason != external_reason);
   if (v.level < level)
+    // amar: this is where they are populating clause
     clause.push_back (lit);
   Level &l = control[v.level];
   if (!l.seen.count++) {

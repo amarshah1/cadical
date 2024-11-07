@@ -360,6 +360,7 @@ void Internal::assign_original_unit (uint64_t id, int lit) {
 void Internal::add_new_original_clause (uint64_t id) {
 
   if (!from_propagator && level && !opts.ilb) {
+    // amar : need to backtrack
     backtrack ();
   } else if (tainted_literal) {
     assert (val (tainted_literal));
