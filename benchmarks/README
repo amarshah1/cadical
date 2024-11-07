@@ -1,0 +1,6 @@
+After building '../sadical' run './runs.sh' or execute 'make'.  This will
+run '../sadical' on all the test cases listed in './run.sh' and check
+whether the expected result is obtained.  If the formula is satisfiable
+the output is checked to be a correct witness using the 'precochk' tool.
+If the formula is unsatisfiable a proof is generated and checked with the
+'dpr-trim' tool.  Both tools are included as source and build first.

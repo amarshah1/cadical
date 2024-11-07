@@ -1,0 +1,113 @@
+c SaDiCaL SAT Solver
+c Copyright (C) 2018 by Armin Biere JKU
+c
+c Version 00n 481e664a7ffa9a307d3a0dad517daf5dde1989ef
+c Compiler Apple clang version 15.0.0 (clang-1500.3.9.4)
+c Options gcc -Wall -O3 -DNDEBUG -DNLOG
+c proof path 'tests/tph4.prf'
+c
+c all options have default values
+c
+c parsing 'tests/tph4.cnf'
+c found 'p cnf 36 345' header
+c parsed DIMACS in 0.00 seconds
+c 
+c
+c   time      reduced  redundant  irredundant
+c       space   restarts     glue     variables
+c           level  conflicts     size    remaining
+c
+c - 0.01 0.1 8.0 1 15 2028 17 9.0 9.0 345 36 100%
+c - 0.01 0.1 6.7 2 27 4059 27 7.7 7.7 345 36 100%
+c - 0.02 0.1 7.7 3 39 6393 27 8.7 8.7 345 36 100%
+c - 0.03 0.1 6.9 4 57 9030 35 7.9 8.0 345 36 100%
+c - 0.03 0.1 6.4 5 74 11951 39 7.4 7.4 345 36 100%
+c - 0.04 0.1 6.0 6 85 15191 37 7.0 7.0 345 36 100%
+c s 0.04 0.1 5.8 6 87 15609 12 6.8 6.8 317 35 97%
+c - 0.04 0.1 5.8 7 96 18758 24 6.7 6.8 317 35 97%
+c - 0.05 0.1 5.9 8 110 22584 34 6.8 6.8 317 35 97%
+c - 0.06 0.1 6.0 9 120 26710 33 6.9 7.0 317 35 97%
+c - 0.06 0.1 6.1 10 134 31181 39 7.0 7.1 317 35 97%
+c - 0.07 0.1 6.3 11 145 35913 41 7.2 7.3 317 35 97%
+c - 0.08 0.1 6.3 12 160 40992 45 7.2 7.3 317 35 97%
+c - 0.09 0.1 6.3 13 178 46298 53 7.1 7.2 317 35 97%
+c - 0.10 0.1 6.2 14 196 51902 59 7.1 7.2 317 35 97%
+c - 0.11 0.1 6.3 15 210 57876 56 7.2 7.3 317 35 97%
+c - 0.12 0.1 6.3 16 229 64140 65 7.0 7.2 317 35 97%
+c s 0.12 0.1 6.2 16 232 65115 42 7.0 7.1 289 34 94%
+c - 0.13 0.1 6.3 17 246 70688 44 7.1 7.3 289 34 94%
+c - 0.14 0.1 6.4 18 263 77511 53 7.1 7.3 289 34 94%
+c
+c   time      reduced     redundant  irredundant
+c       space    restarts       glue     variables
+c           level     conflicts     size   remaining
+c
+c - 0.15 0.1 6.3 19 286 84671 69 7.1 7.3 289 34 94%
+c - 0.16 0.1 6.3 20 311 92086 77 7.1 7.3 289 34 94%
+c - 0.18 0.1 6.2 21 338 99839 86 7.0 7.2 289 34 94%
+c s 0.18 0.1 6.1 21 341 100868 66 6.9 7.2 268 33 92%
+c - 0.19 0.1 6.1 22 367 107849 87 6.9 7.1 268 33 92%
+c - 0.20 0.1 6.1 23 388 116209 87 6.9 7.1 268 33 92%
+c s 0.20 0.1 6.0 23 394 118635 58 6.8 7.0 240 32 89%
+c - 0.21 0.1 6.0 24 414 124826 74 6.7 7.0 240 32 89%
+c - 0.22 0.1 6.0 25 440 133784 90 6.7 7.0 240 32 89%
+c - 0.23 0.1 5.9 26 469 143017 102 6.7 6.9 240 32 89%
+c s 0.24 0.1 5.8 26 481 147336 81 6.6 6.9 219 31 86%
+c - 0.25 0.1 5.8 27 495 152558 84 6.6 6.8 219 31 86%
+c s 0.25 0.1 5.7 27 513 158460 66 6.5 6.7 204 30 83%
+c - 0.26 0.1 5.7 28 529 162362 71 6.4 6.7 204 30 83%
+c s 0.27 0.1 5.6 28 570 171687 113 6.3 6.6 203 29 81%
+c s 0.27 0.1 5.5 28 572 171841 115 6.3 6.5 175 28 78%
+c s 0.27 0.1 5.5 28 574 172132 109 6.2 6.5 154 27 75%
+c - 0.27 0.1 5.4 29 578 172464 98 6.2 6.5 154 27 75%
+c s 0.27 0.1 5.4 29 587 174389 101 6.2 6.4 133 26 72%
+c s 0.27 0.1 5.4 29 589 174467 98 6.1 6.4 118 25 69%
+c
+c   time      reduced      redundant  irredundant
+c       space    restarts        glue     variables
+c           level     conflicts      size   remaining
+c
+c s 0.27 0.1 5.4 29 589 174468 87 6.1 6.4 103 24 67%
+c s 0.27 0.1 5.3 29 589 174472 83 6.1 6.4 88 23 64%
+c s 0.27 0.1 5.3 29 589 174473 74 6.1 6.4 78 22 61%
+c s 0.27 0.1 5.2 29 594 175030 68 6.0 6.3 77 21 58%
+c s 0.27 0.1 5.2 29 594 175030 64 6.0 6.3 67 20 56%
+c s 0.27 0.1 5.2 29 594 175031 58 6.0 6.3 57 19 53%
+c s 0.27 0.1 5.2 29 594 175032 55 6.0 6.3 51 18 50%
+c s 0.27 0.1 5.2 29 596 175067 56 6.0 6.2 45 17 47%
+c s 0.27 0.1 5.2 29 596 175068 43 6.0 6.2 35 16 44%
+c s 0.27 0.1 5.2 29 596 175069 39 5.9 6.2 34 15 42%
+c s 0.27 0.1 5.2 29 596 175070 30 5.9 6.2 27 13 36%
+c s 0.27 0.1 5.1 29 596 175071 28 5.9 6.2 21 12 33%
+c 0 0.27 0.1 5.1 29 596 175073 28 5.9 6.2 21 0 0%
+c
+s UNSATISFIABLE
+c
+c simplifications:            23        7612  conflicts/simplification  100%
+c reductions:                 29        6037  conflicts/reduction       100%
+c restarts:                  596         294  conflicts/restart         100%
+c conflicts:              175073      638995  conflicts/sec              98%
+c decisions:                4316       15753  decisions/sec              65%
+c propagations:          2050874         7.5  millions/sec               98%
+c
+c pure:                        1           0% of look-aheads
+c look-ahead:               4317         100% of outer decisions         65%
+c pruned:                    660           0% of outer conflicts          0%
+c generated reducts:        4357          15% satisfiable
+c average size:               64          23% of all clauses
+c pruning failed:           3697          85% per reduct
+c filter checks:          353634          78% of outer satisfied clauses
+c average filtered:         40.0          38% per reduct
+c assumed literals:       631095         1.8  per filter check
+c
+c collected clauses:        0.05 MB       97% of allocated clauses        1%
+c allocated clauses:        0.05 MB       14% of allocated memory         1%
+c maximum heap:             0.08 MB        0% of resident set size       73%
+c
+c looking:                  0.00 sec       0% of process time
+c filtering:                0.15 sec      55% of process time
+c pruning:                  0.27 sec      98% of process time
+c simplifying:              0.00 sec       0% of process time
+c
+c resident set size:     1552.00 MB
+c total process time:       0.27 sec

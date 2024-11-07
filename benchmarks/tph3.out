@@ -1,0 +1,58 @@
+c SaDiCaL SAT Solver
+c Copyright (C) 2018 by Armin Biere JKU
+c
+c Version 00n 481e664a7ffa9a307d3a0dad517daf5dde1989ef
+c Compiler Apple clang version 15.0.0 (clang-1500.3.9.4)
+c Options gcc -Wall -O3 -DNDEBUG -DNLOG
+c proof path 'tests/tph3.prf'
+c
+c all options have default values
+c
+c parsing 'tests/tph3.cnf'
+c found 'p cnf 21 112' header
+c parsed DIMACS in 0.00 seconds
+c 
+c
+c   time      reduced redundant irredundant
+c       space   restarts   glue     variables
+c           level  conflicts   size   remaining
+c
+c s 0.00 0.0 2.1 0 14 589 1 3.1 3.1 111 20 95%
+c s 0.00 0.0 2.1 0 14 589 1 3.1 3.1 96 19 90%
+c s 0.00 0.0 2.1 0 14 589 0 3.1 3.1 81 18 86%
+c s 0.00 0.0 2.1 0 24 1106 1 3.1 3.1 45 12 57%
+c s 0.00 0.0 2.1 0 24 1106 1 3.1 3.1 35 11 52%
+c s 0.00 0.0 2.1 0 24 1106 0 3.1 3.1 25 10 48%
+c s 0.00 0.0 2.0 0 24 1109 0 3.0 3.0 18 8 38%
+c 0 0.00 0.0 1.9 0 24 1112 1 2.9 2.9 18 0 0%
+c
+s UNSATISFIABLE
+c
+c simplifications:             7         159  conflicts/simplification  100%
+c reductions:                  0           0  conflicts/reduction       100%
+c restarts:                   24          46  conflicts/restart         100%
+c conflicts:                1112      387862  conflicts/sec              99%
+c decisions:                  92       32089  decisions/sec              75%
+c propagations:             8204         2.9  millions/sec               96%
+c
+c pure:                        4           4% of look-aheads
+c look-ahead:                 96         104% of outer decisions         78%
+c pruned:                     27           2% of outer conflicts          2%
+c generated reducts:          91          30% satisfiable
+c average size:               15          19% of all clauses
+c pruning failed:             64          70% per reduct
+c filter checks:            1719          70% of outer satisfied clauses
+c average filtered:         11.8          44% per reduct
+c assumed literals:         2833         1.6  per filter check
+c
+c collected clauses:        0.00 MB       88% of allocated clauses       12%
+c allocated clauses:        0.00 MB       15% of allocated memory        14%
+c maximum heap:             0.02 MB        0% of resident set size       71%
+c
+c looking:                  0.00 sec       1% of process time
+c filtering:                0.00 sec      22% of process time
+c pruning:                  0.00 sec      47% of process time
+c simplifying:              0.00 sec       1% of process time
+c
+c resident set size:     1088.00 MB
+c total process time:       0.00 sec

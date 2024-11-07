@@ -1,0 +1,9 @@
+[precochk] searching solution line in 'tests/unit1.out'
+[precochk] found solution line 's SATISFIABLE'
+[precochk] searching dimacs header in 'tests/unit1.cnf'
+[precochk] found dimacs header 'p cnf 1 1'
+[precochk] searching for values in 'tests/unit1.out'
+[precochk] found all 1 values
+[precochk] solution file closed
+[precochk] checked 1 clauses
+[precochk] satisfiable and solution correct
