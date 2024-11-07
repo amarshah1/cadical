@@ -57,7 +57,16 @@ void Internal::least_conditional_part() {
             continue;
         }
 
-        bool touched_with_sat = false;
+        printf("We are considering the clause: ");
+
+        for(const_literal_iterator l = c->begin (); l != c->end (); l++){
+        //  for (int& num : alpha_c) {
+            const int lit = *l;
+            printf("%d ", lit);
+        }
+        printf("\n");
+
+        bool satisfies_clause = false;
         vector<int> alpha_touches;
 
         for (const_literal_iterator l = c->begin (); l != c->end (); l++) {
@@ -65,8 +74,8 @@ void Internal::least_conditional_part() {
             const signed char tmp = val (lit);
             // printf("here \n");
             if (tmp > 0) {
-                printf("ahoy \n");
-                touched_with_sat = true;
+                printf("    We satisfy the clause with literal: %d \n", lit);
+                satisfies_clause = true;
                 // increase the number of times this is touched
                 if (times_touched.find(lit) == times_touched.end()) {
                     // not found
@@ -75,22 +84,22 @@ void Internal::least_conditional_part() {
                     times_touched[lit] = times_touched[lit] + 1;
                 }
             } else if (tmp < 0) {
-                printf("    got to a false literal \n");
+                printf("    got to a false literal : %d \n", lit);
                 // touched_without_sat = true;
                 // but also only want to add it if it has not already been added to alpha_c — to getbit check
-                if (!getbit(-1 * lit, 1)) {
-                    alpha_touches.push_back(-1 * lit);
-                    printf("length of alpha_touches is: %d \n", alpha_touches.size());
+                if (!getbit(lit, 1)) {
+                    alpha_touches.push_back(lit);
+                    printf("    length of alpha_touches is: %d \n", alpha_touches.size());
                     // setbit(lit, 1); // todo : this is wrong
                 }
             }
         }
 
         // printf("\n    touched wihtout sat is: %d", touched_without_sat);
-        if (!touched_with_sat) {
-            printf("    got here: %d \n", alpha_touches.size());
+        if (!satisfies_clause) {
+            printf("    we do not satisfy the clause. Alpha_touches size: %d \n", alpha_touches.size());
             for (int i=0; i < alpha_touches.size(); i++){
-                setbit(-1 * alpha_touches[i], 1);
+                setbit(alpha_touches[i], 1);
             }
             alpha_c.insert(end(alpha_c), begin(alpha_touches), end(alpha_touches));
         }
@@ -103,7 +112,7 @@ void Internal::least_conditional_part() {
     int max_val = 0;
     for (auto const& [key, val] : times_touched)
         {
-            if (val > max_val && !getbit(-1 * val, 1)) {
+            if (val > max_val && !getbit(key, 1)) {
                 max_val = val;
                 max_key = key;
             }
@@ -127,19 +136,21 @@ void Internal::least_conditional_part() {
 
         for(int i=0; i < alpha_c.size(); i++){
         //  for (int& num : alpha_c) {
+            unsetbit(alpha_c[i], 1);
             printf("%d ", alpha_c[i]);
         }
 
-        printf("\n        printing out alpha: ");
+        // printf("\n        printing out alpha: ");
 
         // for(int i=0; i < alpha.size(); i++){
         // //  for (int& num : alpha) {
         //     printf("%d ", alpha[i]);
         // }
 
-        printf("\n");
+        // printf("\n");
 
-        clause = alpha_c;
+        clause = std::move (alpha_c);
+        // todo: need to check that size of clause is > 2
         new_learned_redundant_clause(1);
     }
 
