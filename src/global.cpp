@@ -92,7 +92,7 @@ void Internal::least_conditional_part() {
             for (int i=0; i < alpha_touches.size(); i++){
                 setbit(-1 * alpha_touches[i], 1);
             }
-            alpha_c.insert(end(alpha_c), begin(alpha_touches), end(alpha_touches));
+            alpha_c.insert(alpha_c.end(), alpha_touches.begin(), alpha_touches.end());
         }
         
     }
@@ -139,8 +139,10 @@ void Internal::least_conditional_part() {
 
         printf("\n");
 
-        clause = alpha_c;
-        new_learned_redundant_clause(1);
+        clause = std::move(alpha_c);
+        if (clause.size () > 1){
+            new_learned_redundant_clause(1);
+        }
     }
 
 
