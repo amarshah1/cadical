@@ -1083,6 +1083,7 @@ struct Internal {
   void probe (bool update_limits = true);
   // Amar: stuff i added
   bool globalling ();
+  int global_counter = 0;
   void global();
   void least_conditional_part();
   void print_assignment();

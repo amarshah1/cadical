@@ -260,20 +260,27 @@ int Internal::cdcl_loop_with_inprocessing () {
   }
 
   while (!res) {
-    if (unsat)
+    printf("IN MAIN LOOP \n");
+    if (unsat) {
+      printf("A\n");
       res = 20;
-    else if (unsat_constraint)
+    } else if (unsat_constraint) {
+      printf("B\n");
       res = 20;
-    else if (!propagate ())
+    } else if (!propagate ()) {
+      printf("C\n");
       analyze (); // propagate and analyze
-    else if (iterating)
+    } else if (iterating) {
+      printf("D\n");
       iterate ();                               // report learned unit
-    else if (!external_propagate () || unsat) { // external propagation
+    } else if (!external_propagate () || unsat) { // external propagation
+      printf("E\n");
       if (unsat)
         continue;
       else
         analyze ();
     } else if (satisfied ()) { // found model
+      printf("F\n");
       if (!external_check_solution () || unsat) {
         if (unsat)
           continue;
@@ -281,9 +288,10 @@ int Internal::cdcl_loop_with_inprocessing () {
           analyze ();
       } else if (satisfied ())
         res = 10;
-    } else if (search_limits_hit ())
+    } else if (search_limits_hit ()) {
+      printf("G\n");
       break;                               // decision or conflict limit
-    else if (terminated_asynchronously ()) // externally terminated
+    } else if (terminated_asynchronously ()) // externally terminated 
       break;
     else if (restarting ())
       restart (); // restart by backtracking
