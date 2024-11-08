@@ -52,10 +52,10 @@ void Internal::least_conditional_part() {
 
         // skip the learned clauses
         // might be worth have a separate data structure so we only enumerate over these
-        if (c->redundant) {
-            // printf("breaking through a redundant clause");
-            continue;
-        }
+        // if (c->redundant) {
+        //     // printf("breaking through a redundant clause");
+        //     continue;
+        // }
 
         printf("We are considering the clause: ");
 
@@ -140,6 +140,8 @@ void Internal::least_conditional_part() {
             printf("%d ", alpha_c[i]);
         }
 
+        printf("\n");
+
         // printf("\n        printing out alpha: ");
 
         // for(int i=0; i < alpha.size(); i++){
@@ -149,8 +151,14 @@ void Internal::least_conditional_part() {
 
         // printf("\n");
 
+        printf(" one \n");
         clause = alpha_c;
-        new_learned_redundant_clause(1);
+        printf(" two \n");
+        backtrack (level - 1);
+        printf(" three \n");
+        Clause* c = new_learned_redundant_clause(1);
+         printf(" four \n");
+        // search_assign_driving (-uip, c);
     }
 
 
@@ -162,7 +170,7 @@ void Internal::least_conditional_part() {
 }
 
 bool Internal::globalling () {
-//   printf("in the globally blocked checking step");
+  printf("in the globally blocked checking step \n");
 
   if (!opts.global)
     return false;
@@ -179,7 +187,17 @@ bool Internal::globalling () {
   if (0 == level || level > 3)
     return false; // One decision necessary.
 
-//   if (level <= averages.current.jump)
+  printf("DOING A GLOBAL CHECK!!! \n");
+  global_counter = global_counter + 1;
+
+  if (global_counter % 4 != 0) {
+    return false;
+  }
+
+//   global_counter = global_counter + 1;
+
+
+  if (level <= averages.current.jump)
 //     return false; // Main heuristic.
 
   return true;
