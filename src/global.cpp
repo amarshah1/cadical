@@ -32,65 +32,53 @@ void Internal::least_conditional_part() {
     // printf("the current assignment (as s): ");
     // printf("%s\n", Internal::vals);
 
-
-
-
+    // conditional part of the autarky
     vector<int> alpha_c;
+    // lit : number of times that literal appears in positive form
     std::map<int, int> times_touched;
-
-    // vector<int> alpha;
-
     
-    // todo : maintain a list of clauses that are touched but not satisfied (optimization for later)
-    // only need to go over irredundant clauses
-    // if c->irredundmnnt check [might be worth to keep a seperate vector of original clauses]
-
-    // todo: [optimization] keep track of literals pointing to clauses (only look at clauses that have been assigned)
+    // TODO [optimization]: maintain list of clauses touched but not satisfied    
+    // TODO [optimization]: keep track of literals pointing to clauses (only look at clauses that have been assigned)
     for (const auto &c: clauses) {
-
         // printf("Starting oUTER LOOP1!!!");
+        
+        // TODO [optimization]: keep data vector of irredundant clauses to iterate over
+        // skip learned (redundant) clauses
+        if (c->redundant) continue;
 
-        // skip the learned clauses
-        // might be worth have a separate data structure so we only enumerate over these
-        if (c->redundant) {
-            // printf("breaking through a redundant clause");
-            continue;
-        }
-
+        // DEBUGGING START
         printf("We are considering the clause: ");
-
         for(const_literal_iterator l = c->begin (); l != c->end (); l++){
-        //  for (int& num : alpha_c) {
             const int lit = *l;
             printf("%d ", lit);
         }
         printf("\n");
+        // DEBUGGING END
 
+        // current assignment satisfies current clause
         bool satisfies_clause = false;
+        // assignment mentioned in clause
         vector<int> alpha_touches;
 
         for (const_literal_iterator l = c->begin (); l != c->end (); l++) {
             const int lit = *l;
-            const signed char tmp = val (lit);
+            const signed char lit_val = val (lit);
             // printf("here \n");
-            if (tmp > 0) {
+            if (lit_val > 0) { // positive assignment
                 printf("    We satisfy the clause with literal: %d \n", lit);
                 satisfies_clause = true;
-                // increase the number of times this is touched
-                if (times_touched.find(lit) == times_touched.end()) {
-                    // not found
+                // update times_touched with touch
+                if (times_touched.find(lit) == times_touched.end()) { // lit not in dict
                     times_touched.insert(std::pair<int, int>(lit, 1));
-                } else {
+                } else { // lit in dict
                     times_touched[lit] = times_touched[lit] + 1;
                 }
-            } else if (tmp < 0) {
+            } else if (lit_val < 0) { // negative assignment
                 printf("    got to a false literal : %d \n", lit);
-                // touched_without_sat = true;
-                // but also only want to add it if it has not already been added to alpha_c — to getbit check
+                // add to touched list if not already in alpha_c
                 if (!getbit(lit, 1)) {
                     alpha_touches.push_back(lit);
                     printf("    length of alpha_touches is: %d \n", alpha_touches.size());
-                    // setbit(lit, 1); // todo : this is wrong
                 }
             }
         }
@@ -98,44 +86,38 @@ void Internal::least_conditional_part() {
         // printf("\n    touched wihtout sat is: %d", touched_without_sat);
         if (!satisfies_clause) {
             printf("    we do not satisfy the clause. Alpha_touches size: %d \n", alpha_touches.size());
+            // add alpha_touches to alpha_c
+            alpha_c.insert(alpha_c.end(), alpha_touches.begin(), alpha_touches.end());
+            // set "added to alpha_c" bit
             for (int i=0; i < alpha_touches.size(); i++){
                 setbit(alpha_touches[i], 1);
             }
-            alpha_c.insert(alpha_c.end(), alpha_touches.begin(), alpha_touches.end());
         }
-        
     }
-    // set the clause to alpha_c
-    // assert (alpha)
 
+    // TODO [heuristic]: change?
+    // pick most touched assigned literal to add as autarky part
     int max_key = 0;
     int max_val = 0;
-    for (auto const& [key, val] : times_touched)
-        {
-            if (val > max_val && !getbit(key, 1)) {
-                max_val = val;
-                max_key = key;
-            }
+    for (auto const& [key, val] : times_touched) {
+        if (val > max_val && !getbit(key, 1)) {
+            max_val = val;
+            max_key = key;
         }
+    }
 
+    // add literal from autarky part, if it exists
     if (max_key != 0) {
         alpha_c.push_back(max_key);
     }
 
-    
-
-    if (alpha_c.size() > 0) {
+    // only add a clause of size at least 2
+    if (alpha_c.size() > 1) {
         printf("    adding the globally blocked clause: \n");
-
-    //     for(const int& i : vi) 
-    //   cout << "i = " << i << endl
-
-
         printf("\n        length of clause: %d \n", alpha_c.size());
         printf("\n        clause: ");
 
         for(int i=0; i < alpha_c.size(); i++){
-        //  for (int& num : alpha_c) {
             unsetbit(alpha_c[i], 1);
             printf("%d ", alpha_c[i]);
         }
@@ -152,7 +134,6 @@ void Internal::least_conditional_part() {
         clause = alpha_c;
         new_learned_redundant_clause(1);
     }
-
 
     // LOG("adding the globally blocked clause", alpha_c);
 
