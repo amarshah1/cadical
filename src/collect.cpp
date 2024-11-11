@@ -206,6 +206,13 @@ inline void Internal::flush_watches (int lit, Watches &saved) {
     w.size = c->size;
     const int new_blit_pos = (c->literals[0] == lit);
     LOG (c, "clause in flush_watch starting from %d", lit);
+    printf("We have new_blit_pos: %d for literal: %d \n", new_blit_pos, lit);
+    printf("We are considering the clause: ");
+              for(const_literal_iterator l = c->begin (); l != c->end (); l++){
+                  const int lit_ = *l;
+                  printf("%d ", lit_);
+              }
+              printf("\n");
     assert (c->literals[!new_blit_pos] == lit); /*FW1*/
     w.blit = c->literals[new_blit_pos];
     if (w.binary ())

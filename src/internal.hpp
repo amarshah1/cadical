@@ -199,6 +199,8 @@ struct Internal {
   Phases phases;                // saved, target and best phases
   signed char *vals;            // assignment [-max_var,max_var]
   vector<signed char> marks;    // signed marks [1,max_var]
+  //amar -I'm adding new_marks
+  vector<signed char> new_marks;    // signed marks [1,max_var]
   vector<unsigned> frozentab;   // frozen counters [1,max_var]
   vector<int> i2e;              // maps internal 'idx' to external 'lit'
   vector<unsigned> relevanttab; // Reference counts for observed variables.
@@ -419,6 +421,7 @@ struct Internal {
     return res;
   }
   void mark (int lit) {
+    printf("THE MARK LIT IS: %d\n", lit);
     assert (!marked (lit));
     marks[vidx (lit)] = sign (lit);
     assert (marked (lit) > 0);
@@ -475,16 +478,38 @@ struct Internal {
     return marks[vidx (lit)] & (1 << bit);
   }
   void setbit (int lit, int bit) {
+    printf("SETTING BIT: %d \n", lit);
     assert (0 <= bit), assert (bit < 6);
     assert (!getbit (lit, bit));
     marks[vidx (lit)] |= (1 << bit);
     assert (getbit (lit, bit));
   }
   void unsetbit (int lit, int bit) {
+    printf("UNSETTING BIT: %d \n", lit);
     assert (0 <= bit), assert (bit < 6);
     assert (getbit (lit, bit));
     marks[vidx (lit)] &= ~(1 << bit);
     assert (!getbit (lit, bit));
+  }
+
+  // setting new versions of each of these 3
+  bool new_getbit (int lit, int bit) const {
+    assert (0 <= bit), assert (bit < 6);
+    return new_marks[vidx (lit)] & (1 << bit);
+  }
+  void new_setbit (int lit, int bit) {
+    printf("SETTING BIT: %d \n", lit);
+    assert (0 <= bit), assert (bit < 6);
+    assert (!new_getbit (lit, bit));
+    new_marks[vidx (lit)] |= (1 << bit);
+    assert (new_getbit (lit, bit));
+  }
+  void new_unsetbit (int lit, int bit) {
+    printf("UNSETTING BIT: %d \n", lit);
+    assert (0 <= bit), assert (bit < 6);
+    assert (new_getbit (lit, bit));
+    new_marks[vidx (lit)] &= ~(1 << bit);
+    assert (!new_getbit (lit, bit));
   }
 
   // Marking individual literals.
@@ -1087,6 +1112,12 @@ struct Internal {
   void global();
   void least_conditional_part();
   void print_assignment();
+  int length_of_current_assignment();
+  void sort_vec_by_decision_level(vector<int>* v);
+  Clause* new_globally_blocked_irredundant_clause ();
+
+
+
 
   // ProbSAT/WalkSAT implementation called initially or from 'rephase'.
   //

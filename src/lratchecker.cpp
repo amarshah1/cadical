@@ -162,6 +162,7 @@ void LratChecker::enlarge_vars (int64_t idx) {
        size_vars, new_size_vars);
 
   marks.resize (2 * new_size_vars);
+  //amar : added this
   checked_lits.resize (2 * new_size_vars);
 
   assert (idx < new_size_vars);

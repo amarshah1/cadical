@@ -7,6 +7,10 @@ namespace CaDiCaL {
 // Signed marking or unmarking of a clause or the global 'clause'.
 
 void Internal::mark (Clause *c) {
+  printf("the clause is: ");
+  for (const auto &lit : *c)
+    printf("%d ", lit);
+  printf("\n");
   for (const auto &lit : *c)
     mark (lit);
 }
@@ -587,5 +591,19 @@ Clause *Internal::new_resolved_irredundant_clause () {
   assert (!watching ());
   return res;
 }
+
+// amar: adding a globally blocked clause 
+Clause *Internal::new_globally_blocked_irredundant_clause () {
+  external->check_learned_clause ();
+  const int new_glue = 1;
+  Clause *res = new_clause (false, new_glue);
+  if (proof) {
+    proof->add_derived_clause (res, lrat_chain);
+  }
+  assert (watching ());
+  watch_clause (res);
+  return res;
+}
+
 
 } // namespace CaDiCaL

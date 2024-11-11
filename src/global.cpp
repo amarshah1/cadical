@@ -1,7 +1,11 @@
 #include "internal.hpp"
 #include <map>
+#include <fstream>  // For file handling
+using namespace std;
 
 namespace CaDiCaL {
+
+bool print_out = true;
 
 void Internal::print_assignment() {
     printf("the current assignment: ");
@@ -13,6 +17,33 @@ void Internal::print_assignment() {
             printf("%d ", -1 * i);
         }
     }
+    printf("\n");
+}
+
+int Internal::length_of_current_assignment() {
+    int length = 0;
+    for (int i = 1; i <= Internal::max_var; i++) {
+        const signed char tmp = val (i);
+        if (tmp != 0) {
+            length += 1;
+        }
+    }
+    return length;
+}
+
+void Internal::sort_vec_by_decision_level(vector<int>* v) {
+    printf("the clause before: ");
+    for(int i=0; i < v->size(); i++){
+            printf("%d ", (*v)[i]);
+        }
+    std::sort(v->begin (), v->end (), 
+                [this](int x, int y) {
+                    return (var (x).level > var (y).level);
+                });
+    printf("\n the clause after: ");
+    for(int i=0; i < v->size(); i++){
+            printf("%d [%d] ", (*v)[i], var ((*v)[i]).level);
+        }
     printf("\n");
 }
 
@@ -76,7 +107,7 @@ void Internal::least_conditional_part() {
             } else if (lit_val < 0) { // negative assignment
                 printf("    got to a false literal : %d \n", lit);
                 // add to touched list if not already in alpha_c
-                if (!getbit(lit, 1)) {
+                if (!getbit(lit, 0)) {
                     alpha_touches.push_back(lit);
                     printf("    length of alpha_touches is: %d \n", alpha_touches.size());
                 }
@@ -90,7 +121,7 @@ void Internal::least_conditional_part() {
             alpha_c.insert(alpha_c.end(), alpha_touches.begin(), alpha_touches.end());
             // set "added to alpha_c" bit
             for (int i=0; i < alpha_touches.size(); i++){
-                setbit(alpha_touches[i], 1);
+                setbit(alpha_touches[i], 0);
             }
         }
     }
@@ -100,7 +131,7 @@ void Internal::least_conditional_part() {
     int max_key = 0;
     int max_val = 0;
     for (auto const& [key, val] : times_touched) {
-        if (val > max_val && !getbit(key, 1)) {
+        if (val > max_val && !getbit(key, 0)) {
             max_val = val;
             max_key = key;
         }
@@ -108,19 +139,27 @@ void Internal::least_conditional_part() {
 
     // add literal from autarky part, if it exists
     if (max_key != 0) {
+        printf("ADDING THE MAX_KEY %d \n", max_key);
         alpha_c.push_back(max_key);
+    }
+
+    // have to unset all of the bits
+    for(int i=0; i < alpha_c.size(); i++){
+        // don't want to unset the max_key thing
+        if (alpha_c[i] != max_key)
+            unsetbit(alpha_c[i], 0);
+        // printf("%d ", alpha_c[i]);
     }
 
     // only add a clause of size at least 2
     if (alpha_c.size() > 1) {
-        printf("    adding the globally blocked clause: \n");
-        printf("\n        length of clause: %d \n", alpha_c.size());
-        printf("\n        clause: ");
-
+        printf("    adding the globally blocked clause: ");
         for(int i=0; i < alpha_c.size(); i++){
-            unsetbit(alpha_c[i], 1);
             printf("%d ", alpha_c[i]);
         }
+        printf("\n        length of clause: %d \n", alpha_c.size());
+        printf("        clause: ");
+
 
         printf("\n");
 
@@ -133,12 +172,34 @@ void Internal::least_conditional_part() {
 
         // printf("\n");
 
+        // will print length of alpha_c and total assignment to some text file
+        if (print_out) {
+            std::ofstream file("tmp.txt", std::ios::app);  // Open file in append mode
+
+            // Check if the file opened successfully
+            if (!file) {
+                printf("Error opening file for writing!");
+                return;
+            }
+            else {
+
+                // Write x and y in "x, y" format
+                file << alpha_c.size() << ", " << (length_of_current_assignment ()) << std::endl;
+
+                file.close();  // Close the file
+            }
+        }
+
+
         printf(" one \n");
+        sort_vec_by_decision_level(&alpha_c);
         clause = alpha_c;
         printf(" two \n");
-        backtrack (level - 1);
+        // backtrack (level - 1);
         printf(" three \n");
-        Clause* c = new_learned_redundant_clause(1);
+        // todo: comment this back in to add clauses
+        Clause* c = new_learned_redundant_clause (1);
+        clause.clear ();
          printf(" four \n");
         // search_assign_driving (-uip, c);
     }
@@ -178,7 +239,7 @@ bool Internal::globalling () {
 //   global_counter = global_counter + 1;
 
 
-  if (level <= averages.current.jump)
+//   if (level <= averages.current.jump)
 //     return false; // Main heuristic.
 
   return true;
@@ -192,50 +253,6 @@ bool Internal::globalling () {
 //   return ratio <= opts.globalmaxrat;
 }
 
-void Internal::global () {
-
-  if (unsat)
-    return;
-  if (!stats.current.irredundant)
-    return;
-
-//   START_SIMPLIFIER (global, global);
-//   stats.globalings++;
-
-  // Propagation limit to avoid too much work in 'global'.  We mark
-  // tried candidate clauses after giving up, such that next time we run
-  // 'global' we can try them.
-  //
-//   long limit = stats.propagations.search;
-//   limit *= opts.globalreleff;
-//   limit /= 1000;
-//   if (limit < opts.globalmineff)
-//     limit = opts.globalmineff;
-//   if (limit > opts.globalmaxeff)
-//     limit = opts.globalmaxeff;
-//   assert (stats.current.irredundant);
-//   limit *= 2.0 * active () / (double) stats.current.irredundant;
-//   limit = max (limit, 2l * active ());
-
-//   PHASE ("global", stats.globalings,
-//          "started after %" PRIu64 " conflicts limited by %ld propagations",
-//          stats.conflicts, limit);
-
-//   long blocked = global_round (limit);
-
-//   STOP_SIMPLIFIER (global, global);
-//   report ('g', !blocked);
-
-//   if (!update_limits)
-//     return;
-
-//   long delta = opts.globalint * (stats.globalings + 1);
-//   lim.global = stats.conflicts + delta;
-
-//   PHASE ("global", stats.globalings,
-//          "next limit at %" PRIu64 " after %ld conflicts", lim.global,
-//          delta);
-}
 
     
 

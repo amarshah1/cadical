@@ -294,6 +294,7 @@ inline void Internal::probe_assign (int lit, int parent) {
   require_mode (PROBE);
   int idx = vidx (lit);
   assert (!val (idx));
+  printf("In probe_assign, we have lit: %d, parent: %d with eliminate flag: %d \n", lit, parent, flags (idx).eliminated ());
   assert (!flags (idx).eliminated () || !parent);
   assert (!parent || val (parent) > 0);
   Var &v = var (idx);
@@ -400,6 +401,7 @@ inline void Internal::probe_propagate2 () {
         assert (!probe_reason);
         probe_reason = w.clause;
         probe_lrat_for_units (w.blit);
+        printf("happens from prob_propagate2");
         probe_assign (w.blit, -lit);
         lrat_chain.clear ();
       }
@@ -429,6 +431,7 @@ bool Internal::probe_propagate () {
           continue;
         if (w.clause->garbage)
           continue;
+        
         const literal_iterator lits = w.clause->begin ();
         const int other = lits[0] ^ lits[1] ^ lit;
         // lits[0] = other, lits[1] = lit;
@@ -467,6 +470,15 @@ bool Internal::probe_propagate () {
               assert (lrat_chain.empty ());
               assert (!probe_reason);
               int dom = hyper_binary_resolve (w.clause);
+              // DEBUGGING START
+              printf("We are considering the clause: ");
+              for(const_literal_iterator l = w.clause->begin (); l != w.clause->end (); l++){
+                  const int lit_ = *l;
+                  printf("%d ", lit_);
+              }
+              printf("\n");
+              // DEBUGGING END
+              printf("happens from prob_propagate \n");
               probe_assign (other, dom);
             } else {
               assert (lrat_chain.empty ());
