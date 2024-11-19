@@ -7,10 +7,10 @@ namespace CaDiCaL {
 // Signed marking or unmarking of a clause or the global 'clause'.
 
 void Internal::mark (Clause *c) {
-  printf("the clause is: ");
+  LOG("the clause is: ");
   for (const auto &lit : *c)
-    printf("%d ", lit);
-  printf("\n");
+    LOG("%d ", lit);
+  LOG("\n");
   for (const auto &lit : *c)
     mark (lit);
 }
@@ -537,6 +537,26 @@ Clause *Internal::new_learned_redundant_clause (int glue) {
   return res;
 }
 
+// same as new_learned_redundant_clause, but with different proof logging
+Clause *Internal::new_learned_redundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit,int glue) {
+  assert (clause.size () > 1);
+#ifndef NDEBUG
+  for (size_t i = 2; i < clause.size (); i++)
+    assert (var (clause[0]).level >= var (clause[i]).level),
+        assert (var (clause[1]).level >= var (clause[i]).level);
+#endif
+  external->check_learned_clause ();
+  Clause *res = new_clause (true, glue);
+  if (proof) {
+    // todo: need to make this pr
+    proof->add_derived_globally_blocked_clause (lit, negated_conditional, autarky_minus_lit, lrat_chain);
+
+  }
+  assert (watching ());
+  watch_clause (res);
+  return res;
+}
+
 // Add hyper binary resolved clause during 'probing'.
 //
 Clause *Internal::new_hyper_binary_resolved_clause (bool red, int glue) {
@@ -593,17 +613,17 @@ Clause *Internal::new_resolved_irredundant_clause () {
 }
 
 // amar: adding a globally blocked clause 
-Clause *Internal::new_globally_blocked_irredundant_clause () {
-  external->check_learned_clause ();
-  const int new_glue = 1;
-  Clause *res = new_clause (false, new_glue);
-  if (proof) {
-    proof->add_derived_clause (res, lrat_chain);
-  }
-  assert (watching ());
-  watch_clause (res);
-  return res;
-}
+// Clause *Internal::new_globally_blocked_irredundant_clause () {
+//   external->check_learned_clause ();
+//   const int new_glue = 1;
+//   Clause *res = new_clause (false, new_glue);
+//   if (proof) {
+//     proof->add_derived_clause (res, lrat_chain);
+//   }
+//   assert (watching ());
+//   watch_clause (res);
+//   return res;
+// }
 
 
 } // namespace CaDiCaL

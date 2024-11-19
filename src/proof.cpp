@@ -272,6 +272,22 @@ void Proof::add_derived_clause (Clause *c, const vector<uint64_t> &chain) {
   add_derived_clause ();
 }
 
+void Proof::add_derived_globally_blocked_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit, const vector<uint64_t> &chain) {
+  LOG ("PROOF adding to proof globally blocked derived");
+  assert (clause.empty ());
+  assert (proof_chain.empty ());
+  add_literal(lit);
+  add_literals(negated_conditional); //negated conditional stuff
+  add_literal(lit);
+  add_literals(autarky_minus_lit); // autarky minus lit
+  for (const auto &cid : chain)
+    proof_chain.push_back (cid);
+  // this id stuff is not right
+  clause_id = ++clause_id;
+  redundant = true;
+  add_derived_clause ();
+}
+
 void Proof::add_derived_clause (uint64_t id, bool r, const vector<int> &c,
                                 const vector<uint64_t> &chain) {
   LOG (c, "PROOF adding derived clause");

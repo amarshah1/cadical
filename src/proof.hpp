@@ -78,6 +78,8 @@ public:
   void add_derived_unit_clause (uint64_t, int unit,
                                 const vector<uint64_t> &);
   void add_derived_clause (Clause *c, const vector<uint64_t> &);
+  void add_derived_globally_blocked_clause (int lit, vector<int> conditional, vector<int> autarky, const vector<uint64_t> &chain);
+
   void add_derived_clause (uint64_t, bool, const vector<int> &,
                            const vector<uint64_t> &);
 

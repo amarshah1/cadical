@@ -421,7 +421,7 @@ struct Internal {
     return res;
   }
   void mark (int lit) {
-    printf("THE MARK LIT IS: %d\n", lit);
+    LOG("THE MARK LIT IS: %d\n", lit);
     assert (!marked (lit));
     marks[vidx (lit)] = sign (lit);
     assert (marked (lit) > 0);
@@ -478,14 +478,14 @@ struct Internal {
     return marks[vidx (lit)] & (1 << bit);
   }
   void setbit (int lit, int bit) {
-    printf("SETTING BIT: %d \n", lit);
+    LOG("SETTING BIT: %d \n", lit);
     assert (0 <= bit), assert (bit < 6);
     assert (!getbit (lit, bit));
     marks[vidx (lit)] |= (1 << bit);
     assert (getbit (lit, bit));
   }
   void unsetbit (int lit, int bit) {
-    printf("UNSETTING BIT: %d \n", lit);
+    LOG("UNSETTING BIT: %d \n", lit);
     assert (0 <= bit), assert (bit < 6);
     assert (getbit (lit, bit));
     marks[vidx (lit)] &= ~(1 << bit);
@@ -498,14 +498,14 @@ struct Internal {
     return new_marks[vidx (lit)] & (1 << bit);
   }
   void new_setbit (int lit, int bit) {
-    printf("SETTING BIT: %d \n", lit);
+    LOG("SETTING BIT: %d \n", lit);
     assert (0 <= bit), assert (bit < 6);
     assert (!new_getbit (lit, bit));
     new_marks[vidx (lit)] |= (1 << bit);
     assert (new_getbit (lit, bit));
   }
   void new_unsetbit (int lit, int bit) {
-    printf("UNSETTING BIT: %d \n", lit);
+    LOG("UNSETTING BIT: %d \n", lit);
     assert (0 <= bit), assert (bit < 6);
     assert (new_getbit (lit, bit));
     new_marks[vidx (lit)] &= ~(1 << bit);
@@ -620,6 +620,7 @@ struct Internal {
   void assign_original_unit (uint64_t, int);
   void add_new_original_clause (uint64_t);
   Clause *new_learned_redundant_clause (int glue);
+  Clause *new_learned_redundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit, int glue);  // added by amar
   Clause *new_hyper_binary_resolved_clause (bool red, int glue);
   Clause *new_clause_as (const Clause *orig);
   Clause *new_resolved_irredundant_clause ();

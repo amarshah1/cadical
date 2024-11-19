@@ -108,6 +108,25 @@ inline void Internal::search_assign (int lit, Clause *reason) {
   const int idx = vidx (lit);
   const bool from_external = reason == external_reason;
   assert (!val (idx));
+  LOG("In search_assign with the literal: %d which has been eliminated: %d\n", lit, flags (idx).eliminated ());
+  // LOG("We are considering the clause: ");
+  // for(const_literal_iterator l = reason->begin (); l != reason->end (); l++){
+  //     const int lit_ = *l;
+  //     LOG("%d ", lit_);
+  // }
+  // LOG("\n");
+  // LOG("The decision reason is: ");
+  // for(const_literal_iterator l = decision_reason->begin (); l != decision_reason->end (); l++){
+  //     const int lit_ = *l;
+  //     LOG("%d ", lit_);
+  // }
+  // LOG("\n");
+  // LOG("The external reason is: ");
+  // for(const_literal_iterator l = external_reason->begin (); l != external_reason->end (); l++){
+  //     const int lit_ = *l;
+  //     LOG("%d ", lit_);
+  // }
+  // LOG("\n");
   assert (!flags (idx).eliminated () || reason == decision_reason ||
           reason == external_reason);
   Var &v = var (idx);
@@ -387,6 +406,14 @@ bool Internal::propagate () {
             // assigned to false (still 'v < 0'), thus we found a unit.
             //
             build_chain_for_units (other, w.clause, 0);
+            LOG("called from B\n");
+            LOG("doing a call to search_assign with other: %d \n:", other);
+            LOG("And the clause: ");
+            for(const_literal_iterator l = w.clause->begin (); l != w.clause->end (); l++){
+                const int lit_ = *l;
+                LOG("%d ", lit_);
+            }
+            LOG("\n");
             search_assign (other, w.clause);
             // lrat_chain.clear (); done in search_assign
 

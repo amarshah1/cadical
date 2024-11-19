@@ -670,7 +670,7 @@ inline int Internal::determine_actual_backtrack_level (int jump) {
 void Internal::eagerly_subsume_recently_learned_clauses (Clause *c) {
   assert (opts.eagersubsume);
   LOG (c, "trying eager subsumption with");
-  printf("MARKING FROM HERE \n");
+  LOG("MARKING FROM HERE \n");
   mark (c);
   int64_t lim = stats.eagertried + opts.eagersubsumelim;
   const auto begin = clauses.begin ();
