@@ -276,6 +276,8 @@ void Proof::add_derived_globally_blocked_clause (int lit, vector<int> negated_co
   LOG ("PROOF adding to proof globally blocked derived");
   assert (clause.empty ());
   assert (proof_chain.empty ());
+  // todo: add the letter g before globally blocked clauses
+  // add_literal(100000);
   add_literal(lit);
   add_literals(negated_conditional); //negated conditional stuff
   add_literal(lit);
@@ -284,7 +286,7 @@ void Proof::add_derived_globally_blocked_clause (int lit, vector<int> negated_co
     proof_chain.push_back (cid);
   // this id stuff is not right
   clause_id = ++clause_id;
-  redundant = true;
+  redundant = false;
   add_derived_clause ();
 }
 

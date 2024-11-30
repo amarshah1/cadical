@@ -538,7 +538,7 @@ Clause *Internal::new_learned_redundant_clause (int glue) {
 }
 
 // same as new_learned_redundant_clause, but with different proof logging
-Clause *Internal::new_learned_redundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit,int glue) {
+Clause *Internal::new_learned_irredundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit,int glue) {
   assert (clause.size () > 1);
 #ifndef NDEBUG
   for (size_t i = 2; i < clause.size (); i++)
@@ -546,11 +546,9 @@ Clause *Internal::new_learned_redundant_global_clause (int lit, vector<int> nega
         assert (var (clause[1]).level >= var (clause[i]).level);
 #endif
   external->check_learned_clause ();
-  Clause *res = new_clause (true, glue);
+  Clause *res = new_clause (false, glue);
   if (proof) {
-    // todo: need to make this pr
     proof->add_derived_globally_blocked_clause (lit, negated_conditional, autarky_minus_lit, lrat_chain);
-
   }
   assert (watching ());
   watch_clause (res);

@@ -260,6 +260,7 @@ int Internal::cdcl_loop_with_inprocessing () {
   }
 
   while (!res) {
+    print_assignment ();
     if (unsat) {
       res = 20;
     } else if (unsat_constraint) {

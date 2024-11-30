@@ -24,6 +24,7 @@ namespace CaDiCaL {
 class App : public Handler, public Terminator {
 
   Solver *solver; // Global solver.
+  Internal *internal;
 
 #ifndef __WIN32
   // Command line options.
@@ -765,6 +766,9 @@ int App::main (int argc, char **argv) {
             snprintf (buffer, sizeof buffer,
                       "solving cube %zu / %zu %.0f%%", solved, cubes,
                       percent (solved, cubes));
+            // internal->print_all_clauses ();
+            printf("Here is the solver state: \n");
+            solver->dump_cnf ();
             solver->section (buffer);
           }
           time.start = absolute_process_time ();

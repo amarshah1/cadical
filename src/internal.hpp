@@ -620,7 +620,7 @@ struct Internal {
   void assign_original_unit (uint64_t, int);
   void add_new_original_clause (uint64_t);
   Clause *new_learned_redundant_clause (int glue);
-  Clause *new_learned_redundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit, int glue);  // added by amar
+  Clause *new_learned_irredundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit, int glue);  // added by amar
   Clause *new_hyper_binary_resolved_clause (bool red, int glue);
   Clause *new_clause_as (const Clause *orig);
   Clause *new_resolved_irredundant_clause ();
@@ -1108,6 +1108,8 @@ struct Internal {
   bool probe_round ();
   void probe (bool update_limits = true);
   // Amar: stuff i added
+  void print_all_clauses();
+  void print_clause(CaDiCaL::Clause *const &c);
   bool globalling ();
   int global_counter = 0;
   void global();
@@ -1330,6 +1332,7 @@ struct Internal {
     assert (lit != INT_MIN);
     const int idx = abs (lit);
     assert (idx);
+    // todo: add this back (amar)
     assert (idx <= max_var);
     int res = i2e[idx];
     if (lit < 0)

@@ -5,7 +5,7 @@ using namespace std;
 
 namespace CaDiCaL {
 
-bool print_out = true;
+bool print_out = false;
 
 void Internal::print_assignment() {
     LOG("the current assignment: ");
@@ -18,6 +18,22 @@ void Internal::print_assignment() {
         }
     }
     LOG("\n");
+}
+
+void Internal::print_clause (CaDiCaL::Clause *const &c) {
+    // for(const_literal_iterator l = c->begin (); l != c->end (); l++){
+    //         const int lit = *l;
+    //         printf("%d ", lit);
+    //     }
+}
+
+void Internal::print_all_clauses() {
+    printf ("Printing all clauses: \n");
+    for (const auto &c: clauses) {
+        printf( "    ");
+        print_clause (c);
+        printf("\n");
+    }
 }
 
 int Internal::length_of_current_assignment() {
@@ -70,13 +86,10 @@ void Internal::least_conditional_part() {
     
     // TODO [optimization]: maintain list of clauses touched but not satisfied    
     // TODO [optimization]: keep track of literals pointing to clauses (only look at clauses that have been assigned)
-    for (const auto &c: clauses) {
-        // LOG("Starting oUTER LOOP1!!!");
-        
-        // TODO [optimization]: keep data vector of irredundant clauses to iterate over
-        // skip learned (redundant) clauses
-        // this might be wrong -> I think you actually do have to consider redundant clauses
-        // if (c->redundant) continue;
+    for (const auto &c: clauses) {        
+        // skip learned (redundant) clauses (but only when we are in proof checking mode)
+        // todo: need to
+        if (c->redundant && !proof) continue;
 
         // DEBUGGING START
         LOG("We are considering the clause: ");
@@ -130,24 +143,35 @@ void Internal::least_conditional_part() {
     // keep track of this for proof
     vector<int> alpha_a_sans_lit;
 
+    vector<vector<int>> clauses_to_add;
+
     // Marijn suggested the heuristic that when alpha_a is entirely decision literals,
     // we need to not add a clause
-    bool alpha_a_entirely_decision_literals = true;
+    // bool alpha_a_entirely_decision_literals = true;
 
     // TODO [heuristic]: change?
     // pick most touched assigned literal to add as autarky part
     int max_key = 0;
     int max_val = 0;
+    printf("assigment: ");
     for (auto const& [key, val] : times_touched) {
-        if (!getbit(key, 0)) {
-            // if (is_decision (key)) {
-            //     LOG("The literal %d was a decision\n", key);
-            // } else {
-            //     LOG("The literal %d was not a decision\n", key);
-            // }
-            alpha_a_entirely_decision_literals &= is_decision (key);
+        // if (is_decision (key))
+        printf("%d [%d] ", key, var (key).level);
+        if (is_decision (key))
+            printf("[d]  ");
 
-            if (val > max_val) {
+
+        if (!getbit(key, 0)) {
+
+            if (!is_decision (key)) {
+                vector<int> new_clause = alpha_c;
+                new_clause.push_back(key);
+                clauses_to_add.push_back(new_clause);
+            } else {
+                printf("[AUTARKY DECISION ALERT: %d]", key);
+            }
+
+            if (val > max_val && !is_decision (key)) {
                 if (max_key != 0) {
                     LOG("adding to alpha_a_sans_lit (version 1): %d\n", max_key);
                     alpha_a_sans_lit.push_back(max_key);
@@ -158,6 +182,7 @@ void Internal::least_conditional_part() {
                 alpha_a_sans_lit.push_back(key);
         }
     }
+    printf("\n");
 
     if (print_out) {
         int alpha_c_decision = 0;
@@ -210,10 +235,10 @@ void Internal::least_conditional_part() {
         return;
 
     // if alpha_a is entirely decision literals, then we should not return a clause
-    if (alpha_a_entirely_decision_literals) {
-        printf("This is entirely decision literals");
-        return;
-    }
+    // if (alpha_a_entirely_decision_literals) {
+    //     printf("This is entirely decision literals");
+    //     return;
+    // }
 
     // add literal from autarky part, if it exists
     LOG("ADDING THE MAX_KEY %d \n", max_key);
@@ -221,38 +246,42 @@ void Internal::least_conditional_part() {
     new_clause.push_back(max_key);
 
 
+    for (int i=0; i < clauses_to_add.size(); i++){
+        // only add a clause of size at least 2
 
-    // only add a clause of size at least 2
-    if (new_clause.size() > 1) {
-        
+        vector<int> new_clause = clauses_to_add[i];
 
-        // LOG("\n        printing out alpha: ");
+        if (new_clause.size() > 1) {
+            // LOG("\n        printing out alpha: ");
 
-        // for(int i=0; i < alpha.size(); i++){
-        // //  for (int& num : alpha) {
-        //     LOG("%d ", alpha[i]);
-        // }
+            // for(int i=0; i < alpha.size(); i++){
+            // //  for (int& num : alpha) {
+            //     LOG("%d ", alpha[i]);
+            // }
 
-        // LOG("\n");
+            // LOG("\n");
 
-        LOG(" one \n");
-        sort_vec_by_decision_level(&new_clause);
-        clause = new_clause;
-        LOG(" two \n");
-        backtrack ();
-        LOG(" three \n");
-        // todo: comment this back in to add clauses
-        Clause* c = new_learned_redundant_global_clause (max_key, alpha_c, alpha_a_sans_lit, 1);
-        clause.clear ();
+            printf("    adding the globally blocked clause: ");
+            for(int i=0; i < new_clause.size(); i++){
+                printf("%d[%d] ", new_clause[i], var (new_clause[i]).level);
+            }
+            printf("\n        length of clause: %d \n", new_clause.size());
 
-        LOG("    adding the globally blocked clause: ");
-        for(int i=0; i < new_clause.size(); i++){
-            LOG("%d ", new_clause[i]);
+            printf("\n");
+
+            LOG(" one \n");
+            sort_vec_by_decision_level(&new_clause);
+            clause = new_clause;
+            LOG(" two \n");
+            backtrack ();
+            LOG(" three \n");
+            // todo: comment this back in to add clauses
+            Clause* c = new_learned_irredundant_global_clause (max_key, alpha_c, alpha_a_sans_lit, 1);
+            clause.clear ();
+
+            
+            // search_assign_driving (-uip, c);
         }
-        LOG("\n        length of clause: %d \n", new_clause.size());
-
-        LOG("\n");
-        // search_assign_driving (-uip, c);
     }
 
     // LOG("adding the globally blocked clause", alpha_c);

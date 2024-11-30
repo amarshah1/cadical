@@ -38,7 +38,7 @@ int Internal::next_decision_variable_with_best_score () {
 }
 
 int Internal::next_decision_variable () {
-  if (use_scores ())
+  if (use_scores ()) 
     return next_decision_variable_with_best_score ();
   else
     return next_decision_variable_on_queue ();
