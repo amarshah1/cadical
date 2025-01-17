@@ -722,6 +722,7 @@ int App::main (int argc, char **argv) {
   int res = 0;
 
   if (incremental) {
+    // START (incremental);
     bool reporting = get ("report") > 1 || get ("verbose") > 0;
     if (!reporting)
       set ("report", 0);
@@ -747,12 +748,16 @@ int App::main (int argc, char **argv) {
     }
     vector<int> cube, failed;
     for (auto lit : cube_literals) {
-      if (lit)
+      // printf("Iterating on the lit %d\n", lit);
+      if (lit) {
+        // printf("pushing on the lit: %d\n", lit);
         cube.push_back (lit);
-      else {
+      } else {
         reverse (cube.begin (), cube.end ());
-        for (auto other : cube)
+        for (auto other : cube) {
+          // printf("assuming the other: %d\n", other);
           solver->assume (other);
+        }
         if (solved++) {
           if (conflict_limit >= 0)
             (void) solver->limit ("conflicts", conflict_limit);
@@ -766,15 +771,22 @@ int App::main (int argc, char **argv) {
             snprintf (buffer, sizeof buffer,
                       "solving cube %zu / %zu %.0f%%", solved, cubes,
                       percent (solved, cubes));
-            // internal->print_all_clauses ();
-            printf("Here is the solver state: \n");
-            solver->dump_cnf ();
+            // internal->print_all_clauses ()
             solver->section (buffer);
           }
           time.start = absolute_process_time ();
         }
 #endif
+        solver->set_assumptions_mode (true);
+        // solver->set_assumptions (cube);
+        // printf("in a solving mode \n");
         res = solver->solve ();
+        // printf("Here is the solver state: \n");
+        // amar: turn this back on to print formulas
+        // solver->dump_cnf ();
+        if (cube_literals.empty())
+          // printf("We should be operating with no assumptions!\n");
+        solver->set_assumptions_mode (false);
 #ifndef QUIET
         if (!quiet) {
           time.delta = absolute_process_time () - time.start;
@@ -822,9 +834,10 @@ int App::main (int argc, char **argv) {
           for (auto other : cube)
             if (solver->failed (other))
               failed.push_back (other);
-          for (auto other : failed)
-            solver->add (-other);
-          solver->add (0);
+          // todo: Amar ~ trying to avoid adding a conflict clause (so things not working as usual rn)
+          // for (auto other : failed)
+          //   solver->add (-other);
+          // solver->add (0);
           failed.clear ();
         } else {
           assert (!res);
@@ -845,8 +858,14 @@ int App::main (int argc, char **argv) {
     solver->message ("%zu cubes satisfiable %.0f%%", satisfiable,
                      percent (satisfiable, solved));
 
-    if (inconclusive && res == 20)
+  // amar if all of the things are unsat, we still want to continue in our version
+  // thus I am adding this else statement
+  if (inconclusive && res == 20)
       res = 0;
+  else {
+    res = solver->solve ();
+  }
+  // STOP (incremental);
   } else {
     solver->section ("solving");
     res = solver->solve ();

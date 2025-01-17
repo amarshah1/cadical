@@ -1068,6 +1068,9 @@ private:
   //
   int call_external_solve_and_check_results (bool preprocess_only);
 
+  // amar
+  void set_assumptions_mode(bool b);
+
   //------------------------------------------------------------------------
   // Print DIMACS file to '<stdout>' for debugging and testing purposes,
   // including derived units and assumptions.  Since it will print in terms

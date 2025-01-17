@@ -112,6 +112,7 @@ LOGOPT( log,               0,  0,  1,0,0,0, "enable logging") \
 LOGOPT( logsort,           0,  0,  1,0,0,0, "sort logged clauses") \
 OPTION( lrat,              0,  0,  1,0,0,1, "use LRAT proof format") \
 OPTION( lucky,             1,  0,  1,0,0,1, "search for lucky phases") \
+OPTION( maxglobalblock,  512, 0, 512,0,0,1, "maximum number of globally blocked clauses allowed at each level (amar)")\
 OPTION( minimize,          1,  0,  1,0,0,1, "minimize learned clauses") \
 OPTION( minimizedepth,   1e3,  0,1e3,0,0,1, "minimization depth") \
 OPTION( otfs,              1,  0,  1,0,0,1, "on-the-fly self subsumption") \

@@ -471,7 +471,7 @@ bool Internal::probe_propagate () {
               assert (!probe_reason);
               int dom = hyper_binary_resolve (w.clause);
               // DEBUGGING START
-              LOG("We are considering the clause: ");
+              LOG("CWe are considering the clause: ");
               for(const_literal_iterator l = w.clause->begin (); l != w.clause->end (); l++){
                   const int lit_ = *l;
                   LOG("%d ", lit_);

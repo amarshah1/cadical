@@ -1385,6 +1385,18 @@ const char *Solver::read_solution (const char *path) {
   return err;
 }
 
+// amar adding some stuf
+
+void Solver::set_assumptions_mode (bool b) {
+  internal->set_assumptions_mode (b);
+}
+
+// void Solver::set_assumptions (vector<int> assumptions) {
+//   internal->set_assumptions (assumptions);
+// }
+
+
+
 /*------------------------------------------------------------------------*/
 
 void Solver::dump_cnf () {

@@ -272,12 +272,20 @@ void Proof::add_derived_clause (Clause *c, const vector<uint64_t> &chain) {
   add_derived_clause ();
 }
 
-void Proof::add_derived_globally_blocked_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit, const vector<uint64_t> &chain) {
+void Proof::add_derived_globally_blocked_clause (int lit, vector<int> negated_conditional, vector<int> autarky, const vector<uint64_t> &chain) {
   LOG ("PROOF adding to proof globally blocked derived");
   assert (clause.empty ());
   assert (proof_chain.empty ());
   // todo: add the letter g before globally blocked clauses
   // add_literal(100000);
+
+  vector <int> autarky_minus_lit;
+
+  for (int l: autarky) {
+    if (l != lit) {
+      autarky_minus_lit.push_back(l);
+    }
+  }
   add_literal(lit);
   add_literals(negated_conditional); //negated conditional stuff
   add_literal(lit);

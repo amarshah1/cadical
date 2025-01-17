@@ -52,8 +52,11 @@ struct Internal;
   PROFILE (cover, 2) \
   PROFILE (decide, 3) \
   PROFILE (decompose, 3) \
+  PROFILE (direction, 2) \
   PROFILE (elim, 2) \
   PROFILE (extend, 3) \
+  PROFILE (global, 3) \
+  PROFILE (incremental, 0) \
   PROFILE (instantiate, 2) \
   PROFILE (lucky, 2) \
   PROFILE (lookahead, 2) \
@@ -71,6 +74,7 @@ struct Internal;
   PROFILE (solve, 0) \
   PROFILE (stable, 2) \
   PROFILE (preprocess, 2) \
+  PROFILE (rat, 2) \
   PROFILE (simplify, 1) \
   PROFILE (subsume, 2) \
   PROFILE (ternary, 2) \

@@ -17,7 +17,7 @@ void Internal::assume (int lit) {
     LOG ("ignoring already assumed %d", lit);
     return;
   }
-  LOG ("assume %d", lit);
+  LOG ("assume %d at level %d", lit, level);
   f.assumed |= bit;
   assumptions.push_back (lit);
   freeze (lit);
@@ -513,6 +513,21 @@ void Internal::reset_assumptions () {
   LOG ("cleared %zd assumptions", assumptions.size ());
   assumptions.clear ();
   marked_failed = true;
+}
+
+// amar : get rid of last assumption
+void Internal::reset_last_assumption () {
+  if (!assumptions.empty()) {
+    const auto &lit = assumptions.back(); // Access the last member
+    Flags &f = flags(lit);
+    const unsigned char bit = bign(lit);
+    f.assumed &= ~bit;
+    f.failed &= ~bit;
+    melt(lit);
+
+    assumptions.pop_back(); // Remove the last member from the vector
+    LOG("cleared the last assumption");
+  }
 }
 
 struct sort_assumptions_positive_rank {

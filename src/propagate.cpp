@@ -107,6 +107,7 @@ inline void Internal::search_assign (int lit, Clause *reason) {
 
   const int idx = vidx (lit);
   const bool from_external = reason == external_reason;
+  LOG("val: %d", val (idx));
   assert (!val (idx));
   LOG("In search_assign with the literal: %d which has been eliminated: %d\n", lit, flags (idx).eliminated ());
   // LOG("We are considering the clause: ");
@@ -205,6 +206,8 @@ void Internal::assign_unit (int lit) {
 
 void Internal::search_assume_decision (int lit) {
   require_mode (SEARCH);
+  LOG("propagated: %d", propagated);
+  LOG("trail.size: %d", trail.size ());
   assert (propagated == trail.size ());
   new_trail_level (lit);
   notify_decision ();

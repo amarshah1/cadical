@@ -16,6 +16,7 @@ Profiles::Profiles (Internal *s)
 
 void Internal::start_profiling (Profile &profile, double s) {
   assert (profile.level <= opts.profile);
+  LOG("We are in profile %s", profile.name);
   assert (!profile.active);
   profile.started = s;
   profile.active = true;

@@ -75,6 +75,8 @@ void Internal::update_target_and_best () {
 
 void Internal::backtrack (int new_level) {
 
+  LOG("WE ARE BACKTRACKING AT LEVEL %D\n", level);
+
   assert (new_level <= level);
   if (new_level == level)
     return;

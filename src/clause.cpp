@@ -152,6 +152,82 @@ Clause *Internal::new_clause (bool red, int glue) {
   return c;
 }
 
+// amar: new clause but it is garbage
+// Clause *Internal::new_clause_garbage (bool red, int glue) {
+
+//   assert (clause.size () <= (size_t) INT_MAX);
+//   const int size = (int) clause.size ();
+//   assert (size >= 2);
+
+//   if (glue > size)
+//     glue = size;
+
+//   // Determine whether this clauses should be kept all the time.
+//   //
+//   bool keep;
+//   if (!red)
+//     keep = true;
+//   else if (glue <= opts.reducetier1glue)
+//     keep = true;
+//   else
+//     keep = false;
+
+//   size_t bytes = Clause::bytes (size);
+//   Clause *c = (Clause *) new char[bytes];
+
+//   c->id = ++clause_id;
+
+//   c->conditioned = false;
+//   c->covered = false;
+//   c->enqueued = false;
+//   c->frozen = false;
+//   c->garbage = false;
+//   c->gate = false;
+//   c->hyper = false;
+//   c->instantiated = false;
+//   c->keep = false;
+//   c->moved = false;
+//   c->reason = false;
+//   c->redundant = red;
+//   c->transred = false;
+//   c->subsume = false;
+//   c->vivified = false;
+//   c->vivify = false;
+//   c->used = 0;
+
+//   c->glue = glue;
+//   c->size = size;
+//   c->pos = 2;
+
+//   for (int i = 0; i < size; i++)
+//     c->literals[i] = clause[i];
+
+//   // Just checking that we did not mess up our sophisticated memory layout.
+//   // This might be compiler dependent though. Crucial for correctness.
+//   //
+//   assert (c->bytes () == bytes);
+
+//   stats.current.total++;
+//   stats.added.total++;
+
+//   if (red) {
+//     stats.current.redundant++;
+//     stats.added.redundant++;
+//   } else {
+//     stats.irrlits += size;
+//     stats.current.irredundant++;
+//     stats.added.irredundant++;
+//   }
+
+//   clauses.push_back (c);
+//   LOG (c, "new pointer %p", (void *) c);
+
+//   if (likely_to_be_kept_clause (c))
+//     mark_added (c);
+
+//   return c;
+// }
+
 /*------------------------------------------------------------------------*/
 
 void Internal::promote_clause (Clause *c, int new_glue) {
@@ -241,6 +317,7 @@ void Internal::delete_clause (Clause *c) {
   size_t bytes = c->bytes ();
   stats.collected += bytes;
   if (c->garbage) {
+    LOG("can be garbage collected");
     assert (stats.garbage.bytes >= (int64_t) bytes);
     stats.garbage.bytes -= bytes;
     assert (stats.garbage.clauses > 0);
@@ -260,6 +337,35 @@ void Internal::delete_clause (Clause *c) {
       proof->delete_clause (c);
     }
   }
+  deallocate_clause (c);
+}
+
+void Internal::eager_delete_clause (Clause *c) {
+  LOG (c, "delete pointer %p", (void *) c);
+  size_t bytes = c->bytes ();
+  stats.collected += bytes;
+  // kinda riky because of this
+  // if (c->garbage) {
+    // LOG("can be garbage collected");
+    // assert (stats.garbage.bytes >= (int64_t) bytes);
+    // stats.garbage.bytes -= bytes;
+    // assert (stats.garbage.clauses > 0);
+    // stats.garbage.clauses--;
+    // assert (stats.garbage.literals >= c->size);
+    // stats.garbage.literals -= c->size;
+
+    // See the discussion in 'propagate' on avoiding to eagerly trace binary
+    // clauses as deleted (produce 'd ...' lines) as soon they are marked
+    // garbage.  We avoid this and only trace them as deleted when they are
+    // actually deleted here.  This allows the solver to propagate binary
+    // garbage clauses without producing incorrect 'd' lines.  The effect
+    // from the proof perspective is that the deletion of these binary
+    // clauses occurs later in the proof file.
+    //
+    if (proof) {
+      proof->delete_clause (c);
+    }
+  // }
   deallocate_clause (c);
 }
 
@@ -537,8 +643,8 @@ Clause *Internal::new_learned_redundant_clause (int glue) {
   return res;
 }
 
-// same as new_learned_redundant_clause, but with different proof logging
-Clause *Internal::new_learned_irredundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit,int glue) {
+// same as new_learned_redundant_clause, but irredundant and with different proof logging
+Clause *Internal::new_learned_irredundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky,int glue) {
   assert (clause.size () > 1);
 #ifndef NDEBUG
   for (size_t i = 2; i < clause.size (); i++)
@@ -548,7 +654,25 @@ Clause *Internal::new_learned_irredundant_global_clause (int lit, vector<int> ne
   external->check_learned_clause ();
   Clause *res = new_clause (false, glue);
   if (proof) {
-    proof->add_derived_globally_blocked_clause (lit, negated_conditional, autarky_minus_lit, lrat_chain);
+    proof->add_derived_globally_blocked_clause (lit, negated_conditional, autarky, lrat_chain);
+  }
+  assert (watching ());
+  watch_clause (res);
+  return res;
+}
+
+// same as new_learned_irredundant_global_clause, but irredundant and with different proof logging
+Clause *Internal::new_learned_weak_irredundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky,int glue) {
+  assert (clause.size () > 1);
+#ifndef NDEBUG
+  for (size_t i = 2; i < clause.size (); i++)
+    assert (var (clause[0]).level >= var (clause[i]).level),
+        assert (var (clause[1]).level >= var (clause[i]).level);
+#endif
+  external->check_learned_clause ();
+  Clause *res = new_clause (false, glue);
+  if (proof) {
+    proof->add_derived_globally_blocked_clause (lit, negated_conditional, autarky, lrat_chain);
   }
   assert (watching ());
   watch_clause (res);

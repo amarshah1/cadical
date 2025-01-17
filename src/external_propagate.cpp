@@ -175,11 +175,18 @@ void Internal::renotify_full_trail () {
 // Check if the variable is assigned by decision.
 //
 bool Internal::is_decision (int ilit) {
+  const int idx = vidx (ilit);
+  Var &v = var (idx);
+  LOG(v.reason,
+       "checking decision: i%d (current level: %d, is_fixed: %d, v.level: %d, "
+       "is_external_reason: %d, v.reason: )",
+       ilit, level, fixed (ilit), v.level, v.reason == external_reason);
+
   if (!level || fixed (ilit) || !val (ilit))
     return false;
 
-  const int idx = vidx (ilit);
-  Var &v = var (idx);
+  // const int idx = vidx (ilit);
+  // Var &v = var (idx);
 #ifndef NDEBUG
   LOG (v.reason,
        "is_decision: i%d (current level: %d, is_fixed: %d, v.level: %d, "

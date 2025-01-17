@@ -204,10 +204,13 @@ void Internal::reduce () {
 
   mark_satisfied_clauses_as_garbage ();
   protect_reasons ();
-  if (flush)
+  if (flush) {
+    LOG ("FLUSH CASE");
     mark_clauses_to_be_flushed ();
-  else
+  } else {
+    LOG ("OTHER CASE");
     mark_useless_redundant_clauses_as_garbage ();
+  }
   garbage_collection ();
 
   {

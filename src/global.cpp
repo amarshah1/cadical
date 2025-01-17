@@ -20,20 +20,20 @@ void Internal::print_assignment() {
     LOG("\n");
 }
 
-void Internal::print_clause (CaDiCaL::Clause *const &c) {
-    // for(const_literal_iterator l = c->begin (); l != c->end (); l++){
-    //         const int lit = *l;
-    //         printf("%d ", lit);
-    //     }
-}
+// void Internal::print_clause (CaDiCaL::Clause *const &c) {
+//     for(const_literal_iterator l = c->begin (); l != c->end (); l++){
+//             const int lit = *l;
+//             printf("%d ", lit);
+//         }
+// }
 
 void Internal::print_all_clauses() {
-    printf ("Printing all clauses: \n");
-    for (const auto &c: clauses) {
-        printf( "    ");
-        print_clause (c);
-        printf("\n");
-    }
+    // printf ("Printing all clauses: \n");
+    // for (const auto &c: clauses) {
+    //     printf( "    ");
+    //     print_clause (c);
+    //     printf("\n");
+    // }
 }
 
 int Internal::length_of_current_assignment() {
@@ -49,21 +49,30 @@ int Internal::length_of_current_assignment() {
 
 void Internal::sort_vec_by_decision_level(vector<int>* v) {
     LOG("the clause before: ");
-    for(int i=0; i < v->size(); i++){
-            LOG("%d ", (*v)[i]);
-        }
+    // for(int i=0; i < v->size(); i++){
+    //         LOG("%d ", (*v)[i]);
+    //     }
     std::sort(v->begin (), v->end (), 
                 [this](int x, int y) {
                     return (var (x).level > var (y).level);
                 });
     LOG("\n the clause after: ");
-    for(int i=0; i < v->size(); i++){
-            LOG("%d [%d] ", (*v)[i], var ((*v)[i]).level);
-        }
+    // for(int i=0; i < v->size(); i++){
+    //         LOG("%d [%d] ", (*v)[i], var ((*v)[i]).level);
+    //     }
     LOG("\n");
 }
 
-void Internal::least_conditional_part() {
+int min(int i, int j) {
+    if (i < j)
+        return i;
+    else
+        return j;
+}
+
+bool Internal::least_conditional_part() {
+
+    START (global);
     // bool satisfied = false; // Root level satisfied.
 
     // use add_new_original_clause (makes it stay forever)
@@ -74,13 +83,17 @@ void Internal::least_conditional_part() {
     LOG("HERE:: in the globally blocked addition step \n");
     LOG("level %d", level);
 
-    print_assignment ();
-    // LOG("%d\n", Internal::vals);
-    // LOG("the current assignment (as s): ");
-    // LOG("%s\n", Internal::vals);
+    LOG("here are all the clauses:");
+
+    for (const auto &c: clauses) {    
+        LOG(c, "clause: ");
+    }    
+
+    LOG(assumptions, "here are the assumptions:");
+
 
     // conditional part of the autarky
-    vector<int> alpha_c;
+    vector<int> neg_alpha_c;
     // lit : number of times that literal appears in positive form
     std::map<int, int> times_touched;
     
@@ -92,7 +105,7 @@ void Internal::least_conditional_part() {
         if (c->redundant && !proof) continue;
 
         // DEBUGGING START
-        LOG("We are considering the clause: ");
+        LOG("AWe are considering the clause: ");
         for(const_literal_iterator l = c->begin (); l != c->end (); l++){
             const int lit = *l;
             LOG("%d ", lit);
@@ -120,7 +133,7 @@ void Internal::least_conditional_part() {
                 }
             } else if (lit_val < 0) { // negative assignment
                 LOG("    got to a false literal : %d \n", lit);
-                // add to touched list if not already in alpha_c
+                // add to touched list if not already in neg_alpha_c
                 if (!getbit(lit, 0)) {
                     alpha_touches.push_back(lit);
                     LOG("    length of alpha_touches is: %d \n", alpha_touches.size());
@@ -131,9 +144,9 @@ void Internal::least_conditional_part() {
         // LOG("\n    touched wihtout sat is: %d", touched_without_sat);
         if (!satisfies_clause) {
             LOG("    we do not satisfy the clause. Alpha_touches size: %d \n", alpha_touches.size());
-            // add alpha_touches to alpha_c
-            alpha_c.insert(alpha_c.end(), alpha_touches.begin(), alpha_touches.end());
-            // set "added to alpha_c" bit
+            // add alpha_touches to neg_alpha_c
+            neg_alpha_c.insert(neg_alpha_c.end(), alpha_touches.begin(), alpha_touches.end());
+            // set "added to neg_alpha_c" bit
             for (int i=0; i < alpha_touches.size(); i++){
                 setbit(alpha_touches[i], 0);
             }
@@ -141,7 +154,11 @@ void Internal::least_conditional_part() {
     }
 
     // keep track of this for proof
-    vector<int> alpha_a_sans_lit;
+    vector<int> alpha_a;
+
+    // negate the decision variables
+    // todo: this is a hack to get a quick unsat, but we cannot keep it
+    // vector<int> conflict_clause;
 
     vector<vector<int>> clauses_to_add;
 
@@ -151,144 +168,166 @@ void Internal::least_conditional_part() {
 
     // TODO [heuristic]: change?
     // pick most touched assigned literal to add as autarky part
-    int max_key = 0;
-    int max_val = 0;
-    printf("assigment: ");
+    // int max_key = 0;
+    // int max_val = 0;
     for (auto const& [key, val] : times_touched) {
-        // if (is_decision (key))
-        printf("%d [%d] ", key, var (key).level);
-        if (is_decision (key))
-            printf("[d]  ");
+        // if (is_decision (key)) {
+        //     conflict_clause.push_back(-1 * key);
+        // }
 
 
         if (!getbit(key, 0)) {
 
             if (!is_decision (key)) {
-                vector<int> new_clause = alpha_c;
+                vector<int> new_clause = neg_alpha_c;
                 new_clause.push_back(key);
                 clauses_to_add.push_back(new_clause);
             } else {
-                printf("[AUTARKY DECISION ALERT: %d]", key);
+                // printf("[AUTARKY DECISION ALERT: %d]", key);
             }
 
-            if (val > max_val && !is_decision (key)) {
-                if (max_key != 0) {
-                    LOG("adding to alpha_a_sans_lit (version 1): %d\n", max_key);
-                    alpha_a_sans_lit.push_back(max_key);
-                }
-                max_val = val;
-                max_key = key;
-            } else 
-                alpha_a_sans_lit.push_back(key);
+            // if (val > max_val && !is_decision (key)) {
+            //     max_val = val;
+            //     max_key = key;
+            // } 
+            int key_val = Internal::val (key);
+            LOG("adding %d with value %d to alpha_a with val %d", key, val, key_val);
+            alpha_a.push_back(key);
         }
     }
-    printf("\n");
+    // printf("\n");
 
-    if (print_out) {
-        int alpha_c_decision = 0;
+    // if (print_out) {
+    //     int alpha_c_decision = 0;
 
-        for (int i=0; i < alpha_c.size(); i++) {
-            if (is_decision (alpha_c[i]))
-                alpha_c_decision++;
-        }
+    //     for (int i=0; i < neg_alpha_c.size(); i++) {
+    //         if (is_decision (neg_alpha_c[i]))
+    //             alpha_c_decision++;
+    //     }
 
-        int alpha_a_decision = 0;
+    //     int alpha_a_decision = 0;
 
-        if (max_key && is_decision (max_key)) {
-            alpha_a_decision += 1;
-        }
+    //     if (max_key && is_decision (max_key)) {
+    //         alpha_a_decision += 1;
+    //     }
 
-        for (int i=0; i < alpha_a_sans_lit.size(); i++) {
-            if (is_decision (alpha_a_sans_lit[i]))
-                alpha_a_decision++;
-        }
+    //     for (int i=0; i < alpha_a.size(); i++) {
+    //         if (is_decision (alpha_a[i]))
+    //             alpha_a_decision++;
+    //     }
 
 
-        std::ofstream file("tmp2.txt", std::ios::app);  // Open file in append mode
+    //     std::ofstream file("tmp2.txt", std::ios::app);  // Open file in append mode
 
-        // Check if the file opened successfully
-        if (!file) {
-            LOG("Error opening file for writing!");
-            return;
-        }
-        else {
+    //     // Check if the file opened successfully
+    //     if (!file) {
+    //         LOG("Error opening file for writing!");
+    //         return false;
+    //     }
+    //     else {
 
-            // Write x and y in "x, y" format
-            file << alpha_c.size() << ", " << alpha_a_sans_lit.size() << "," << max_key << ", " << (length_of_current_assignment ()) << ", " << alpha_c_decision << ", " << alpha_a_decision << ", " << level << std::endl;
+    //         // Write x and y in "x, y" format
+    //         file << neg_alpha_c.size() << ", " << alpha_a.size() << "," << max_key << ", " << (length_of_current_assignment ()) << ", " << alpha_c_decision << ", " << alpha_a_decision << ", " << level << std::endl;
 
-            file.close();  // Close the file
-        }
-        }
-
-    
+    //         file.close();  // Close the file
+    //     }
+    //     }
 
     // have to unset all of the bits
-    for(int i=0; i < alpha_c.size(); i++){
-        // don't want to unset the max_key thing
-        // if (alpha_c[i] != max_key)
-        unsetbit(alpha_c[i], 0);
-        // LOG("%d ", alpha_c[i]);
+    for(int i=0; i < neg_alpha_c.size(); i++){
+        unsetbit(neg_alpha_c[i], 0);
     }
 
-    // it is unsound add globally blocked clause when alpha_c = alpha
-    if (max_key == 0) 
-        return;
 
-    // if alpha_a is entirely decision literals, then we should not return a clause
-    // if (alpha_a_entirely_decision_literals) {
-    //     printf("This is entirely decision literals");
-    //     return;
+    // it is unsound add globally blocked clause when neg_alpha_c = alpha
+    // if (max_key == 0) {
+    //     STOP (global);
+    //     printf("We are exiting: %d\n", clauses_to_add.size());
+    //     return false;
     // }
 
-    // add literal from autarky part, if it exists
-    LOG("ADDING THE MAX_KEY %d \n", max_key);
-    vector<int> new_clause = alpha_c;
-    new_clause.push_back(max_key);
+
+    vector <int>neg_alpha_c_minus_c0(neg_alpha_c);
+    vector <int>alpha_a_useful(alpha_a);
+
+    int useful_alpha_i = 0;
+
+    LOG(neg_alpha_c_minus_c0, "We start with neg_alpha_c_minus_c0:");
+    LOG(alpha_a, "We start with alpha_a:");
+    for (int i =0; i < alpha_a.size (); i++) {
+        if (is_decision (alpha_a[i])) {
+            LOG("is decision: %d", i);
+        }
+    }
 
 
-    for (int i=0; i < clauses_to_add.size(); i++){
+    for (int i=0; i < alpha_a.size(); i++){
+        // need to backtrack from existing state
+        backtrack (0);
+        search_assume_decision(-alpha_a[i]); 
+        propagate (); 
+        bool erase_i = true;
+
+        LOG(neg_alpha_c_minus_c0, "We have neg_alpha_c_minus_c0:");
+
+
+        for (int j=0; j < neg_alpha_c_minus_c0.size();) {
+            int idx = vidx (neg_alpha_c_minus_c0[j]);
+            int v = val (idx);
+            if (v < 0) {
+                LOG("we're cooking with %d %d", -alpha_a[i], neg_alpha_c_minus_c0[j]);
+                neg_alpha_c_minus_c0.erase(neg_alpha_c_minus_c0.begin() + j);
+                erase_i = false;
+            } else {
+                j++;
+            }
+        }
+
+        if (erase_i)
+            alpha_a_useful.erase(alpha_a_useful.begin() + useful_alpha_i);
+        else 
+            useful_alpha_i += 1;
+    }
+
+    // was remembering literals without this backtrack
+    backtrack (0);
+    bool adding_a_clause = false;
+    for (int i=0; i < min(opts.maxglobalblock, clauses_to_add.size()); i++){
         // only add a clause of size at least 2
+
+        adding_a_clause = true;
 
         vector<int> new_clause = clauses_to_add[i];
 
         if (new_clause.size() > 1) {
-            // LOG("\n        printing out alpha: ");
-
-            // for(int i=0; i < alpha.size(); i++){
-            // //  for (int& num : alpha) {
-            //     LOG("%d ", alpha[i]);
-            // }
-
-            // LOG("\n");
-
-            printf("    adding the globally blocked clause: ");
-            for(int i=0; i < new_clause.size(); i++){
-                printf("%d[%d] ", new_clause[i], var (new_clause[i]).level);
-            }
-            printf("\n        length of clause: %d \n", new_clause.size());
-
-            printf("\n");
-
-            LOG(" one \n");
+            int last_element = new_clause.back ();
             sort_vec_by_decision_level(&new_clause);
             clause = new_clause;
-            LOG(" two \n");
-            backtrack ();
-            LOG(" three \n");
-            // todo: comment this back in to add clauses
-            Clause* c = new_learned_irredundant_global_clause (max_key, alpha_c, alpha_a_sans_lit, 1);
+            
+            Clause* c = new_learned_weak_irredundant_global_clause (last_element, neg_alpha_c, alpha_a, 1);
             clause.clear ();
 
-            
-            // search_assign_driving (-uip, c);
         }
+
+
+        if (adding_a_clause) {
+            // clause = neg_alpha_c_minus_c0.append(alpha_a);
+            neg_alpha_c_minus_c0.insert(neg_alpha_c_minus_c0.end(), alpha_a_useful.begin(), alpha_a_useful.end());
+            clause = neg_alpha_c_minus_c0;
+            LOG(clause, "we are adding the alternating claue:");
+            if (clause.size () > 1)
+                Clause* c = new_learned_redundant_clause (1);
+            else {
+                // todo: I just made up an id here: kinda troll
+                assign_original_unit (++clause_id, clause[0]);
+            }
+            clause.clear ();
+        }
+
+        STOP (global);
+
+        return adding_a_clause;
     }
-
-    // LOG("adding the globally blocked clause", alpha_c);
-
-
-    // Clause* new_clause = new Clause();
-    // return alpha_c;
 }
 
 bool Internal::globalling () {
@@ -298,6 +337,9 @@ bool Internal::globalling () {
     return false;
   if (!preprocessing && !opts.inprocessing)
     return false;
+  // for right now we only do global step in assumptions
+  if (!in_assumptions)
+    return false;
   if (preprocessing)
     assert (lim.preprocessing);
 
@@ -306,16 +348,16 @@ bool Internal::globalling () {
 //   if (lim.global > stats.conflicts)
 //     return false;
 
-  if (0 == level || level > 5)
+  if (level != 2) //(0 == level || level > 5)
     return false; // One decision necessary.
 
   LOG("DOING A GLOBAL CHECK!!! \n");
   global_counter = global_counter + 1;
 
   // runtime for  
-  if (global_counter % 8 != 0) {
-    return false;
-  }
+//   if (global_counter % 8 != 0) {
+//     return false;
+//   }
 
 //   global_counter = global_counter + 1;
 

@@ -66,6 +66,7 @@ void Internal::remove_falsified_literals (Clause *c) {
 // since the last garbage collection just skip this step.
 
 void Internal::mark_satisfied_clauses_as_garbage () {
+  LOG ("In mark_satisfied_clauses_as_garbage");
 
   if (last.collect.fixed >= stats.all.fixed)
     return;
@@ -77,9 +78,11 @@ void Internal::mark_satisfied_clauses_as_garbage () {
     if (c->garbage)
       continue;
     const int tmp = clause_contains_fixed_literal (c);
-    if (tmp > 0)
+    if (tmp > 0) {
+      LOG ("marking this clause as garbage: ");
+      Internal::print_clause (c);
       mark_garbage (c);
-    else if (tmp < 0)
+    } else if (tmp < 0)
       remove_falsified_literals (c);
   }
 }
@@ -207,7 +210,7 @@ inline void Internal::flush_watches (int lit, Watches &saved) {
     const int new_blit_pos = (c->literals[0] == lit);
     LOG (c, "clause in flush_watch starting from %d", lit);
     LOG("We have new_blit_pos: %d for literal: %d \n", new_blit_pos, lit);
-    LOG("We are considering the clause: ");
+    LOG("BWe are considering the clause: ");
               for(const_literal_iterator l = c->begin (); l != c->end (); l++){
                   const int lit_ = *l;
                   LOG("%d ", lit_);
@@ -534,6 +537,7 @@ void Internal::garbage_collection () {
   START (collect);
   report ('G', 1);
   stats.collections++;
+  LOG ("marking satisfied clauses as garbage");
   mark_satisfied_clauses_as_garbage ();
   if (!protected_reasons)
     protect_reasons ();

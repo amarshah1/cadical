@@ -22,7 +22,7 @@ Internal::Internal ()
       propagated2 (0), propergated (0), best_assigned (0),
       target_assigned (0), no_conflict_until (0), unsat_constraint (false),
       marked_failed (true), num_assigned (0), proof (0), lratbuilder (0),
-      opts (this),
+      opts (this), in_assumptions (false), assumptions_num_iters (0), // amar
 #ifndef QUIET
       profiles (this), force_phase_messages (false),
 #endif
@@ -241,6 +241,17 @@ void Internal::reserve_ids (int number) {
     proof->begin_proof (reserved_ids);
 }
 
+//amar
+void Internal::set_assumptions_mode (bool is_assumption) {
+  in_assumptions = is_assumption;
+}
+
+// void Internal::set_assumptions (vector<int> assumptions) {
+//   assumptions = assumptions;
+// }
+
+
+
 /*------------------------------------------------------------------------*/
 
 // This is the main CDCL loop with interleaved inprocessing.
@@ -260,19 +271,33 @@ int Internal::cdcl_loop_with_inprocessing () {
   }
 
   while (!res) {
-    print_assignment ();
+    // assumptions_num_iters += 1;
+    // if (in_assumptions && assumptions_num_iters > 1000) {
+    //   printf("exiting solving mode \n");
+    //   res = 20;
+    // }
+    // print_assignment ();
     if (unsat) {
+      LOG ("pre: we are in the unsat case");
+      if (in_assumptions) {
+        LOG ("we are in the unsat case");
+        // reduce (); // collect useless clauses
+      }
       res = 20;
     } else if (unsat_constraint) {
       res = 20;
     } else if (!propagate ()) {
+      LOG("conflict found in CDCL : propagate");
+      LOG(trail, "in CDCL the trail is:");
       analyze (); // propagate and analyze
     } else if (iterating) {
+      LOG("conflict found in CDCL : iterate");
       iterate ();                               // report learned unit
     } else if (!external_propagate () || unsat) { // external propagation
-      if (unsat)
+      LOG("conflict found in CDCL : external propagate");
+      if (unsat) {
         continue;
-      else
+      } else
         analyze ();
     } else if (satisfied ()) { // found model
       if (!external_check_solution () || unsat) {
@@ -286,9 +311,10 @@ int Internal::cdcl_loop_with_inprocessing () {
       break;                               // decision or conflict limit
     } else if (terminated_asynchronously ()) // externally terminated 
       break;
-    else if (restarting ())
+    else if (restarting ()) {
+      printf ("we are restarting from level: %d", level);
       restart (); // restart by backtracking
-    else if (rephasing ())
+    } else if (rephasing ())
       rephase (); // reset variable phases
     else if (reducing ())
       reduce (); // collect useless clauses
@@ -301,11 +327,45 @@ int Internal::cdcl_loop_with_inprocessing () {
     else if (compacting ())
       compact (); // collect variables
     else if (conditioning ())
-      condition (); // globally blocked clauses
-    else if (globalling ())
-      least_conditional_part(); // amar : adding globaly blocked clauses
-    else
+      condition (); // amar: globally blocked clauses
+    // else if (rat_finding ()) {
+    //   if (detect_rat ()) {
+    //     clause = assumptions;
+    //     // new_learned_redundant_clause (1);
+    //     clause.clear ();
+    //     // Clause* assumptions_clause = assumptions;
+    //     // new_clause_as (assumptions);
+    //     learn_unit_clause (-assumptions[0]);
+    //     reduce ();
+    //   }
+    //   res = 20;
+    // }
+    else if (directioning ()) {
+      if (direction ()) {
+        LOG("we are reducing (at direction)");
+        reduce ();
+      }
+      res = 20;
+    }
+    else if (globalling ()) {
+      bool added_a_clause = least_conditional_part();
+      if (in_assumptions) { // && added_a_clause) {
+        // trying to reduce after each round of assumptions
+        // seems to make things slightly faster:
+        // can do pigeonhole 40 in  134.11 seconds
+        // reduce (); // collect useless clauses
+        res = 20;
+      } else {
+        // printf("we are NOT in assumptions! \n");
+      }
+    } else
       res = decide (); // next decision
+  }
+
+  // adding a reduce step here
+  if (level == 0 && in_assumptions) {
+    LOG("making a reduction here with level: %D", level);
+    reduce ();
   }
 
   if (stable) {

@@ -163,6 +163,9 @@ struct Internal {
   int mode;                    // current internal state
   bool unsat;                  // empty clause found or learned
   bool iterating;              // report learned unit ('i' line)
+  bool in_assumptions;         // returns true if we are in the list of assumptions (i.e. we are in a cube mode)
+  // vector<int> assumptions;        // a list of assumptions (when we are in assumption mode)
+  int assumptions_num_iters;   //  keeps track of the number of iterations when we are in assumptions (cube) modes
   bool localsearching;         // true during local search
   bool lookingahead;           // true during look ahead
   bool preprocessing;          // true during preprocessing
@@ -616,11 +619,13 @@ struct Internal {
 
   void deallocate_clause (Clause *);
   void delete_clause (Clause *);
+  void eager_delete_clause (Clause *);
   void mark_garbage (Clause *);
   void assign_original_unit (uint64_t, int);
   void add_new_original_clause (uint64_t);
   Clause *new_learned_redundant_clause (int glue);
   Clause *new_learned_irredundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit, int glue);  // added by amar
+  Clause *new_learned_weak_irredundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit, int glue);  // added by amar
   Clause *new_hyper_binary_resolved_clause (bool red, int glue);
   Clause *new_clause_as (const Clause *orig);
   Clause *new_resolved_irredundant_clause ();
@@ -1110,14 +1115,22 @@ struct Internal {
   // Amar: stuff i added
   void print_all_clauses();
   void print_clause(CaDiCaL::Clause *const &c);
+  void set_assumptions_mode (bool is_assumption);
+  void set_assumptions (vector<int> assumptions);
+  Clause *new_clause_garbage (bool red, int glue = 100);
   bool globalling ();
   int global_counter = 0;
   void global();
-  void least_conditional_part();
+  bool least_conditional_part();
   void print_assignment();
   int length_of_current_assignment();
   void sort_vec_by_decision_level(vector<int>* v);
   Clause* new_globally_blocked_irredundant_clause ();
+  // void rat();
+  bool detect_rat ();
+  bool rat_finding ();
+  bool directioning ();
+  bool direction ();
 
 
 
@@ -1157,6 +1170,7 @@ struct Internal {
   void assume (int);                  // New assumption literal.
   bool failed (int lit);              // Literal failed assumption?
   void reset_assumptions ();          // Reset after 'solve' call.
+  void reset_last_assumption ();          // Reset after 'solve' call.
   void sort_and_reuse_assumptions (); // reorder the assumptions in order to
                                       // reuse parts of the trail
   void failing ();                    // Prepare failed assumptions.
