@@ -80,7 +80,7 @@ void Internal::mark_satisfied_clauses_as_garbage () {
     const int tmp = clause_contains_fixed_literal (c);
     if (tmp > 0) {
       LOG ("marking this clause as garbage: ");
-      Internal::print_clause (c);
+      // Internal::print_clause (c);
       mark_garbage (c);
     } else if (tmp < 0)
       remove_falsified_literals (c);

@@ -1115,6 +1115,7 @@ struct Internal {
   // Amar: stuff i added
   void print_all_clauses();
   void print_clause(CaDiCaL::Clause *const &c);
+  void print_vector(vector<int> c);
   void set_assumptions_mode (bool is_assumption);
   void set_assumptions (vector<int> assumptions);
   Clause *new_clause_garbage (bool red, int glue = 100);

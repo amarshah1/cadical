@@ -8,24 +8,42 @@ namespace CaDiCaL {
 bool print_out = false;
 
 void Internal::print_assignment() {
-    LOG("the current assignment: ");
+    printf("the current assignment: ");
+    vector<int> decisions = vector<int> ();
     for (int i = 1; i <= Internal::max_var; i++) {
         const signed char tmp = val (i);
         if (tmp > 0) {
-            LOG("%d ", i);
+            if (is_decision (i))
+                decisions.push_back(i);
+            printf("%d ", i);
+
         } else if (tmp < 0) {
-            LOG("%d ", -1 * i);
+            if (is_decision (-i))
+                decisions.push_back(-i);
+            printf("%d ", -i);
         }
     }
-    LOG("\n");
+    printf("\n");
+    printf("decisions: ");
+    for (int i = 0; i < decisions.size (); i++) {
+        printf("%d ", decisions[i]);
+    }
+    printf("\n");
 }
 
-// void Internal::print_clause (CaDiCaL::Clause *const &c) {
-//     for(const_literal_iterator l = c->begin (); l != c->end (); l++){
-//             const int lit = *l;
-//             printf("%d ", lit);
-//         }
-// }
+void Internal::print_clause (CaDiCaL::Clause *const &c) {
+    for(const_literal_iterator l = c->begin (); l != c->end (); l++){
+            const int lit = *l;
+            printf("%d ", lit);
+        }
+}
+
+void Internal::print_vector (vector<int> c) {
+    for(int i = 0; i < c.size(); i++){
+            printf("%d ", c[i]);
+        }
+    printf("\n");
+}
 
 void Internal::print_all_clauses() {
     // printf ("Printing all clauses: \n");
@@ -254,11 +272,16 @@ bool Internal::least_conditional_part() {
 
     LOG(neg_alpha_c_minus_c0, "We start with neg_alpha_c_minus_c0:");
     LOG(alpha_a, "We start with alpha_a:");
-    for (int i =0; i < alpha_a.size (); i++) {
-        if (is_decision (alpha_a[i])) {
-            LOG("is decision: %d", i);
-        }
-    }
+    // for (int i =0; i < alpha_a.size (); i++) {
+    //     if (is_decision (alpha_a[i])) {
+    //         LOG("is decision: %d", i);
+    //     }
+    // }
+
+    printf("We are at level: %d \n", level);
+
+    print_assignment ();
+
 
 
     for (int i=0; i < alpha_a.size(); i++){
@@ -289,6 +312,17 @@ bool Internal::least_conditional_part() {
             useful_alpha_i += 1;
     }
 
+
+    printf("We have alpha_a:");
+    print_vector(alpha_a);
+
+    printf("We have neg_alpha_c:");
+    print_vector(neg_alpha_c);
+
+    printf("We have neg_alpha_c_minus_c0:");
+    print_vector(neg_alpha_c_minus_c0);
+
+
     // was remembering literals without this backtrack
     backtrack (0);
     bool adding_a_clause = false;
@@ -303,7 +337,8 @@ bool Internal::least_conditional_part() {
             int last_element = new_clause.back ();
             sort_vec_by_decision_level(&new_clause);
             clause = new_clause;
-            
+            printf("we are adding the globally blocked clause:");
+            print_vector(clause);
             Clause* c = new_learned_weak_irredundant_global_clause (last_element, neg_alpha_c, alpha_a, 1);
             clause.clear ();
 
@@ -314,7 +349,10 @@ bool Internal::least_conditional_part() {
             // clause = neg_alpha_c_minus_c0.append(alpha_a);
             neg_alpha_c_minus_c0.insert(neg_alpha_c_minus_c0.end(), alpha_a_useful.begin(), alpha_a_useful.end());
             clause = neg_alpha_c_minus_c0;
-            LOG(clause, "we are adding the alternating claue:");
+            sort_vec_by_decision_level(&clause);
+            printf("We are adding the reduced globally blocked clause:");
+            print_vector(clause);
+
             if (clause.size () > 1)
                 Clause* c = new_learned_redundant_clause (1);
             else {
@@ -348,8 +386,9 @@ bool Internal::globalling () {
 //   if (lim.global > stats.conflicts)
 //     return false;
 
-  if (level != 2) //(0 == level || level > 5)
+  if (level != 2) { //(0 == level || level > 5)
     return false; // One decision necessary.
+  }
 
   LOG("DOING A GLOBAL CHECK!!! \n");
   global_counter = global_counter + 1;

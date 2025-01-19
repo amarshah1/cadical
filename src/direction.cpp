@@ -6,12 +6,12 @@ using namespace std;
 namespace CaDiCaL {
 
 
-void Internal::print_clause (CaDiCaL::Clause *const &c) {
-    // for(const_literal_iterator l = c->begin (); l != c->end (); l++){
-    //         const int lit = *l;
-    //         printf("%d ", lit);
-    //     }
-}
+// void Internal::print_clause (CaDiCaL::Clause *const &c) {
+//     // for(const_literal_iterator l = c->begin (); l != c->end (); l++){
+//     //         const int lit = *l;
+//     //         printf("%d ", lit);
+//     //     }
+// }
 
 // kind've silly rat detection that will work for our case
 bool Internal::direction() {
