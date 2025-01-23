@@ -298,12 +298,21 @@ inline void Internal::analyze_reason (int lit, Clause *reason, int &open,
                                       int &antecedent_size) {
   assert (reason);
   assert (reason != external_reason);
+  printf("\n");
+  print_clause (reason);
   bump_clause (reason);
   if (lrat)
     lrat_chain.push_back (reason->id);
+  printf("looking at lit %d \n", lit);
   for (const auto &other : *reason)
-    if (other != lit)
+    if (other != lit) {
+      printf("analyzing %d with val: %d \n", other, val (other));
+    }
+  for (const auto &other : *reason)
+    if (other != lit) {
+      // printf("analyzing %d with val: %d \n", other, val (other));
       analyze_literal (other, open, resolvent_size, antecedent_size);
+    }
 }
 
 /*------------------------------------------------------------------------*/
@@ -856,7 +865,7 @@ void Internal::otfs_strengthen_clause (Clause *c, int lit, int new_size,
 // was found.  Then we derive the 1st UIP clause, optionally minimize it,
 // add it as learned clause, and then uses the clause for conflict directed
 // back-jumping and flipping the 1st UIP literal.  In combination with
-// chronological backtracking (see discussion above) the algorithm becomes
+// chronological backtrafcking (see discussion above) the algorithm becomes
 // slightly more involved.
 
 void Internal::analyze () {

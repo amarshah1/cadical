@@ -206,8 +206,8 @@ void Internal::assign_unit (int lit) {
 
 void Internal::search_assume_decision (int lit) {
   require_mode (SEARCH);
-  LOG("propagated: %d", propagated);
-  LOG("trail.size: %d", trail.size ());
+  printf("propagated: %d", propagated);
+  printf("trail.size: %d", trail.size ());
   assert (propagated == trail.size ());
   new_trail_level (lit);
   notify_decision ();

@@ -1120,6 +1120,7 @@ struct Internal {
   void set_assumptions (vector<int> assumptions);
   Clause *new_clause_garbage (bool red, int glue = 100);
   bool globalling ();
+  bool globalling_decide ();
   int global_counter = 0;
   void global();
   bool least_conditional_part();

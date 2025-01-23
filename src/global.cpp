@@ -13,20 +13,34 @@ void Internal::print_assignment() {
     for (int i = 1; i <= Internal::max_var; i++) {
         const signed char tmp = val (i);
         if (tmp > 0) {
-            if (is_decision (i))
+            if (is_decision (i)) {
                 decisions.push_back(i);
-            printf("%d ", i);
+                printf("%d [d] ", i);
+            } else {
+                printf("%d ", i);
+            }
 
         } else if (tmp < 0) {
-            if (is_decision (-i))
+            if (is_decision (-i)) {
                 decisions.push_back(-i);
-            printf("%d ", -i);
+                printf("%d [d] ", -i);
+            } else {
+                printf("%d ", -i);
+            }
         }
     }
     printf("\n");
     printf("decisions: ");
     for (int i = 0; i < decisions.size (); i++) {
         printf("%d ", decisions[i]);
+    }
+
+    vector<int> fixed_literals = vector<int>();
+    get_all_fixed_literals (fixed_literals);
+    printf("\n");
+    printf("fixed_literals: ");
+    for (int i = 0; i < fixed_literals.size (); i++) {
+        printf("%d ", fixed_literals[i]);
     }
     printf("\n");
 }
@@ -91,6 +105,7 @@ int min(int i, int j) {
 bool Internal::least_conditional_part() {
 
     START (global);
+    print_assignment();
     // bool satisfied = false; // Root level satisfied.
 
     // use add_new_original_clause (makes it stay forever)
@@ -136,12 +151,27 @@ bool Internal::least_conditional_part() {
         // assignment mentioned in clause
         vector<int> alpha_touches;
 
+
+        // basically will skip a clause that should be deleted, there should be a more efficient way to do this I think
+        bool skip_clause = false;
+        for (const_literal_iterator l = c->begin (); l != c->end (); l++) {
+            const int lit = *l;
+            const signed char lit_val = val (lit);
+            Flags &f = flags (lit);
+            if (lit_val > 0 && f.status == Flags::FIXED) {
+                skip_clause = true;
+                break;
+            }
+        } 
+        if (skip_clause)
+            continue;
+
         for (const_literal_iterator l = c->begin (); l != c->end (); l++) {
             const int lit = *l;
             const signed char lit_val = val (lit);
             // LOG("here \n");
             if (lit_val > 0) { // positive assignment
-                LOG("    We satisfy the clause with literal: %d \n", lit);
+                // printf("    We satisfy the clause with literal: %d \n", lit);
                 satisfies_clause = true;
                 // update times_touched with touch
                 if (times_touched.find(lit) == times_touched.end()) { // lit not in dict
@@ -150,11 +180,18 @@ bool Internal::least_conditional_part() {
                     times_touched[lit] = times_touched[lit] + 1;
                 }
             } else if (lit_val < 0) { // negative assignment
-                LOG("    got to a false literal : %d \n", lit);
+
+                // skip the fixed negative literals
+                Flags &f = flags (lit);
+                if (f.status == Flags::FIXED) {
+                    continue;
+                }
+                // printf("    got to a false literal : %d for clause: ", lit);
+                // print_clause (c);
                 // add to touched list if not already in neg_alpha_c
                 if (!getbit(lit, 0)) {
                     alpha_touches.push_back(lit);
-                    LOG("    length of alpha_touches is: %d \n", alpha_touches.size());
+                    // printf("    length of alpha_touches is: %d \n", alpha_touches.size());
                 }
             }
         }
@@ -166,6 +203,7 @@ bool Internal::least_conditional_part() {
             neg_alpha_c.insert(neg_alpha_c.end(), alpha_touches.begin(), alpha_touches.end());
             // set "added to neg_alpha_c" bit
             for (int i=0; i < alpha_touches.size(); i++){
+                printf("adding to neg_alpha_c: %d \n", alpha_touches[i]);
                 setbit(alpha_touches[i], 0);
             }
         }
@@ -209,7 +247,7 @@ bool Internal::least_conditional_part() {
             //     max_key = key;
             // } 
             int key_val = Internal::val (key);
-            LOG("adding %d with value %d to alpha_a with val %d", key, val, key_val);
+            // printf("adding %d with value %d to alpha_a with val %d \n", key, val, key_val);
             alpha_a.push_back(key);
         }
     }
@@ -282,11 +320,28 @@ bool Internal::least_conditional_part() {
 
     print_assignment ();
 
+    printf("We have alpha_a before:");
+    print_vector(alpha_a);
+
+    printf("We have neg_alpha_c before:");
+    print_vector(neg_alpha_c);
+
 
 
     for (int i=0; i < alpha_a.size(); i++){
+
+        // want to skip over fixed literals using something like this
+        Flags &f = flags (alpha_a[i]);
+
+        if (f.status == Flags::FIXED) {
+            printf("We are skipping %d \n", alpha_a[i]);
+            continue;
+        }   
+
         // need to backtrack from existing state
         backtrack (0);
+        print_assignment ();
+        printf("here are the fixed literals");
         search_assume_decision(-alpha_a[i]); 
         propagate (); 
         bool erase_i = true;
@@ -376,8 +431,8 @@ bool Internal::globalling () {
   if (!preprocessing && !opts.inprocessing)
     return false;
   // for right now we only do global step in assumptions
-  if (!in_assumptions)
-    return false;
+//   if (!in_assumptions)
+//     return false;
   if (preprocessing)
     assert (lim.preprocessing);
 
@@ -415,6 +470,121 @@ bool Internal::globalling () {
 //   return ratio <= opts.globalmaxrat;
 }
 
+// a version of globalling that also makes decision
+// todo: write this
+bool Internal::globalling_decide () {
+  LOG("in the globally blocked checking step \n");
+
+  if (!opts.global)
+    return false;
+  if (!preprocessing && !opts.inprocessing)
+    return false;
+//   // for right now we only do global step in assumptions
+//   if (!in_assumptions)
+//     return false;
+  if (preprocessing)
+    assert (lim.preprocessing);
+
+  // Triggered in regular 'opts.globalint' conflict intervals.
+  //
+//   if (lim.global > stats.conflicts)
+//     return false;
+
+  if (level != 0) { //(0 == level || level > 5)
+    return false; 
+    printf("We are failing as we are in level %d", level);
+  }
+
+
+  // decide and propagate
+
+  vector<int> current_assignment;
+
+  // right now it is two random decisions
+  // try to figure out a better way to do it
+
+
+  for (int i = 1; i <= Internal::max_var; i++) {
+    for (int j = 1; j <= Internal::max_var; j++) {
+      for (int sign = 0; sign < 4; sign++) {
+        if (j == i)
+            continue;
+
+        int fst_sign = pow(-1, (sign/2));
+        int snd_sign = pow(-1, (sign % 2));
+
+        int fst_val = fst_sign * i;
+        int snd_val = snd_sign * j;
+
+        
+
+        printf("making the decisions %d and %d \n", fst_val, snd_val);
+        if (val (fst_val))
+            continue;
+
+        printf("    deciding first val \n");
+        search_assume_decision(fst_val);
+
+        if (!propagate ()) {
+            analyze ();
+            continue;
+        }
+
+        if (val (snd_val)) {
+            backtrack ();
+            continue;
+        }
+        
+        printf("    deciding second val \n");
+        search_assume_decision(snd_val);
+        printf("    made second search_assume_decision");
+
+        if (!propagate ()) {
+            analyze ();
+            continue;
+        }
+
+        printf("DOING A GLOBAL CHECK!!! \n");
+        global_counter = global_counter + 1;
+        least_conditional_part ();
+        backtrack ();
+      }
+    }
+  }
+//   decide ();
+//   propagate ();
+
+//   decide ();
+//   propagate ();
+
+  
+
+
+
+
+
+  // runtime for  
+//   if (global_counter % 8 != 0) {
+//     return false;
+//   }
+
+//   global_counter = global_counter + 1;
+
+
+//   if (level <= averages.current.jump)
+//     return false; // Main heuristic.
+
+  // made this false for right now
+  return false;
+
+//   if (!stats.current.irredundant)
+//     return false;
+//   double remain = active ();
+//   if (!remain)
+//     return false;
+//   double ratio = stats.current.irredundant / remain;
+//   return ratio <= opts.globalmaxrat;
+}
 
     
 

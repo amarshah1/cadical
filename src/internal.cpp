@@ -347,7 +347,8 @@ int Internal::cdcl_loop_with_inprocessing () {
       }
       res = 20;
     }
-    else if (globalling ()) {
+    // changed this to globalling decide
+    else if (globalling_decide ()) {
       bool added_a_clause = least_conditional_part();
       if (in_assumptions) { // && added_a_clause) {
         // trying to reduce after each round of assumptions
