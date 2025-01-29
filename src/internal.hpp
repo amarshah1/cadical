@@ -1123,7 +1123,7 @@ struct Internal {
   bool globalling_decide ();
   int global_counter = 0;
   void global();
-  bool least_conditional_part();
+  bool least_conditional_part(std::ofstream& outFile);
   void print_assignment();
   int length_of_current_assignment();
   void sort_vec_by_decision_level(vector<int>* v);
@@ -1133,6 +1133,8 @@ struct Internal {
   bool rat_finding ();
   bool directioning ();
   bool direction ();
+  // bool globalrandom;
+  // bool globallearn;
 
 
 

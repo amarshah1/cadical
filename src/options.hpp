@@ -99,6 +99,9 @@ OPTION( flushint,        1e5,  1,2e9,0,0,1, "initial limit") \
 OPTION( forcephase,        0,  0,  1,0,0,1, "always use initial phase") \
 OPTION( frat,              0,  0,  2,0,0,1, "1=frat(lrat), 2=frat(drat)") \
 OPTION( global,            0,  0,  1,0,0,1, "globally blocked clause addition") \
+OPTION( globallearn,       1,  0,  1,0,0,1, "learn clauses in the globally blocked step") \
+OPTION( globalrandom,      0,  0,  1,0,0,1, "randomly gives decisions for globally blocked state") \
+OPTION( globalrecord,      0,  0,  1,0,0,1, "record the global clauses learnt in global_clauses.txt") \
 OPTION( idrup,             0,  0,  1,0,0,1, "incremental proof format") \
 OPTION( ilb,               0,  0,  1,0,0,1, "ILB (incremental lazy backtrack)") \
 OPTION( ilbassumptions,    0,  0,  1,0,0,1, "trail reuse for assumptions (ILB-like)") \

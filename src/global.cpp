@@ -1,6 +1,8 @@
 #include "internal.hpp"
 #include <map>
 #include <fstream>  // For file handling
+#include <cstdlib>
+#include <ctime>
 using namespace std;
 
 namespace CaDiCaL {
@@ -10,9 +12,11 @@ bool print_out = false;
 void Internal::print_assignment() {
     printf("the current assignment: ");
     vector<int> decisions = vector<int> ();
+    int assignment_length = 0;
     for (int i = 1; i <= Internal::max_var; i++) {
         const signed char tmp = val (i);
         if (tmp > 0) {
+            assignment_length +=1 ;
             if (is_decision (i)) {
                 decisions.push_back(i);
                 printf("%d [d] ", i);
@@ -21,6 +25,7 @@ void Internal::print_assignment() {
             }
 
         } else if (tmp < 0) {
+            assignment_length +=1 ;
             if (is_decision (-i)) {
                 decisions.push_back(-i);
                 printf("%d [d] ", -i);
@@ -42,6 +47,7 @@ void Internal::print_assignment() {
     for (int i = 0; i < fixed_literals.size (); i++) {
         printf("%d ", fixed_literals[i]);
     }
+    printf("assignment length: %d; fixed_literals length : %d \n ", assignment_length, fixed_literals.size ());
     printf("\n");
 }
 
@@ -102,7 +108,7 @@ int min(int i, int j) {
         return j;
 }
 
-bool Internal::least_conditional_part() {
+bool Internal::least_conditional_part(std::ofstream& outFile) {
 
     START (global);
     print_assignment();
@@ -152,7 +158,14 @@ bool Internal::least_conditional_part() {
         vector<int> alpha_touches;
 
 
-        // basically will skip a clause that should be deleted, there should be a more efficient way to do this I think
+        // basically will skip a clause that should be deleted, 
+        // below commented out old way since it is less effiecient
+        // need to double check that what I have rn works
+        if (c->garbage) {
+            printf("skipping clause: ");
+            print_clause (c);
+            continue;
+        }
         bool skip_clause = false;
         for (const_literal_iterator l = c->begin (); l != c->end (); l++) {
             const int lit = *l;
@@ -163,8 +176,11 @@ bool Internal::least_conditional_part() {
                 break;
             }
         } 
-        if (skip_clause)
+        if (skip_clause) {
+            printf("skipping clause2: ");
+            print_clause (c);
             continue;
+        }
 
         for (const_literal_iterator l = c->begin (); l != c->end (); l++) {
             const int lit = *l;
@@ -331,6 +347,7 @@ bool Internal::least_conditional_part() {
     for (int i=0; i < alpha_a.size(); i++){
 
         // want to skip over fixed literals using something like this
+        // todo : I think this shouldn't be necessary because we checked it earlier when creating alpha_a
         Flags &f = flags (alpha_a[i]);
 
         if (f.status == Flags::FIXED) {
@@ -341,35 +358,64 @@ bool Internal::least_conditional_part() {
         // need to backtrack from existing state
         backtrack (0);
         print_assignment ();
-        printf("here are the fixed literals");
+        printf("checking propagations from %d \n", -alpha_a[i]);
+        printf("We have propagated: %d; trail.size: %d \n", -alpha_a[i], propagated, trail.size ());
+
         search_assume_decision(-alpha_a[i]); 
-        propagate (); 
+
+
+        if (!propagate ()) {
+            // analyze ();
+            printf("exited analyze! \n");
+            useful_alpha_i += 1;
+            continue;
+        } 
+
         bool erase_i = true;
 
         LOG(neg_alpha_c_minus_c0, "We have neg_alpha_c_minus_c0:");
 
 
         for (int j=0; j < neg_alpha_c_minus_c0.size();) {
-            int idx = vidx (neg_alpha_c_minus_c0[j]);
-            int v = val (idx);
+            int v = val (neg_alpha_c_minus_c0[j]);
             if (v < 0) {
-                LOG("we're cooking with %d %d", -alpha_a[i], neg_alpha_c_minus_c0[j]);
+                printf("The literal %d in ~alpha_a implies literal %d in alpha_c by unit propagation \n", -alpha_a[i], -neg_alpha_c_minus_c0[j]);
                 neg_alpha_c_minus_c0.erase(neg_alpha_c_minus_c0.begin() + j);
                 erase_i = false;
+
+                // todo: currently have to add these binary clauses to make proof gor through. I don't like this though
+                // clause.push_back(alpha_a[i]);
+                // clause.push_back(-neg_alpha_c[j]);
+                // sort_vec_by_decision_level(&clause);
+                // printf("We are adding the binary unit-prop clause:");
+                // print_vector(clause);
+                // if (clause.size () > 1)
+                //     Clause* c = new_learned_redundant_clause (1);
+                // else {
+                //     assign_original_unit (++clause_id, clause[0]);
+                // }
+                // clause.clear ();
+
             } else {
                 j++;
             }
         }
 
-        if (erase_i)
+        if (erase_i) {
+            printf("Removing %d from alpha_a_useful from position %d \n", alpha_a_useful[useful_alpha_i], useful_alpha_i);
             alpha_a_useful.erase(alpha_a_useful.begin() + useful_alpha_i);
-        else 
+            printf("Now we have alpha_a_useful: ");
+            print_vector(alpha_a_useful);
+        } else 
             useful_alpha_i += 1;
     }
 
 
     printf("We have alpha_a:");
     print_vector(alpha_a);
+
+    printf("We have alpha_a_useful:");
+    print_vector(alpha_a_useful);
 
     printf("We have neg_alpha_c:");
     print_vector(neg_alpha_c);
@@ -386,34 +432,52 @@ bool Internal::least_conditional_part() {
 
         adding_a_clause = true;
 
-        vector<int> new_clause = clauses_to_add[i];
 
-        if (new_clause.size() > 1) {
-            int last_element = new_clause.back ();
-            sort_vec_by_decision_level(&new_clause);
-            clause = new_clause;
-            printf("we are adding the globally blocked clause:");
-            print_vector(clause);
-            Clause* c = new_learned_weak_irredundant_global_clause (last_element, neg_alpha_c, alpha_a, 1);
-            clause.clear ();
+        if (alpha_a_useful.empty()) {
 
-        }
+            // new_clause := neg_alpha_c + (som literal in alpha_a)
+            vector<int> new_clause = clauses_to_add[i];
 
-
-        if (adding_a_clause) {
+            if (new_clause.size() > 1) {
+                int last_element = new_clause.back ();
+                sort_vec_by_decision_level(&new_clause);
+                clause = new_clause;
+                printf("we are adding the globally blocked clause:");
+                print_vector(clause);
+                vector<int> neg_alpha_c_a(neg_alpha_c);
+                neg_alpha_c_a.push_back(last_element);
+                if (opts.globallearn) {
+                    Clause* c = new_learned_weak_irredundant_global_clause (last_element, neg_alpha_c_a, alpha_a, 1);
+                }
+                if (opts.globalrecord) {
+                    for (int val : neg_alpha_c_a) {
+                        outFile << val << " ";
+                    }
+                    outFile << "\n";
+                }
+                clause.clear ();
+            }
+        } else { //(!alpha_a_useful.empty()) {
             // clause = neg_alpha_c_minus_c0.append(alpha_a);
             neg_alpha_c_minus_c0.insert(neg_alpha_c_minus_c0.end(), alpha_a_useful.begin(), alpha_a_useful.end());
             clause = neg_alpha_c_minus_c0;
             sort_vec_by_decision_level(&clause);
             printf("We are adding the reduced globally blocked clause:");
             print_vector(clause);
-
-            if (clause.size () > 1)
-                Clause* c = new_learned_redundant_clause (1);
-            else {
-                // todo: I just made up an id here: kinda troll
-                assign_original_unit (++clause_id, clause[0]);
+            if (opts.globallearn) {
+                if (clause.size () > 1)
+                    Clause* c = new_learned_weak_irredundant_global_clause (alpha_a_useful.back(), neg_alpha_c_minus_c0, alpha_a, 1);
+                    // Clause* c = new_learned_redundant_clause (1);
+                else {
+                    assign_original_unit (++clause_id, clause[0]);
+                }
             }
+            if (opts.globalrecord) {
+                    for (int val : neg_alpha_c_minus_c0) {
+                        outFile << val << " ";
+                    }
+                    outFile << "\n";
+                }
             clause.clear ();
         }
 
@@ -421,6 +485,7 @@ bool Internal::least_conditional_part() {
 
         return adding_a_clause;
     }
+
 }
 
 bool Internal::globalling () {
@@ -503,12 +568,103 @@ bool Internal::globalling_decide () {
   // right now it is two random decisions
   // try to figure out a better way to do it
 
+//   printf("started the test thingy \n");
+//   print_assignment ();
+//   search_assume_decision(-1);
+//   if (!propagate ()) {
+//     printf("got a conflict!\n");
+//     analyze ();
+//   }
 
-  for (int i = 1; i <= Internal::max_var; i++) {
-    for (int j = 1; j <= Internal::max_var; j++) {
-      for (int sign = 0; sign < 4; sign++) {
-        if (j == i)
+// search_assume_decision(527);
+
+
+//   if (!propagate ()) {
+//     printf("got a conflict!\n");
+//     analyze ();
+//   }
+
+//    printf("DOING A GLOBAL CHECK!!! \n");
+//    global_counter = global_counter + 1;
+//    least_conditional_part ();
+//    backtrack ();
+//    printf("did the test thingy");
+
+   std::ofstream outFile("global_clauses.txt");
+    if (!outFile) {
+        error ("Error: File could not be created.");
+    }
+
+  if (!opts.globalrandom){
+    for (int i = 1; i <= Internal::max_var; i++) {
+        for (int j = 1; j <= Internal::max_var; j++) {
+        for (int sign = 0; sign < 4; sign++) {
+            if (j == i)
+                continue;
+
+            int fst_sign = pow(-1, (sign/2));
+            int snd_sign = pow(-1, (sign % 2));
+
+            int fst_val = fst_sign * i;
+            int snd_val = snd_sign * j;
+
+            
+
+            printf("making the decisions %d and %d \n", fst_val, snd_val);
+            if (val (fst_val))
+                continue;
+
+            printf("    deciding first val \n");
+            search_assume_decision(fst_val);
+
+            if (!propagate ()) {
+                // analyze ();
+                // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
+                backtrack ();
+                continue;
+            }
+
+            if (val (snd_val)) {
+                backtrack ();
+                continue;
+            }
+            
+            printf("    deciding second val \n");
+            search_assume_decision(snd_val);
+            printf("    made second search_assume_decision");
+
+            if (!propagate ()) {
+                // analyze ();
+                // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
+                backtrack ();
+                continue;
+            }
+
+            printf("DOING A GLOBAL CHECK!!! \n");
+            global_counter = global_counter + 1;
+            least_conditional_part (outFile);
+            backtrack ();
+        }
+        }
+     }
+  } else {
+    printf("enters random stage");
+    for (int k = 0; k < 4 * Internal::max_var; k++) {
+        printf("enters for loop");
+        // srand(std::time(0));
+        int i = (rand() % Internal::max_var) + 1;
+        printf("one \n");
+        // srand(std::time(0));
+        printf("two \n");
+        int j = (rand() % Internal::max_var) + 1;
+        printf("We have i %d adn j %d with max_var %d \n", i, j , Internal::max_var);
+        if (i == j)
             continue;
+
+
+        // srand(std::time(0));
+        printf("three \n");
+        int sign = rand() % 4;
 
         int fst_sign = pow(-1, (sign/2));
         int snd_sign = pow(-1, (sign % 2));
@@ -516,9 +672,8 @@ bool Internal::globalling_decide () {
         int fst_val = fst_sign * i;
         int snd_val = snd_sign * j;
 
-        
 
-        printf("making the decisions %d and %d \n", fst_val, snd_val);
+        printf("making the decisions (randomly) %d and %d \n", fst_val, snd_val);
         if (val (fst_val))
             continue;
 
@@ -526,7 +681,9 @@ bool Internal::globalling_decide () {
         search_assume_decision(fst_val);
 
         if (!propagate ()) {
-            analyze ();
+            // analyze ();
+            // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
+            backtrack ();
             continue;
         }
 
@@ -540,15 +697,16 @@ bool Internal::globalling_decide () {
         printf("    made second search_assume_decision");
 
         if (!propagate ()) {
-            analyze ();
+            // analyze ();
+            // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
+            backtrack ();
             continue;
         }
 
         printf("DOING A GLOBAL CHECK!!! \n");
         global_counter = global_counter + 1;
-        least_conditional_part ();
+        least_conditional_part (outFile);
         backtrack ();
-      }
     }
   }
 //   decide ();
