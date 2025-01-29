@@ -1,9 +1,0 @@
-[precochk] searching solution line in 'tests/regr3.out'
-[precochk] found solution line 's SATISFIABLE'
-[precochk] searching dimacs header in 'tests/regr3.cnf'
-[precochk] found dimacs header 'p cnf 7 7'
-[precochk] searching for values in 'tests/regr3.out'
-[precochk] found all 7 values
-[precochk] solution file closed
-[precochk] checked 7 clauses
-[precochk] satisfiable and solution correct

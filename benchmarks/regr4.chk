@@ -1,9 +1,0 @@
-[precochk] searching solution line in 'tests/regr4.out'
-[precochk] found solution line 's SATISFIABLE'
-[precochk] searching dimacs header in 'tests/regr4.cnf'
-[precochk] found dimacs header 'p cnf 10 5'
-[precochk] searching for values in 'tests/regr4.out'
-[precochk] found all 10 values
-[precochk] solution file closed
-[precochk] checked 5 clauses
-[precochk] satisfiable and solution correct

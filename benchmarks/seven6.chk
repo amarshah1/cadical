@@ -1,9 +1,0 @@
-[precochk] searching solution line in 'tests/seven6.out'
-[precochk] found solution line 's SATISFIABLE'
-[precochk] searching dimacs header in 'tests/seven6.cnf'
-[precochk] found dimacs header 'p cnf 3 7'
-[precochk] searching for values in 'tests/seven6.out'
-[precochk] found all 3 values
-[precochk] solution file closed
-[precochk] checked 7 clauses
-[precochk] satisfiable and solution correct
