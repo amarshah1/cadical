@@ -122,6 +122,7 @@ bool Internal::better_decision (int lit, int other) {
 int Internal::decide () {
   assert (!satisfied ());
   START (decide);
+  global_switch = false; // once you make a decision, reset global switch to false
   int res = 0;
   if ((size_t) level < assumptions.size ()) {
     const int lit = assumptions[level];

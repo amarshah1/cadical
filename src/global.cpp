@@ -493,13 +493,13 @@ bool Internal::globalling () {
 
   if (!opts.global)
     return false;
-  if (!preprocessing && !opts.inprocessing)
-    return false;
+//   if (!preprocessing && !opts.inprocessing)
+//     return false;
   // for right now we only do global step in assumptions
 //   if (!in_assumptions)
 //     return false;
-  if (preprocessing)
-    assert (lim.preprocessing);
+//   if (preprocessing)
+//     assert (lim.preprocessing);
 
   // Triggered in regular 'opts.globalint' conflict intervals.
   //
@@ -510,19 +510,58 @@ bool Internal::globalling () {
     return false; // One decision necessary.
   }
 
-  LOG("DOING A GLOBAL CHECK!!! \n");
-  global_counter = global_counter + 1;
+  if (global_switch) {
+    return false;
+  }
 
-  // runtime for  
-//   if (global_counter % 8 != 0) {
+  if (is_decision (global_decision1) && is_decision (global_decision2))
+    return false;
+
+
+  bool reached_first_decision = false;
+  for (int i = 1; i <= Internal::max_var; i++) {
+        const signed char tmp = val (i);
+        if (tmp > 0 && is_decision (i)) {
+            if (reached_first_decision) {
+                global_decision2 = i;
+            } else  {
+                global_decision1 = i;
+                reached_first_decision = true;
+            }
+        } else if (tmp < 0 && is_decision (-i)) {
+            if (reached_first_decision)
+                global_decision2 = -i;
+            else {
+                global_decision1 = -i;
+                reached_first_decision = true;
+            }
+        }
+    }
+
+
+
+
+  
+
+  global_switch = true;
+
+//   global_counter = global_counter + 1;
+
+//   // runtime for  
+//   if (global_counter % global_interval != 0) {
 //     return false;
 //   }
+
+//   global_interval = (rand() % 8) + 2;
 
 //   global_counter = global_counter + 1;
 
 
 //   if (level <= averages.current.jump)
 //     return false; // Main heuristic.
+
+  printf("Globalling with assignment");
+  print_assignment ();
 
   return true;
 
@@ -535,6 +574,13 @@ bool Internal::globalling () {
 //   return ratio <= opts.globalmaxrat;
 }
 
+
+
+
+
+
+
+
 // a version of globalling that also makes decision
 // todo: write this
 bool Internal::globalling_decide () {
@@ -542,7 +588,7 @@ bool Internal::globalling_decide () {
 
   if (!opts.global)
     return false;
-  if (!preprocessing && !opts.inprocessing)
+  if (!preprocessing) // && !opts.inprocessing)
     return false;
 //   // for right now we only do global step in assumptions
 //   if (!in_assumptions)

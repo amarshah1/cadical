@@ -1122,6 +1122,10 @@ struct Internal {
   bool globalling ();
   bool globalling_decide ();
   int global_counter = 0;
+  int global_interval = 8;
+  bool global_switch = false; // a switch when true prevents you from re-entering the globally blocked clause stage
+  int global_decision1 = 1;
+  int global_decision2 = 1;
   void global();
   bool least_conditional_part(std::ofstream& outFile);
   void print_assignment();

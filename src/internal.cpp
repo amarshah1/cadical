@@ -1,4 +1,5 @@
 #include "internal.hpp"
+#include <fstream>  // For file handling
 
 namespace CaDiCaL {
 
@@ -270,6 +271,11 @@ int Internal::cdcl_loop_with_inprocessing () {
     report ('{');
   }
 
+  std::ofstream outFile("global_clauses.txt");
+  if (!outFile) {
+      error ("Error: File could not be created.");
+  }
+
   while (!res) {
     // assumptions_num_iters += 1;
     // if (in_assumptions && assumptions_num_iters > 1000) {
@@ -348,8 +354,8 @@ int Internal::cdcl_loop_with_inprocessing () {
       res = 20;
     }
     // changed this to globalling decide
-    else if (globalling_decide ()) {
-      // bool added_a_clause = least_conditional_part();
+    else if (globalling ()) {
+      bool added_a_clause = least_conditional_part(outFile);
       if (in_assumptions) { // && added_a_clause) {
         // trying to reduce after each round of assumptions
         // seems to make things slightly faster:
