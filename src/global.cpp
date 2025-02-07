@@ -111,6 +111,9 @@ int min(int i, int j) {
 bool Internal::least_conditional_part(std::ofstream& outFile) {
 
     START (global);
+
+    printf("we have propagated: %d \n", propagated);
+    printf("we have trail.size: %d \n", trail.size ());
     print_assignment();
     // bool satisfied = false; // Root level satisfied.
 
@@ -144,12 +147,11 @@ bool Internal::least_conditional_part(std::ofstream& outFile) {
         if (c->redundant && !proof) continue;
 
         // DEBUGGING START
-        LOG("AWe are considering the clause: ");
-        for(const_literal_iterator l = c->begin (); l != c->end (); l++){
-            const int lit = *l;
-            LOG("%d ", lit);
-        }
-        LOG("\n");
+        // LOG("AWe are considering the clause: ");
+        // for(auto lit : *c){
+        //     LOG("%d ", lit);
+        // }
+        // LOG("\n");
         // DEBUGGING END
 
         // current assignment satisfies current clause
@@ -182,10 +184,8 @@ bool Internal::least_conditional_part(std::ofstream& outFile) {
             continue;
         }
 
-        for (const_literal_iterator l = c->begin (); l != c->end (); l++) {
-            const int lit = *l;
+        for (auto lit : *c) {
             const signed char lit_val = val (lit);
-            // LOG("here \n");
             if (lit_val > 0) { // positive assignment
                 // printf("    We satisfy the clause with literal: %d \n", lit);
                 satisfies_clause = true;
@@ -365,8 +365,17 @@ bool Internal::least_conditional_part(std::ofstream& outFile) {
 
 
         if (!propagate ()) {
-            // analyze ();
-            printf("exited analyze! \n");
+            printf("We got a conflict when propagating from %d\n", -alpha_a[i]);
+            print_assignment ();
+            analyze ();
+            propagate ();
+            print_assignment ();
+            if (unsat) {
+                STOP (global);
+                return false;
+            }
+            // todo : this needs to be a loop
+            printf("found unit : %d! \n", alpha_a[i]);
             useful_alpha_i += 1;
             continue;
         } 
@@ -454,6 +463,7 @@ bool Internal::least_conditional_part(std::ofstream& outFile) {
                         outFile << val << " ";
                     }
                     outFile << "\n";
+                    outFile.flush();
                 }
                 clause.clear ();
             }
@@ -465,27 +475,33 @@ bool Internal::least_conditional_part(std::ofstream& outFile) {
             printf("We are adding the reduced globally blocked clause:");
             print_vector(clause);
             if (opts.globallearn) {
-                if (clause.size () > 1)
+                if (clause.size () > 1) {
+                    printf("actually learning the cluase!");
                     Clause* c = new_learned_weak_irredundant_global_clause (alpha_a_useful.back(), neg_alpha_c_minus_c0, alpha_a, 1);
                     // Clause* c = new_learned_redundant_clause (1);
-                else {
+                } else {
                     assign_original_unit (++clause_id, clause[0]);
                 }
             }
+            printf("made it past the learning! \n");
             if (opts.globalrecord) {
+                printf("actually recording the clause!");
                     for (int val : neg_alpha_c_minus_c0) {
                         outFile << val << " ";
                     }
                     outFile << "\n";
+                    outFile.flush();
                 }
+            printf("made it past the recording! \n");
+
             clause.clear ();
         }
 
-        STOP (global);
-
-        return adding_a_clause;
+    // note we do this inside the for loop, since we only want to do add one clause
+    STOP (global);
+    return adding_a_clause;
     }
-
+    return false;
 }
 
 bool Internal::globalling () {
@@ -510,40 +526,51 @@ bool Internal::globalling () {
     return false; // One decision necessary.
   }
 
-  if (global_switch) {
-    return false;
-  }
+//   if (global_switch) {
+//     return false;
+//   }
 
-  if (is_decision (global_decision1) && is_decision (global_decision2))
+  printf("Checking the decisions %d and %d \n", global_decision1, global_decision2);
+
+  if (global_decision1 <= max_var && global_decision2 <= max_var && is_decision (global_decision1) && is_decision (global_decision2))
     return false;
 
 
   bool reached_first_decision = false;
-  for (int i = 1; i <= Internal::max_var; i++) {
-        const signed char tmp = val (i);
-        if (tmp > 0 && is_decision (i)) {
-            if (reached_first_decision) {
-                global_decision2 = i;
-            } else  {
-                global_decision1 = i;
-                reached_first_decision = true;
-            }
-        } else if (tmp < 0 && is_decision (-i)) {
-            if (reached_first_decision)
-                global_decision2 = -i;
-            else {
-                global_decision1 = -i;
-                reached_first_decision = true;
-            }
-        }
+//   for (int i = 1; i <= Internal::max_var; i++) {
+//         const signed char tmp = val (i);
+//         if (tmp > 0 && is_decision (i)) {
+//             if (reached_first_decision) {
+//                 global_decision2 = i;
+//             } else  {
+//                 global_decision1 = i;
+//                 reached_first_decision = true;
+//             }
+//         } else if (tmp < 0 && is_decision (-i)) {
+//             if (reached_first_decision)
+//                 global_decision2 = -i;
+//             else {
+//                 global_decision1 = -i;
+//                 reached_first_decision = true;
+//             }
+//         }
+//     }
+
+for (int i =1; i< control.size (); i++) {
+    if (reached_first_decision) {
+        global_decision2 = control[i].decision;
+    } else {
+        global_decision1 = control[i].decision;
+        reached_first_decision = true;
     }
+}
+
+    print_assignment ();
+
+    printf("Added new decisions %d and %d \n", global_decision1, global_decision2);
 
 
-
-
-  
-
-  global_switch = true;
+//   global_switch = true;
 
 //   global_counter = global_counter + 1;
 

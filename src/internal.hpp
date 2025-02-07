@@ -370,6 +370,8 @@ struct Internal {
     assert (lit);
     assert (lit != INT_MIN);
     idx = abs (lit);
+    if (idx > max_var)
+      printf("The max_var is %d", max_var);
     assert (idx <= max_var);
     return idx;
   }

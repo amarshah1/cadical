@@ -77,6 +77,7 @@ void Internal::backtrack (int new_level) {
 
   LOG("WE ARE BACKTRACKING AT LEVEL %D\n", level);
 
+  printf("We are backtracking from level %d to level %d \n", level, new_level);
   assert (new_level <= level);
   if (new_level == level)
     return;

@@ -271,10 +271,13 @@ int Internal::cdcl_loop_with_inprocessing () {
     report ('{');
   }
 
-  std::ofstream outFile("global_clauses.txt");
+  std::ofstream outFile;
+  char* filename = getenv("CADICAL_FILENAME");
+  outFile.open (filename);
   if (!outFile) {
       error ("Error: File could not be created.");
   }
+
 
   while (!res) {
     // assumptions_num_iters += 1;
@@ -333,7 +336,9 @@ int Internal::cdcl_loop_with_inprocessing () {
     else if (compacting ())
       compact (); // collect variables
     else if (conditioning ())
-      condition (); // amar: globally blocked clauses
+      condition (); 
+
+      
     // else if (rat_finding ()) {
     //   if (detect_rat ()) {
     //     clause = assumptions;
@@ -356,15 +361,57 @@ int Internal::cdcl_loop_with_inprocessing () {
     // changed this to globalling decide
     else if (globalling ()) {
       bool added_a_clause = least_conditional_part(outFile);
-      if (in_assumptions) { // && added_a_clause) {
-        // trying to reduce after each round of assumptions
-        // seems to make things slightly faster:
-        // can do pigeonhole 40 in  134.11 seconds
-        // reduce (); // collect useless clauses
-        res = 20;
-      } else {
-        // printf("we are NOT in assumptions! \n");
+
+      // unecessary because we return false if we find a conflict through propagation
+      // if (unsat) {
+      //   continue;
+      // }
+
+      // remake the same old decision -> this is super hacky
+      // I currently need this because the solver expects us to be at a certain decsion level
+      // todo: find a better way to do this
+      if (added_a_clause) {
+        backtrack ();
+        print_assignment ();
+        if (!propagate ()) {
+          printf("found a conflict here!");
+          analyze ();
+        }
+        printf("propagated once at level %d! \n", level);
+        // decide ();
+        Flags &f = flags (global_decision1);
+        if (!(f.status == Flags::FIXED)) {
+          printf("Literal %d is not fixed \n", global_decision1);
+          search_assume_decision (global_decision1);
+          if (!propagate ()) {
+            printf("found a conflict here!");
+            analyze ();
+          }
+        }
+        printf("propagated twice at level %d! \n", level);
+        // decide ();
+        Flags &g = flags (global_decision2);
+        if (!(g.status == Flags::FIXED)) {
+          printf("Literal %d is not fixed \n", global_decision2);
+          search_assume_decision (global_decision2);
+          if (!propagate ()) {
+            printf("found a conflict here!");
+            analyze ();
+          }
+        }
+        printf("propagated thrice at level %d! \n", level);
       }
+
+
+      // if (in_assumptions) { // && added_a_clause) {
+      //   // trying to reduce after each round of assumptions
+      //   // seems to make things slightly faster:
+      //   // can do pigeonhole 40 in  134.11 seconds
+      //   // reduce (); // collect useless clauses
+      //   res = 20;
+      // } else {
+      //   // printf("we are NOT in assumptions! \n");
+      // }
     } else
       res = decide (); // next decision
   }
