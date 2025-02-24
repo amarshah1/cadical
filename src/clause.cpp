@@ -671,9 +671,12 @@ Clause *Internal::new_learned_weak_irredundant_global_clause (int lit, vector<in
 #endif
   external->check_learned_clause ();
   Clause *res = new_clause (false, glue);
+  printf("made it in here!!\n");
   if (proof) {
     proof->add_derived_globally_blocked_clause (lit, negated_conditional, autarky, lrat_chain);
   }
+  printf("made it past here!!\n");
+
   assert (watching ());
   watch_clause (res);
   return res;

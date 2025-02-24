@@ -288,6 +288,8 @@ void Proof::add_derived_globally_blocked_clause (int lit, vector<int> negated_co
   }
   add_literal(lit);
   add_literals(negated_conditional); //negated conditional stuff
+  // todo : need to fix the literal appearing twice bug, but its kinda complicated
+  // if (autarky_minus_lit.size () == 0 || autarky_minus_lit[0] != lit)
   add_literal(lit);
   add_literals(autarky_minus_lit); // autarky minus lit
   for (const auto &cid : chain)

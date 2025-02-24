@@ -779,7 +779,7 @@ int App::main (int argc, char **argv) {
 #endif
         solver->set_assumptions_mode (true);
         // solver->set_assumptions (cube);
-        // printf("in a solving mode \n");
+        printf("in a solving mode \n");
         res = solver->solve ();
         // printf("Here is the solver state: \n");
         // amar: turn this back on to print formulas

@@ -1126,10 +1126,10 @@ struct Internal {
   int global_counter = 0;
   int global_interval = 8;
   bool global_switch = false; // a switch when true prevents you from re-entering the globally blocked clause stage
-  int global_decision1 = 1;
-  int global_decision2 = 1;
+  int global_decision1 = 0;
+  int global_decision2 = 0;
   void global();
-  bool least_conditional_part(std::ofstream& outFile);
+  bool least_conditional_part(std::ofstream& outFile, std::ofstream& outFile_pr);
   void print_assignment();
   int length_of_current_assignment();
   void sort_vec_by_decision_level(vector<int>* v);

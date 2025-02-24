@@ -278,6 +278,16 @@ int Internal::cdcl_loop_with_inprocessing () {
       error ("Error: File could not be created.");
   }
 
+  std::ofstream outFile_pr;
+  std::string filename_pr = filename;  // Implicit conversion
+  filename_pr += "_pr";
+
+  outFile_pr.open (filename_pr);
+  if (!outFile_pr) {
+      error ("Error: File could not be created.");
+  }
+
+
 
   while (!res) {
     // assumptions_num_iters += 1;
@@ -360,7 +370,7 @@ int Internal::cdcl_loop_with_inprocessing () {
     }
     // changed this to globalling decide
     else if (globalling ()) {
-      bool added_a_clause = least_conditional_part(outFile);
+      bool added_a_clause = least_conditional_part(outFile, outFile_pr);
 
       // unecessary because we return false if we find a conflict through propagation
       // if (unsat) {
@@ -370,7 +380,7 @@ int Internal::cdcl_loop_with_inprocessing () {
       // remake the same old decision -> this is super hacky
       // I currently need this because the solver expects us to be at a certain decsion level
       // todo: find a better way to do this
-      if (added_a_clause) {
+      if (added_a_clause && !opts.globalbcp) {
         backtrack ();
         print_assignment ();
         if (!propagate ()) {
@@ -390,28 +400,31 @@ int Internal::cdcl_loop_with_inprocessing () {
         }
         printf("propagated twice at level %d! \n", level);
         // decide ();
-        Flags &g = flags (global_decision2);
-        if (!(g.status == Flags::FIXED)) {
-          printf("Literal %d is not fixed \n", global_decision2);
-          search_assume_decision (global_decision2);
-          if (!propagate ()) {
-            printf("found a conflict here!");
-            analyze ();
+        // kinda hacky ~but I was running into a problem with pigeonhole where global_decision2 was 0
+        if (global_decision2) {
+          Flags &g = flags (global_decision2);
+          if (!(g.status == Flags::FIXED)) {
+            printf("Literal %d is not fixed \n", global_decision2);
+            search_assume_decision (global_decision2);
+            if (!propagate ()) {
+              printf("found a conflict here!");
+              analyze ();
+            }
           }
         }
         printf("propagated thrice at level %d! \n", level);
       }
 
 
-      // if (in_assumptions) { // && added_a_clause) {
-      //   // trying to reduce after each round of assumptions
-      //   // seems to make things slightly faster:
-      //   // can do pigeonhole 40 in  134.11 seconds
-      //   // reduce (); // collect useless clauses
-      //   res = 20;
-      // } else {
-      //   // printf("we are NOT in assumptions! \n");
-      // }
+      if (in_assumptions) { // && added_a_clause) {
+        // trying to reduce after each round of assumptions
+        // seems to make things slightly faster:
+        // can do pigeonhole 40 in  134.11 seconds
+        // reduce (); // collect useless clauses
+        res = 20;
+      } else {
+        // printf("we are NOT in assumptions! \n");
+      }
     } else
       res = decide (); // next decision
   }
@@ -421,6 +434,9 @@ int Internal::cdcl_loop_with_inprocessing () {
     LOG("making a reduction here with level: %D", level);
     reduce ();
   }
+
+
+  
 
   if (stable) {
     STOP (stable);
@@ -898,6 +914,19 @@ int Internal::solve (bool preprocess_only) {
   reset_solving ();
   report_solving (res);
   STOP (solve);
+  std::ofstream outFile_conflicts;
+  char* filename_original = getenv("CADICAL_FILENAME");
+  if (filename_original) {
+      std::string filename_conflicts = filename_original;  // Implicit conversion
+      filename_conflicts += "_conflicts";
+
+      std::ofstream outFile_conflicts;
+      outFile_conflicts.open (filename_conflicts);
+      if (!outFile_conflicts) {
+          error ("Error: File could not be created.");
+      }
+      outFile_conflicts << stats.conflicts;
+  }
   return res;
 }
 

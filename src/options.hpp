@@ -99,7 +99,9 @@ OPTION( flushint,        1e5,  1,2e9,0,0,1, "initial limit") \
 OPTION( forcephase,        0,  0,  1,0,0,1, "always use initial phase") \
 OPTION( frat,              0,  0,  2,0,0,1, "1=frat(lrat), 2=frat(drat)") \
 OPTION( global,            0,  0,  1,0,0,1, "globally blocked clause addition") \
+OPTION( globalbcp,         0,  0,  1,0,0,1, "will shrink GBCs based on binary clauses not propagation") \
 OPTION( globallearn,       1,  0,  1,0,0,1, "learn clauses in the globally blocked step") \
+OPTION( globalnoshrink,    0,  0,  1,0,0,1, "will not shrink globally blocked clauses") \
 OPTION( globalrandom,      0,  0,  1,0,0,1, "randomly gives decisions for globally blocked state") \
 OPTION( globalrecord,      0,  0,  1,0,0,1, "record the global clauses learnt in global_clauses.txt") \
 OPTION( idrup,             0,  0,  1,0,0,1, "incremental proof format") \
