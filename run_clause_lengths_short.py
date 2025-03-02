@@ -104,8 +104,9 @@ def filter_gbc(original_formula, gbc_file, output_folder, file_name):
                 else:
                     print(f"The file {file_name} returned a non-zero exit status in time {elapsed_time}!")   
 
+            print(f"the num_conflicts is {num_conflicts}")
             if num_conflicts == 0:
-                gbc_file_filtered
+                gbc_file_filtered.write(line)
 
 
 
@@ -120,7 +121,7 @@ def process_file(file_name, input_dir, results_directory, mode):
         os.makedirs(f"{results_directory}/scramble/{file_name}/", exist_ok=True)
 
 
-        new_file_name = file_name.replace('.cnf', f'_{i}.cnf')
+        new_file_name = file_name.replace('.cnf', f'_scramble{i}.cnf')
         new_file_path = f'{results_directory}/scramble/{file_name}/{new_file_name}'
         scramble_cmd = f'../scranfilize/scranfilize -c 1 -f 0 -v 0 --force {file_path} {new_file_path}'
 
@@ -132,7 +133,9 @@ def process_file(file_name, input_dir, results_directory, mode):
         print("here")
 
         # Construct command
-        cmd = f'CADICAL_FILENAME="{results_directory}/global_clauses/{file_name}/{file_name}_{i}.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true '
+        output_folder = f"{results_directory}/global_clauses/{file_name}"
+        gbc_file_path = f"{output_folder}/{file_name}_{i}.global_clauses.txt"
+        cmd = f'CADICAL_FILENAME="{gbc_file_path} build/cadical --report=true --chrono=false --inprocessing=true '
         if mode != "cadical":
             cmd += '--global=true '
             if mode  == "bcp":
@@ -169,6 +172,11 @@ def process_file(file_name, input_dir, results_directory, mode):
             zipf.write(file_path, arcname=f"{results_directory}/proofs/{file_name}/{file_name}_{i}.proof.pr")
         os.remove(file_path)
 
+        # creating a filter version of the gbc
+        # filter_gbc(new_file_path, gbc_file_path, output_folder, f"{file_name}.filtered")
+
+
+
         print(f"We have finished on file {file_name}")
 
 def run_clause_lengths(results_directory="results", bcp=False):
@@ -189,7 +197,7 @@ def run_clause_lengths(results_directory="results", bcp=False):
 
 
     # Select .cnf files
-    files = [f for f in os.listdir(input_dir) if f.endswith(".cnf")][:1]
+    files = [f for f in os.listdir(input_dir) if f.endswith(".cnf")][:10]
     print(files)
 
     # Parallel execution

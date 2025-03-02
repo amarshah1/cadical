@@ -20,4 +20,4 @@ set -x
 
 cd /ocean/projects/cis230065p/ashah12/cadical
 
-python3 run_clause_lengths_short.py results_original_no_chrono2 cadical
+python3 run_clause_lengths_short.py results_scranfilized original
