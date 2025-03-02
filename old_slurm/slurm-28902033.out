@@ -1,0 +1,48 @@
++ cd /ocean/projects/cis230065p/ashah12/cadical
++ python3 run_clause_lengths.py
+We are looking at 63732c330adb8de8dd47ce1693b86d0e-FmlaEquivChain_4_8_8.sanitized.cnf
+The file 63732c330adb8de8dd47ce1693b86d0e-FmlaEquivChain_4_8_8.sanitized.cnf returned a non-zero exit status!
+We have finished on file 63732c330adb8de8dd47ce1693b86d0e-FmlaEquivChain_4_8_8.sanitized.cnf
+We are looking at 2b8a711debc3a6edd01e7b4e305342d9-REGRandom-K4-L2-Seed35.sanitized.cnf
+The file 2b8a711debc3a6edd01e7b4e305342d9-REGRandom-K4-L2-Seed35.sanitized.cnf timed out!
+We have finished on file 2b8a711debc3a6edd01e7b4e305342d9-REGRandom-K4-L2-Seed35.sanitized.cnf
+We are looking at 2b032f8a8976a302ad125eb50a3e8445-1-ZC-512-K-60.sanitized.cnf
+The file 2b032f8a8976a302ad125eb50a3e8445-1-ZC-512-K-60.sanitized.cnf returned a non-zero exit status!
+We have finished on file 2b032f8a8976a302ad125eb50a3e8445-1-ZC-512-K-60.sanitized.cnf
+We are looking at 878bcc11e1e243680f7946bcf428f465-linked_list_swap_contents_safety_unwind45.cnf
+The file 878bcc11e1e243680f7946bcf428f465-linked_list_swap_contents_safety_unwind45.cnf timed out!
+We have finished on file 878bcc11e1e243680f7946bcf428f465-linked_list_swap_contents_safety_unwind45.cnf
+We are looking at aa39c6d885d283a085d033ab7b89f8c8-urq45.cnf
+The file aa39c6d885d283a085d033ab7b89f8c8-urq45.cnf timed out!
+We have finished on file aa39c6d885d283a085d033ab7b89f8c8-urq45.cnf
+We are looking at a6ed647f85f20be4aedd1e9ce31cbdcd-1-ET-256-K-55.sanitized.cnf
+The file a6ed647f85f20be4aedd1e9ce31cbdcd-1-ET-256-K-55.sanitized.cnf returned a non-zero exit status!
+We have finished on file a6ed647f85f20be4aedd1e9ce31cbdcd-1-ET-256-K-55.sanitized.cnf
+We are looking at 94571e8a1081385029d1ecd53ffcdf8e-af-synthesis_stb_50_200_0_unsat.cnf
+The file 94571e8a1081385029d1ecd53ffcdf8e-af-synthesis_stb_50_200_0_unsat.cnf timed out!
+We have finished on file 94571e8a1081385029d1ecd53ffcdf8e-af-synthesis_stb_50_200_0_unsat.cnf
+We are looking at a08e66296d00f480e9ccadd79fa8b904-j3045_4_gmto_b.cnf
+The file a08e66296d00f480e9ccadd79fa8b904-j3045_4_gmto_b.cnf returned a non-zero exit status!
+We have finished on file a08e66296d00f480e9ccadd79fa8b904-j3045_4_gmto_b.cnf
+We are looking at 8942dca5dc0876fc3f723f738d72de1c-circuit_32in32out_with_64gates_8in6out_dist128_seed2.sanitized.cnf
+The file 8942dca5dc0876fc3f723f738d72de1c-circuit_32in32out_with_64gates_8in6out_dist128_seed2.sanitized.cnf timed out!
+We have finished on file 8942dca5dc0876fc3f723f738d72de1c-circuit_32in32out_with_64gates_8in6out_dist128_seed2.sanitized.cnf
+We are looking at 773f3bd29e202ff700d8b5b459857a2c-Folkman-175-9054056.sanitized.cnf
+The file 773f3bd29e202ff700d8b5b459857a2c-Folkman-175-9054056.sanitized.cnf timed out!
+We have finished on file 773f3bd29e202ff700d8b5b459857a2c-Folkman-175-9054056.sanitized.cnf
+We are looking at ecca77b5350eca6a4323edd5b38208c6-004.cnf
+The file ecca77b5350eca6a4323edd5b38208c6-004.cnf returned a non-zero exit status!
+We have finished on file ecca77b5350eca6a4323edd5b38208c6-004.cnf
+We are looking at c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf
+The file c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf returned a non-zero exit status!
+We have finished on file c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf
+We are looking at 8ffd718f763ed7a3f691cf46e57f8d98-mdp-32-10-sat.cnf
+The file 8ffd718f763ed7a3f691cf46e57f8d98-mdp-32-10-sat.cnf timed out!
+We have finished on file 8ffd718f763ed7a3f691cf46e57f8d98-mdp-32-10-sat.cnf
+We are looking at dacb03ea801d459ef08db23a8b1d104f-lec_mult_DvW_12x12.sanitized.cnf
+The file dacb03ea801d459ef08db23a8b1d104f-lec_mult_DvW_12x12.sanitized.cnf timed out!
+We have finished on file dacb03ea801d459ef08db23a8b1d104f-lec_mult_DvW_12x12.sanitized.cnf
+We are looking at d40a68825bdbcdd7642b249325a7b6a2-Folkman-180-5383714.sanitized.cnf
+The file d40a68825bdbcdd7642b249325a7b6a2-Folkman-180-5383714.sanitized.cnf timed out!
+We have finished on file d40a68825bdbcdd7642b249325a7b6a2-Folkman-180-5383714.sanitized.cnf
+slurmstepd: error: Detected 3 oom-kill event(s) in StepId=28902033.batch. Some of your processes may have been killed by the cgroup out-of-memory handler.

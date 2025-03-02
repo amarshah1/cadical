@@ -10,11 +10,11 @@ import sys
 
 # Configuration
 TIMEOUT = 60  # seconds
-TIMEOUT_GBC =5 # timeout for checking if a gbc is trival
+TIMEOUT_GBC = 5 # timeout for checking if a gbc is trival
 NUM_SCRAMBLES = 10
 
-def filter_gbc(original_formula, gbc_file, output_folder, file_name):
 
+def filter_gbc(original_formula, gbc_file, output_folder, file_name):
     # Read the global clauses file
     with open(gbc_file, "r") as f:
         lines = f.readlines()
@@ -106,12 +106,6 @@ def filter_gbc(original_formula, gbc_file, output_folder, file_name):
 
             if num_conflicts == 0:
                 gbc_file_filtered
-
-
-        
-
-
-
 
 
 

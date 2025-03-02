@@ -1,0 +1,650 @@
++ cd /ocean/projects/cis230065p/ashah12/cadical
++ python3 run_clause_lengths_short.py results_nontrivial_gbc cadical
+We are looking at 8b91c5bf4dfd87ffb46c5ef88a3ef1cd-lec_mult_DvW_12x11.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/8b91c5bf4dfd87ffb46c5ef88a3ef1cd-lec_mult_DvW_12x11.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/8b91c5bf4dfd87ffb46c5ef88a3ef1cd-lec_mult_DvW_12x11.sanitized.cnf results_nontrivial_gbc/proofs/8b91c5bf4dfd87ffb46c5ef88a3ef1cd-lec_mult_DvW_12x11.sanitized.cnf.proof.pr
+The file 8b91c5bf4dfd87ffb46c5ef88a3ef1cd-lec_mult_DvW_12x11.sanitized.cnf timed out in time 60.00425934791565!
+We have finished on file 8b91c5bf4dfd87ffb46c5ef88a3ef1cd-lec_mult_DvW_12x11.sanitized.cnf
+We are looking at 475803537529d9d14a034957f48a6d38-x9-09076.sat.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/475803537529d9d14a034957f48a6d38-x9-09076.sat.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/475803537529d9d14a034957f48a6d38-x9-09076.sat.sanitized.cnf results_nontrivial_gbc/proofs/475803537529d9d14a034957f48a6d38-x9-09076.sat.sanitized.cnf.proof.pr
+The file 475803537529d9d14a034957f48a6d38-x9-09076.sat.sanitized.cnf timed out in time 60.00370812416077!
+We have finished on file 475803537529d9d14a034957f48a6d38-x9-09076.sat.sanitized.cnf
+We are looking at e84b00b1f134e0e071a2baf54cfc90e8-ER_400_20_4.apx_2_DC-ST.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/e84b00b1f134e0e071a2baf54cfc90e8-ER_400_20_4.apx_2_DC-ST.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/e84b00b1f134e0e071a2baf54cfc90e8-ER_400_20_4.apx_2_DC-ST.cnf results_nontrivial_gbc/proofs/e84b00b1f134e0e071a2baf54cfc90e8-ER_400_20_4.apx_2_DC-ST.cnf.proof.pr
+The file e84b00b1f134e0e071a2baf54cfc90e8-ER_400_20_4.apx_2_DC-ST.cnf timed out in time 60.00408053398132!
+We have finished on file e84b00b1f134e0e071a2baf54cfc90e8-ER_400_20_4.apx_2_DC-ST.cnf
+We are looking at b8c7c777e76995e5bf7b517f2db234ba-noL-11-16.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/b8c7c777e76995e5bf7b517f2db234ba-noL-11-16.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/b8c7c777e76995e5bf7b517f2db234ba-noL-11-16.sanitized.cnf results_nontrivial_gbc/proofs/b8c7c777e76995e5bf7b517f2db234ba-noL-11-16.sanitized.cnf.proof.pr
+The file b8c7c777e76995e5bf7b517f2db234ba-noL-11-16.sanitized.cnf timed out in time 60.007256269454956!
+We have finished on file b8c7c777e76995e5bf7b517f2db234ba-noL-11-16.sanitized.cnf
+We are looking at de7a6b03999e2bc5bd750831c2662a4d-noL-11-18.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/de7a6b03999e2bc5bd750831c2662a4d-noL-11-18.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/de7a6b03999e2bc5bd750831c2662a4d-noL-11-18.sanitized.cnf results_nontrivial_gbc/proofs/de7a6b03999e2bc5bd750831c2662a4d-noL-11-18.sanitized.cnf.proof.pr
+The file de7a6b03999e2bc5bd750831c2662a4d-noL-11-18.sanitized.cnf timed out in time 60.00305128097534!
+We have finished on file de7a6b03999e2bc5bd750831c2662a4d-noL-11-18.sanitized.cnf
+We are looking at 4d7f6efbae05b66ffbbd509a430d57f8-stb_418_125.apx_1_DC-ST.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/4d7f6efbae05b66ffbbd509a430d57f8-stb_418_125.apx_1_DC-ST.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/4d7f6efbae05b66ffbbd509a430d57f8-stb_418_125.apx_1_DC-ST.cnf results_nontrivial_gbc/proofs/4d7f6efbae05b66ffbbd509a430d57f8-stb_418_125.apx_1_DC-ST.cnf.proof.pr
+The file 4d7f6efbae05b66ffbbd509a430d57f8-stb_418_125.apx_1_DC-ST.cnf timed out in time 60.00338625907898!
+We have finished on file 4d7f6efbae05b66ffbbd509a430d57f8-stb_418_125.apx_1_DC-ST.cnf
+We are looking at ef330d1b144055436a2d576601191ea5-crn_11_99_u.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/ef330d1b144055436a2d576601191ea5-crn_11_99_u.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/ef330d1b144055436a2d576601191ea5-crn_11_99_u.cnf results_nontrivial_gbc/proofs/ef330d1b144055436a2d576601191ea5-crn_11_99_u.cnf.proof.pr
+The file ef330d1b144055436a2d576601191ea5-crn_11_99_u.cnf returned UNSAT in time 7.62450647354126!
+We have finished on file ef330d1b144055436a2d576601191ea5-crn_11_99_u.cnf
+We are looking at 3184e52e950ac39095a801c418f68d50-mdp-28-10-unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/3184e52e950ac39095a801c418f68d50-mdp-28-10-unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/3184e52e950ac39095a801c418f68d50-mdp-28-10-unsat.cnf results_nontrivial_gbc/proofs/3184e52e950ac39095a801c418f68d50-mdp-28-10-unsat.cnf.proof.pr
+The file 3184e52e950ac39095a801c418f68d50-mdp-28-10-unsat.cnf timed out in time 60.00310182571411!
+We have finished on file 3184e52e950ac39095a801c418f68d50-mdp-28-10-unsat.cnf
+We are looking at bd8bc25be2b36c64b38459c17e815814-pcmax-scheduling-m11-1517-6802-UNSAT.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/bd8bc25be2b36c64b38459c17e815814-pcmax-scheduling-m11-1517-6802-UNSAT.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/bd8bc25be2b36c64b38459c17e815814-pcmax-scheduling-m11-1517-6802-UNSAT.sanitized.cnf results_nontrivial_gbc/proofs/bd8bc25be2b36c64b38459c17e815814-pcmax-scheduling-m11-1517-6802-UNSAT.sanitized.cnf.proof.pr
+The file bd8bc25be2b36c64b38459c17e815814-pcmax-scheduling-m11-1517-6802-UNSAT.sanitized.cnf timed out in time 60.00328350067139!
+We have finished on file bd8bc25be2b36c64b38459c17e815814-pcmax-scheduling-m11-1517-6802-UNSAT.sanitized.cnf
+We are looking at a9cb77454c6cfdf4092fb304d3aae8b7-mdp-32-16-sat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/a9cb77454c6cfdf4092fb304d3aae8b7-mdp-32-16-sat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/a9cb77454c6cfdf4092fb304d3aae8b7-mdp-32-16-sat.cnf results_nontrivial_gbc/proofs/a9cb77454c6cfdf4092fb304d3aae8b7-mdp-32-16-sat.cnf.proof.pr
+The file a9cb77454c6cfdf4092fb304d3aae8b7-mdp-32-16-sat.cnf timed out in time 60.003217697143555!
+We have finished on file a9cb77454c6cfdf4092fb304d3aae8b7-mdp-32-16-sat.cnf
+We are looking at a08e66296d00f480e9ccadd79fa8b904-j3045_4_gmto_b.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/a08e66296d00f480e9ccadd79fa8b904-j3045_4_gmto_b.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/a08e66296d00f480e9ccadd79fa8b904-j3045_4_gmto_b.cnf results_nontrivial_gbc/proofs/a08e66296d00f480e9ccadd79fa8b904-j3045_4_gmto_b.cnf.proof.pr
+The file a08e66296d00f480e9ccadd79fa8b904-j3045_4_gmto_b.cnf timed out in time 60.004443407058716!
+We have finished on file a08e66296d00f480e9ccadd79fa8b904-j3045_4_gmto_b.cnf
+We are looking at 5a068ba62fe30e435a76e2ec80896ef4-ITC2021_Middle_1.xml.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/5a068ba62fe30e435a76e2ec80896ef4-ITC2021_Middle_1.xml.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/5a068ba62fe30e435a76e2ec80896ef4-ITC2021_Middle_1.xml.cnf results_nontrivial_gbc/proofs/5a068ba62fe30e435a76e2ec80896ef4-ITC2021_Middle_1.xml.cnf.proof.pr
+The file 5a068ba62fe30e435a76e2ec80896ef4-ITC2021_Middle_1.xml.cnf timed out in time 60.00524854660034!
+We have finished on file 5a068ba62fe30e435a76e2ec80896ef4-ITC2021_Middle_1.xml.cnf
+We are looking at 1a20d903db74ab566efc68a35e6b0ec5-hwmcc20miters-iso-rast-p11.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/1a20d903db74ab566efc68a35e6b0ec5-hwmcc20miters-iso-rast-p11.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/1a20d903db74ab566efc68a35e6b0ec5-hwmcc20miters-iso-rast-p11.sanitized.cnf results_nontrivial_gbc/proofs/1a20d903db74ab566efc68a35e6b0ec5-hwmcc20miters-iso-rast-p11.sanitized.cnf.proof.pr
+The file 1a20d903db74ab566efc68a35e6b0ec5-hwmcc20miters-iso-rast-p11.sanitized.cnf timed out in time 60.006080865859985!
+We have finished on file 1a20d903db74ab566efc68a35e6b0ec5-hwmcc20miters-iso-rast-p11.sanitized.cnf
+We are looking at cc30e4eedbcf9c3bc110894d08781246-j3037_9_mdd_bm1.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/cc30e4eedbcf9c3bc110894d08781246-j3037_9_mdd_bm1.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/cc30e4eedbcf9c3bc110894d08781246-j3037_9_mdd_bm1.cnf results_nontrivial_gbc/proofs/cc30e4eedbcf9c3bc110894d08781246-j3037_9_mdd_bm1.cnf.proof.pr
+The file cc30e4eedbcf9c3bc110894d08781246-j3037_9_mdd_bm1.cnf timed out in time 60.00355792045593!
+We have finished on file cc30e4eedbcf9c3bc110894d08781246-j3037_9_mdd_bm1.cnf
+We are looking at 1009c791cee542cdf19651fe25e6881a-summle_X4053_steps8_I1-2-2-4-4-8-25-100.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/1009c791cee542cdf19651fe25e6881a-summle_X4053_steps8_I1-2-2-4-4-8-25-100.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/1009c791cee542cdf19651fe25e6881a-summle_X4053_steps8_I1-2-2-4-4-8-25-100.cnf results_nontrivial_gbc/proofs/1009c791cee542cdf19651fe25e6881a-summle_X4053_steps8_I1-2-2-4-4-8-25-100.cnf.proof.pr
+The file 1009c791cee542cdf19651fe25e6881a-summle_X4053_steps8_I1-2-2-4-4-8-25-100.cnf timed out in time 60.01317524909973!
+We have finished on file 1009c791cee542cdf19651fe25e6881a-summle_X4053_steps8_I1-2-2-4-4-8-25-100.cnf
+We are looking at 96a6796405061571e12d383efe27b703-WS_500_16_70_10.apx_1_DC-ST.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/96a6796405061571e12d383efe27b703-WS_500_16_70_10.apx_1_DC-ST.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/96a6796405061571e12d383efe27b703-WS_500_16_70_10.apx_1_DC-ST.cnf results_nontrivial_gbc/proofs/96a6796405061571e12d383efe27b703-WS_500_16_70_10.apx_1_DC-ST.cnf.proof.pr
+The file 96a6796405061571e12d383efe27b703-WS_500_16_70_10.apx_1_DC-ST.cnf timed out in time 60.002896308898926!
+We have finished on file 96a6796405061571e12d383efe27b703-WS_500_16_70_10.apx_1_DC-ST.cnf
+We are looking at 0d81711a3d73c828e8c6e12607eda82d-noL-11-20.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/0d81711a3d73c828e8c6e12607eda82d-noL-11-20.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/0d81711a3d73c828e8c6e12607eda82d-noL-11-20.sanitized.cnf results_nontrivial_gbc/proofs/0d81711a3d73c828e8c6e12607eda82d-noL-11-20.sanitized.cnf.proof.pr
+The file 0d81711a3d73c828e8c6e12607eda82d-noL-11-20.sanitized.cnf timed out in time 60.003748416900635!
+We have finished on file 0d81711a3d73c828e8c6e12607eda82d-noL-11-20.sanitized.cnf
+We are looking at 02066c116dbacc40ec5cca2067db26c0-mrpp_4x4#12_12.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/02066c116dbacc40ec5cca2067db26c0-mrpp_4x4#12_12.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/02066c116dbacc40ec5cca2067db26c0-mrpp_4x4#12_12.cnf results_nontrivial_gbc/proofs/02066c116dbacc40ec5cca2067db26c0-mrpp_4x4#12_12.cnf.proof.pr
+The file 02066c116dbacc40ec5cca2067db26c0-mrpp_4x4#12_12.cnf returned UNSAT in time 49.47585320472717!
+We have finished on file 02066c116dbacc40ec5cca2067db26c0-mrpp_4x4#12_12.cnf
+We are looking at 7f7109dce621ef361a72b3e8cee9a962-Break_unsat_06_07.xml.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/7f7109dce621ef361a72b3e8cee9a962-Break_unsat_06_07.xml.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/7f7109dce621ef361a72b3e8cee9a962-Break_unsat_06_07.xml.cnf results_nontrivial_gbc/proofs/7f7109dce621ef361a72b3e8cee9a962-Break_unsat_06_07.xml.cnf.proof.pr
+The file 7f7109dce621ef361a72b3e8cee9a962-Break_unsat_06_07.xml.cnf returned UNSAT in time 7.074420928955078!
+We have finished on file 7f7109dce621ef361a72b3e8cee9a962-Break_unsat_06_07.xml.cnf
+We are looking at e481a97a93fd6b4303f39024d19c2867-j3037_1_gmto_b.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/e481a97a93fd6b4303f39024d19c2867-j3037_1_gmto_b.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/e481a97a93fd6b4303f39024d19c2867-j3037_1_gmto_b.cnf results_nontrivial_gbc/proofs/e481a97a93fd6b4303f39024d19c2867-j3037_1_gmto_b.cnf.proof.pr
+The file e481a97a93fd6b4303f39024d19c2867-j3037_1_gmto_b.cnf timed out in time 60.00390291213989!
+We have finished on file e481a97a93fd6b4303f39024d19c2867-j3037_1_gmto_b.cnf
+We are looking at 1e74212168124b696531fed471b480b1-mdp-32-10-unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/1e74212168124b696531fed471b480b1-mdp-32-10-unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/1e74212168124b696531fed471b480b1-mdp-32-10-unsat.cnf results_nontrivial_gbc/proofs/1e74212168124b696531fed471b480b1-mdp-32-10-unsat.cnf.proof.pr
+The file 1e74212168124b696531fed471b480b1-mdp-32-10-unsat.cnf timed out in time 60.003390312194824!
+We have finished on file 1e74212168124b696531fed471b480b1-mdp-32-10-unsat.cnf
+We are looking at f15ad4206d95a3f8f1358b33301539be-ER_400_20_7.apx_1_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/f15ad4206d95a3f8f1358b33301539be-ER_400_20_7.apx_1_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/f15ad4206d95a3f8f1358b33301539be-ER_400_20_7.apx_1_DC-AD.cnf results_nontrivial_gbc/proofs/f15ad4206d95a3f8f1358b33301539be-ER_400_20_7.apx_1_DC-AD.cnf.proof.pr
+The file f15ad4206d95a3f8f1358b33301539be-ER_400_20_7.apx_1_DC-AD.cnf timed out in time 60.00350904464722!
+We have finished on file f15ad4206d95a3f8f1358b33301539be-ER_400_20_7.apx_1_DC-AD.cnf
+We are looking at 5e5fe73a2e0ffc8e19873298566919fb-rbsat-v760c43649gyes3.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/5e5fe73a2e0ffc8e19873298566919fb-rbsat-v760c43649gyes3.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/5e5fe73a2e0ffc8e19873298566919fb-rbsat-v760c43649gyes3.cnf results_nontrivial_gbc/proofs/5e5fe73a2e0ffc8e19873298566919fb-rbsat-v760c43649gyes3.cnf.proof.pr
+The file 5e5fe73a2e0ffc8e19873298566919fb-rbsat-v760c43649gyes3.cnf timed out in time 60.00383186340332!
+We have finished on file 5e5fe73a2e0ffc8e19873298566919fb-rbsat-v760c43649gyes3.cnf
+We are looking at ca14adcb9296a7b31d7815c2ed16d0f1-ITC2021_Early_3.xml.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/ca14adcb9296a7b31d7815c2ed16d0f1-ITC2021_Early_3.xml.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/ca14adcb9296a7b31d7815c2ed16d0f1-ITC2021_Early_3.xml.cnf results_nontrivial_gbc/proofs/ca14adcb9296a7b31d7815c2ed16d0f1-ITC2021_Early_3.xml.cnf.proof.pr
+The file ca14adcb9296a7b31d7815c2ed16d0f1-ITC2021_Early_3.xml.cnf returned SAT in time 2.4683494567871094!
+We have finished on file ca14adcb9296a7b31d7815c2ed16d0f1-ITC2021_Early_3.xml.cnf
+We are looking at e6cdc2687fa53506021f05b60ad0c6a2-GracefulGraph-K05-P02_c18.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/e6cdc2687fa53506021f05b60ad0c6a2-GracefulGraph-K05-P02_c18.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/e6cdc2687fa53506021f05b60ad0c6a2-GracefulGraph-K05-P02_c18.cnf results_nontrivial_gbc/proofs/e6cdc2687fa53506021f05b60ad0c6a2-GracefulGraph-K05-P02_c18.cnf.proof.pr
+The file e6cdc2687fa53506021f05b60ad0c6a2-GracefulGraph-K05-P02_c18.cnf returned SAT in time 43.46684193611145!
+We have finished on file e6cdc2687fa53506021f05b60ad0c6a2-GracefulGraph-K05-P02_c18.cnf
+We are looking at fb45d41807bcbbbe689de282c1310798-Break_unsat_16_27.xml.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/fb45d41807bcbbbe689de282c1310798-Break_unsat_16_27.xml.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/fb45d41807bcbbbe689de282c1310798-Break_unsat_16_27.xml.cnf results_nontrivial_gbc/proofs/fb45d41807bcbbbe689de282c1310798-Break_unsat_16_27.xml.cnf.proof.pr
+The file fb45d41807bcbbbe689de282c1310798-Break_unsat_16_27.xml.cnf timed out in time 60.0250928401947!
+We have finished on file fb45d41807bcbbbe689de282c1310798-Break_unsat_16_27.xml.cnf
+We are looking at 26254890fa7107f85242ec9190da2a7a-002.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/26254890fa7107f85242ec9190da2a7a-002.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/26254890fa7107f85242ec9190da2a7a-002.cnf results_nontrivial_gbc/proofs/26254890fa7107f85242ec9190da2a7a-002.cnf.proof.pr
+The file 26254890fa7107f85242ec9190da2a7a-002.cnf timed out in time 60.00364422798157!
+We have finished on file 26254890fa7107f85242ec9190da2a7a-002.cnf
+We are looking at c2bfe541b7cff948fa3193e9ca0eddee-frb45-21-2.used-as.sat04-884.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/c2bfe541b7cff948fa3193e9ca0eddee-frb45-21-2.used-as.sat04-884.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/c2bfe541b7cff948fa3193e9ca0eddee-frb45-21-2.used-as.sat04-884.cnf results_nontrivial_gbc/proofs/c2bfe541b7cff948fa3193e9ca0eddee-frb45-21-2.used-as.sat04-884.cnf.proof.pr
+The file c2bfe541b7cff948fa3193e9ca0eddee-frb45-21-2.used-as.sat04-884.cnf returned SAT in time 50.124608516693115!
+We have finished on file c2bfe541b7cff948fa3193e9ca0eddee-frb45-21-2.used-as.sat04-884.cnf
+We are looking at a38affaa741c958fc32769d5fe89b06c-frb65-12-2.used-as.sat04-874.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/a38affaa741c958fc32769d5fe89b06c-frb65-12-2.used-as.sat04-874.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/a38affaa741c958fc32769d5fe89b06c-frb65-12-2.used-as.sat04-874.cnf results_nontrivial_gbc/proofs/a38affaa741c958fc32769d5fe89b06c-frb65-12-2.used-as.sat04-874.cnf.proof.pr
+The file a38affaa741c958fc32769d5fe89b06c-frb65-12-2.used-as.sat04-874.cnf timed out in time 60.003352880477905!
+We have finished on file a38affaa741c958fc32769d5fe89b06c-frb65-12-2.used-as.sat04-874.cnf
+We are looking at f18c7c7b8666458fd04ea7a253ae1e20-FmlaImplyChain_3_7_7.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/f18c7c7b8666458fd04ea7a253ae1e20-FmlaImplyChain_3_7_7.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/f18c7c7b8666458fd04ea7a253ae1e20-FmlaImplyChain_3_7_7.sanitized.cnf results_nontrivial_gbc/proofs/f18c7c7b8666458fd04ea7a253ae1e20-FmlaImplyChain_3_7_7.sanitized.cnf.proof.pr
+The file f18c7c7b8666458fd04ea7a253ae1e20-FmlaImplyChain_3_7_7.sanitized.cnf timed out in time 60.00373840332031!
+We have finished on file f18c7c7b8666458fd04ea7a253ae1e20-FmlaImplyChain_3_7_7.sanitized.cnf
+We are looking at 94dd280b1562ee7dae44b303b8fed233-Break_unsat_18_31.xml.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/94dd280b1562ee7dae44b303b8fed233-Break_unsat_18_31.xml.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/94dd280b1562ee7dae44b303b8fed233-Break_unsat_18_31.xml.cnf results_nontrivial_gbc/proofs/94dd280b1562ee7dae44b303b8fed233-Break_unsat_18_31.xml.cnf.proof.pr
+The file 94dd280b1562ee7dae44b303b8fed233-Break_unsat_18_31.xml.cnf timed out in time 60.00444960594177!
+We have finished on file 94dd280b1562ee7dae44b303b8fed233-Break_unsat_18_31.xml.cnf
+We are looking at bbfe2b27182d2ee7fefdb557f458ac9c-cliquecolouring_n21_k6_c5.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/bbfe2b27182d2ee7fefdb557f458ac9c-cliquecolouring_n21_k6_c5.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/bbfe2b27182d2ee7fefdb557f458ac9c-cliquecolouring_n21_k6_c5.sanitized.cnf results_nontrivial_gbc/proofs/bbfe2b27182d2ee7fefdb557f458ac9c-cliquecolouring_n21_k6_c5.sanitized.cnf.proof.pr
+The file bbfe2b27182d2ee7fefdb557f458ac9c-cliquecolouring_n21_k6_c5.sanitized.cnf timed out in time 60.00376486778259!
+We have finished on file bbfe2b27182d2ee7fefdb557f458ac9c-cliquecolouring_n21_k6_c5.sanitized.cnf
+We are looking at e38601380bfbab35dd8c5927283533fb-lec_mult_CvK_11x11.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/e38601380bfbab35dd8c5927283533fb-lec_mult_CvK_11x11.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/e38601380bfbab35dd8c5927283533fb-lec_mult_CvK_11x11.sanitized.cnf results_nontrivial_gbc/proofs/e38601380bfbab35dd8c5927283533fb-lec_mult_CvK_11x11.sanitized.cnf.proof.pr
+The file e38601380bfbab35dd8c5927283533fb-lec_mult_CvK_11x11.sanitized.cnf timed out in time 60.00336813926697!
+We have finished on file e38601380bfbab35dd8c5927283533fb-lec_mult_CvK_11x11.sanitized.cnf
+We are looking at 6fc528fc3d0fd5a2c50992feb8bf0357-pcmax-scheduling-m24-17855-226744-SAT.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/6fc528fc3d0fd5a2c50992feb8bf0357-pcmax-scheduling-m24-17855-226744-SAT.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/6fc528fc3d0fd5a2c50992feb8bf0357-pcmax-scheduling-m24-17855-226744-SAT.sanitized.cnf results_nontrivial_gbc/proofs/6fc528fc3d0fd5a2c50992feb8bf0357-pcmax-scheduling-m24-17855-226744-SAT.sanitized.cnf.proof.pr
+The file 6fc528fc3d0fd5a2c50992feb8bf0357-pcmax-scheduling-m24-17855-226744-SAT.sanitized.cnf timed out in time 60.006747007369995!
+We have finished on file 6fc528fc3d0fd5a2c50992feb8bf0357-pcmax-scheduling-m24-17855-226744-SAT.sanitized.cnf
+We are looking at be6411f4784a3c879886dda807cdc607-j3037_10_mdd_b.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/be6411f4784a3c879886dda807cdc607-j3037_10_mdd_b.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/be6411f4784a3c879886dda807cdc607-j3037_10_mdd_b.cnf results_nontrivial_gbc/proofs/be6411f4784a3c879886dda807cdc607-j3037_10_mdd_b.cnf.proof.pr
+The file be6411f4784a3c879886dda807cdc607-j3037_10_mdd_b.cnf timed out in time 60.00408864021301!
+We have finished on file be6411f4784a3c879886dda807cdc607-j3037_10_mdd_b.cnf
+We are looking at 8d2dfc50c1759dc11a6564d5c368c6df-FmlaImplyChain_3_7_8.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/8d2dfc50c1759dc11a6564d5c368c6df-FmlaImplyChain_3_7_8.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/8d2dfc50c1759dc11a6564d5c368c6df-FmlaImplyChain_3_7_8.sanitized.cnf results_nontrivial_gbc/proofs/8d2dfc50c1759dc11a6564d5c368c6df-FmlaImplyChain_3_7_8.sanitized.cnf.proof.pr
+The file 8d2dfc50c1759dc11a6564d5c368c6df-FmlaImplyChain_3_7_8.sanitized.cnf timed out in time 60.00646448135376!
+We have finished on file 8d2dfc50c1759dc11a6564d5c368c6df-FmlaImplyChain_3_7_8.sanitized.cnf
+We are looking at a552a058e6376a36b1f1b2724f228364-IBM_FV_2004_rule_batch_1_31_1_SAT_dat.k40.debugged.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/a552a058e6376a36b1f1b2724f228364-IBM_FV_2004_rule_batch_1_31_1_SAT_dat.k40.debugged.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/a552a058e6376a36b1f1b2724f228364-IBM_FV_2004_rule_batch_1_31_1_SAT_dat.k40.debugged.cnf results_nontrivial_gbc/proofs/a552a058e6376a36b1f1b2724f228364-IBM_FV_2004_rule_batch_1_31_1_SAT_dat.k40.debugged.cnf.proof.pr
+The file a552a058e6376a36b1f1b2724f228364-IBM_FV_2004_rule_batch_1_31_1_SAT_dat.k40.debugged.cnf timed out in time 60.00563335418701!
+We have finished on file a552a058e6376a36b1f1b2724f228364-IBM_FV_2004_rule_batch_1_31_1_SAT_dat.k40.debugged.cnf
+We are looking at ecca77b5350eca6a4323edd5b38208c6-004.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/ecca77b5350eca6a4323edd5b38208c6-004.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/ecca77b5350eca6a4323edd5b38208c6-004.cnf results_nontrivial_gbc/proofs/ecca77b5350eca6a4323edd5b38208c6-004.cnf.proof.pr
+The file ecca77b5350eca6a4323edd5b38208c6-004.cnf timed out in time 60.003661155700684!
+We have finished on file ecca77b5350eca6a4323edd5b38208c6-004.cnf
+We are looking at 1e3c3e8d349759b8b482a6f2721762c4-apn-sbox5-cut3-symmbreak.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/1e3c3e8d349759b8b482a6f2721762c4-apn-sbox5-cut3-symmbreak.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/1e3c3e8d349759b8b482a6f2721762c4-apn-sbox5-cut3-symmbreak.cnf results_nontrivial_gbc/proofs/1e3c3e8d349759b8b482a6f2721762c4-apn-sbox5-cut3-symmbreak.cnf.proof.pr
+The file 1e3c3e8d349759b8b482a6f2721762c4-apn-sbox5-cut3-symmbreak.cnf timed out in time 60.004544258117676!
+We have finished on file 1e3c3e8d349759b8b482a6f2721762c4-apn-sbox5-cut3-symmbreak.cnf
+We are looking at a58b8a5eb61d3110d9fa36a03de588d2-stb_495_168.apx_1_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/a58b8a5eb61d3110d9fa36a03de588d2-stb_495_168.apx_1_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/a58b8a5eb61d3110d9fa36a03de588d2-stb_495_168.apx_1_DC-AD.cnf results_nontrivial_gbc/proofs/a58b8a5eb61d3110d9fa36a03de588d2-stb_495_168.apx_1_DC-AD.cnf.proof.pr
+The file a58b8a5eb61d3110d9fa36a03de588d2-stb_495_168.apx_1_DC-AD.cnf timed out in time 60.004005432128906!
+We have finished on file a58b8a5eb61d3110d9fa36a03de588d2-stb_495_168.apx_1_DC-AD.cnf
+We are looking at 82d9e8d2cfea101dfe52c8359b7bb163-af-synthesis_stb_50_40_2_unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/82d9e8d2cfea101dfe52c8359b7bb163-af-synthesis_stb_50_40_2_unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/82d9e8d2cfea101dfe52c8359b7bb163-af-synthesis_stb_50_40_2_unsat.cnf results_nontrivial_gbc/proofs/82d9e8d2cfea101dfe52c8359b7bb163-af-synthesis_stb_50_40_2_unsat.cnf.proof.pr
+The file 82d9e8d2cfea101dfe52c8359b7bb163-af-synthesis_stb_50_40_2_unsat.cnf timed out in time 60.00513529777527!
+We have finished on file 82d9e8d2cfea101dfe52c8359b7bb163-af-synthesis_stb_50_40_2_unsat.cnf
+We are looking at 11cc532ecddfb10a47e0a869b4867c1b-Break_triple_20_36.xml.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/11cc532ecddfb10a47e0a869b4867c1b-Break_triple_20_36.xml.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/11cc532ecddfb10a47e0a869b4867c1b-Break_triple_20_36.xml.cnf results_nontrivial_gbc/proofs/11cc532ecddfb10a47e0a869b4867c1b-Break_triple_20_36.xml.cnf.proof.pr
+The file 11cc532ecddfb10a47e0a869b4867c1b-Break_triple_20_36.xml.cnf timed out in time 60.00684189796448!
+We have finished on file 11cc532ecddfb10a47e0a869b4867c1b-Break_triple_20_36.xml.cnf
+We are looking at 0876c518e5653369e20fb1ee0bb8db40-mp1-klieber2017s-0500-023-t12.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/0876c518e5653369e20fb1ee0bb8db40-mp1-klieber2017s-0500-023-t12.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/0876c518e5653369e20fb1ee0bb8db40-mp1-klieber2017s-0500-023-t12.cnf results_nontrivial_gbc/proofs/0876c518e5653369e20fb1ee0bb8db40-mp1-klieber2017s-0500-023-t12.cnf.proof.pr
+The file 0876c518e5653369e20fb1ee0bb8db40-mp1-klieber2017s-0500-023-t12.cnf timed out in time 60.00443172454834!
+We have finished on file 0876c518e5653369e20fb1ee0bb8db40-mp1-klieber2017s-0500-023-t12.cnf
+We are looking at 22b4cf412c811872d6ba5078106aeb6c-j3037_10_rggt_b.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/22b4cf412c811872d6ba5078106aeb6c-j3037_10_rggt_b.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/22b4cf412c811872d6ba5078106aeb6c-j3037_10_rggt_b.cnf results_nontrivial_gbc/proofs/22b4cf412c811872d6ba5078106aeb6c-j3037_10_rggt_b.cnf.proof.pr
+The file 22b4cf412c811872d6ba5078106aeb6c-j3037_10_rggt_b.cnf timed out in time 60.006038188934326!
+We have finished on file 22b4cf412c811872d6ba5078106aeb6c-j3037_10_rggt_b.cnf
+We are looking at bfadd34e71516e95d0ba2a3a8fb2ba03-pcmax-scheduling-m19-10199-62102-UNSAT.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/bfadd34e71516e95d0ba2a3a8fb2ba03-pcmax-scheduling-m19-10199-62102-UNSAT.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/bfadd34e71516e95d0ba2a3a8fb2ba03-pcmax-scheduling-m19-10199-62102-UNSAT.sanitized.cnf results_nontrivial_gbc/proofs/bfadd34e71516e95d0ba2a3a8fb2ba03-pcmax-scheduling-m19-10199-62102-UNSAT.sanitized.cnf.proof.pr
+The file bfadd34e71516e95d0ba2a3a8fb2ba03-pcmax-scheduling-m19-10199-62102-UNSAT.sanitized.cnf timed out in time 60.003881216049194!
+We have finished on file bfadd34e71516e95d0ba2a3a8fb2ba03-pcmax-scheduling-m19-10199-62102-UNSAT.sanitized.cnf
+We are looking at 973d699ec01b88da869233a79aaa1912-cliquecolouring_n13_k9_c8.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/973d699ec01b88da869233a79aaa1912-cliquecolouring_n13_k9_c8.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/973d699ec01b88da869233a79aaa1912-cliquecolouring_n13_k9_c8.sanitized.cnf results_nontrivial_gbc/proofs/973d699ec01b88da869233a79aaa1912-cliquecolouring_n13_k9_c8.sanitized.cnf.proof.pr
+The file 973d699ec01b88da869233a79aaa1912-cliquecolouring_n13_k9_c8.sanitized.cnf timed out in time 60.0029730796814!
+We have finished on file 973d699ec01b88da869233a79aaa1912-cliquecolouring_n13_k9_c8.sanitized.cnf
+We are looking at ac347c21ca0759079c0be9a758e4e924-cliquecolouring_n41_k5_c4.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/ac347c21ca0759079c0be9a758e4e924-cliquecolouring_n41_k5_c4.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/ac347c21ca0759079c0be9a758e4e924-cliquecolouring_n41_k5_c4.sanitized.cnf results_nontrivial_gbc/proofs/ac347c21ca0759079c0be9a758e4e924-cliquecolouring_n41_k5_c4.sanitized.cnf.proof.pr
+The file ac347c21ca0759079c0be9a758e4e924-cliquecolouring_n41_k5_c4.sanitized.cnf timed out in time 60.003474950790405!
+We have finished on file ac347c21ca0759079c0be9a758e4e924-cliquecolouring_n41_k5_c4.sanitized.cnf
+We are looking at f32bb347996c351bc3e9a91c58e8601d-DLTM_twitter774_83_17.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/f32bb347996c351bc3e9a91c58e8601d-DLTM_twitter774_83_17.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/f32bb347996c351bc3e9a91c58e8601d-DLTM_twitter774_83_17.cnf results_nontrivial_gbc/proofs/f32bb347996c351bc3e9a91c58e8601d-DLTM_twitter774_83_17.cnf.proof.pr
+The file f32bb347996c351bc3e9a91c58e8601d-DLTM_twitter774_83_17.cnf timed out in time 60.01050519943237!
+We have finished on file f32bb347996c351bc3e9a91c58e8601d-DLTM_twitter774_83_17.cnf
+We are looking at 5b0f16de2c5419b80b608db37d07d994-lec_mult_KvW_11x10.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/5b0f16de2c5419b80b608db37d07d994-lec_mult_KvW_11x10.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/5b0f16de2c5419b80b608db37d07d994-lec_mult_KvW_11x10.sanitized.cnf results_nontrivial_gbc/proofs/5b0f16de2c5419b80b608db37d07d994-lec_mult_KvW_11x10.sanitized.cnf.proof.pr
+The file 5b0f16de2c5419b80b608db37d07d994-lec_mult_KvW_11x10.sanitized.cnf timed out in time 60.003031730651855!
+We have finished on file 5b0f16de2c5419b80b608db37d07d994-lec_mult_KvW_11x10.sanitized.cnf
+We are looking at 3ed56242f55e3653dbceeb4a70221787-rbsat-v945c61409gyes9-sc2009.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/3ed56242f55e3653dbceeb4a70221787-rbsat-v945c61409gyes9-sc2009.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/3ed56242f55e3653dbceeb4a70221787-rbsat-v945c61409gyes9-sc2009.cnf results_nontrivial_gbc/proofs/3ed56242f55e3653dbceeb4a70221787-rbsat-v945c61409gyes9-sc2009.cnf.proof.pr
+The file 3ed56242f55e3653dbceeb4a70221787-rbsat-v945c61409gyes9-sc2009.cnf timed out in time 60.004199504852295!
+We have finished on file 3ed56242f55e3653dbceeb4a70221787-rbsat-v945c61409gyes9-sc2009.cnf
+We are looking at d7627176604d5b86f34d2f5d14d8ee99-worker_40_80_40_0.9.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/d7627176604d5b86f34d2f5d14d8ee99-worker_40_80_40_0.9.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/d7627176604d5b86f34d2f5d14d8ee99-worker_40_80_40_0.9.cnf results_nontrivial_gbc/proofs/d7627176604d5b86f34d2f5d14d8ee99-worker_40_80_40_0.9.cnf.proof.pr
+The file d7627176604d5b86f34d2f5d14d8ee99-worker_40_80_40_0.9.cnf timed out in time 60.003592014312744!
+We have finished on file d7627176604d5b86f34d2f5d14d8ee99-worker_40_80_40_0.9.cnf
+We are looking at 385042a6042a0df5ddfec6e17f285ae7-lec_mult_CvD_11x11.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/385042a6042a0df5ddfec6e17f285ae7-lec_mult_CvD_11x11.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/385042a6042a0df5ddfec6e17f285ae7-lec_mult_CvD_11x11.sanitized.cnf results_nontrivial_gbc/proofs/385042a6042a0df5ddfec6e17f285ae7-lec_mult_CvD_11x11.sanitized.cnf.proof.pr
+The file 385042a6042a0df5ddfec6e17f285ae7-lec_mult_CvD_11x11.sanitized.cnf timed out in time 60.005913734436035!
+We have finished on file 385042a6042a0df5ddfec6e17f285ae7-lec_mult_CvD_11x11.sanitized.cnf
+We are looking at 4214f45042f8c504f9837afaec88bf8f-ER_400_20_7.apx_2_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/4214f45042f8c504f9837afaec88bf8f-ER_400_20_7.apx_2_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/4214f45042f8c504f9837afaec88bf8f-ER_400_20_7.apx_2_DC-AD.cnf results_nontrivial_gbc/proofs/4214f45042f8c504f9837afaec88bf8f-ER_400_20_7.apx_2_DC-AD.cnf.proof.pr
+The file 4214f45042f8c504f9837afaec88bf8f-ER_400_20_7.apx_2_DC-AD.cnf timed out in time 60.00398325920105!
+We have finished on file 4214f45042f8c504f9837afaec88bf8f-ER_400_20_7.apx_2_DC-AD.cnf
+We are looking at 44c25de7963c45e92a2407ad839f6e8b-Break_20_72.xml.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/44c25de7963c45e92a2407ad839f6e8b-Break_20_72.xml.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/44c25de7963c45e92a2407ad839f6e8b-Break_20_72.xml.cnf results_nontrivial_gbc/proofs/44c25de7963c45e92a2407ad839f6e8b-Break_20_72.xml.cnf.proof.pr
+The file 44c25de7963c45e92a2407ad839f6e8b-Break_20_72.xml.cnf timed out in time 60.006088733673096!
+We have finished on file 44c25de7963c45e92a2407ad839f6e8b-Break_20_72.xml.cnf
+We are looking at c82eee3badbc8432dad72d1d575a0ea6-preimage_80r_495m_160h_seed_379.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/c82eee3badbc8432dad72d1d575a0ea6-preimage_80r_495m_160h_seed_379.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/c82eee3badbc8432dad72d1d575a0ea6-preimage_80r_495m_160h_seed_379.cnf results_nontrivial_gbc/proofs/c82eee3badbc8432dad72d1d575a0ea6-preimage_80r_495m_160h_seed_379.cnf.proof.pr
+The file c82eee3badbc8432dad72d1d575a0ea6-preimage_80r_495m_160h_seed_379.cnf timed out in time 60.006422996520996!
+We have finished on file c82eee3badbc8432dad72d1d575a0ea6-preimage_80r_495m_160h_seed_379.cnf
+We are looking at 0a02751cacf5e1cdfcc842a7f220199f-hwmcc17miters-xits-iso-bobsmfpu.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/0a02751cacf5e1cdfcc842a7f220199f-hwmcc17miters-xits-iso-bobsmfpu.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/0a02751cacf5e1cdfcc842a7f220199f-hwmcc17miters-xits-iso-bobsmfpu.sanitized.cnf results_nontrivial_gbc/proofs/0a02751cacf5e1cdfcc842a7f220199f-hwmcc17miters-xits-iso-bobsmfpu.sanitized.cnf.proof.pr
+The file 0a02751cacf5e1cdfcc842a7f220199f-hwmcc17miters-xits-iso-bobsmfpu.sanitized.cnf timed out in time 60.00778102874756!
+We have finished on file 0a02751cacf5e1cdfcc842a7f220199f-hwmcc17miters-xits-iso-bobsmfpu.sanitized.cnf
+We are looking at 50019e4419d48196bb4b95933a8b5030-noL-11-14.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/50019e4419d48196bb4b95933a8b5030-noL-11-14.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/50019e4419d48196bb4b95933a8b5030-noL-11-14.sanitized.cnf results_nontrivial_gbc/proofs/50019e4419d48196bb4b95933a8b5030-noL-11-14.sanitized.cnf.proof.pr
+The file 50019e4419d48196bb4b95933a8b5030-noL-11-14.sanitized.cnf timed out in time 60.00322914123535!
+We have finished on file 50019e4419d48196bb4b95933a8b5030-noL-11-14.sanitized.cnf
+We are looking at 07c50b89d97a55b6e1629999a445a2ba-ctl_4201_555_unsat_pre.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/07c50b89d97a55b6e1629999a445a2ba-ctl_4201_555_unsat_pre.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/07c50b89d97a55b6e1629999a445a2ba-ctl_4201_555_unsat_pre.cnf results_nontrivial_gbc/proofs/07c50b89d97a55b6e1629999a445a2ba-ctl_4201_555_unsat_pre.cnf.proof.pr
+The file 07c50b89d97a55b6e1629999a445a2ba-ctl_4201_555_unsat_pre.cnf timed out in time 60.004897356033325!
+We have finished on file 07c50b89d97a55b6e1629999a445a2ba-ctl_4201_555_unsat_pre.cnf
+We are looking at 04e219c640ed59dc68ea2d50493de5b5-mp1-Nb5T15.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/04e219c640ed59dc68ea2d50493de5b5-mp1-Nb5T15.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/04e219c640ed59dc68ea2d50493de5b5-mp1-Nb5T15.cnf results_nontrivial_gbc/proofs/04e219c640ed59dc68ea2d50493de5b5-mp1-Nb5T15.cnf.proof.pr
+The file 04e219c640ed59dc68ea2d50493de5b5-mp1-Nb5T15.cnf timed out in time 60.02534222602844!
+We have finished on file 04e219c640ed59dc68ea2d50493de5b5-mp1-Nb5T15.cnf
+We are looking at 29e61b1317804fb897e84237613d42bb-worker_30_60_25_0.9.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/29e61b1317804fb897e84237613d42bb-worker_30_60_25_0.9.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/29e61b1317804fb897e84237613d42bb-worker_30_60_25_0.9.cnf results_nontrivial_gbc/proofs/29e61b1317804fb897e84237613d42bb-worker_30_60_25_0.9.cnf.proof.pr
+The file 29e61b1317804fb897e84237613d42bb-worker_30_60_25_0.9.cnf timed out in time 60.00572347640991!
+We have finished on file 29e61b1317804fb897e84237613d42bb-worker_30_60_25_0.9.cnf
+We are looking at 768956cc8d1f2d18ae1929f6bb26557a-cliquecolouring_n13_k8_c7.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/768956cc8d1f2d18ae1929f6bb26557a-cliquecolouring_n13_k8_c7.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/768956cc8d1f2d18ae1929f6bb26557a-cliquecolouring_n13_k8_c7.sanitized.cnf results_nontrivial_gbc/proofs/768956cc8d1f2d18ae1929f6bb26557a-cliquecolouring_n13_k8_c7.sanitized.cnf.proof.pr
+The file 768956cc8d1f2d18ae1929f6bb26557a-cliquecolouring_n13_k8_c7.sanitized.cnf timed out in time 60.00291156768799!
+We have finished on file 768956cc8d1f2d18ae1929f6bb26557a-cliquecolouring_n13_k8_c7.sanitized.cnf
+We are looking at da929c2aefde5e59878ad87c4323e581-pcmax-scheduling-m12-8049-55035-SAT.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/da929c2aefde5e59878ad87c4323e581-pcmax-scheduling-m12-8049-55035-SAT.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/da929c2aefde5e59878ad87c4323e581-pcmax-scheduling-m12-8049-55035-SAT.sanitized.cnf results_nontrivial_gbc/proofs/da929c2aefde5e59878ad87c4323e581-pcmax-scheduling-m12-8049-55035-SAT.sanitized.cnf.proof.pr
+The file da929c2aefde5e59878ad87c4323e581-pcmax-scheduling-m12-8049-55035-SAT.sanitized.cnf timed out in time 60.00501227378845!
+We have finished on file da929c2aefde5e59878ad87c4323e581-pcmax-scheduling-m12-8049-55035-SAT.sanitized.cnf
+We are looking at 7fca438c38e5b7a70e38778ec146cfe0-ctl_4291_567_2_unsat-sc2013.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/7fca438c38e5b7a70e38778ec146cfe0-ctl_4291_567_2_unsat-sc2013.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/7fca438c38e5b7a70e38778ec146cfe0-ctl_4291_567_2_unsat-sc2013.cnf results_nontrivial_gbc/proofs/7fca438c38e5b7a70e38778ec146cfe0-ctl_4291_567_2_unsat-sc2013.cnf.proof.pr
+The file 7fca438c38e5b7a70e38778ec146cfe0-ctl_4291_567_2_unsat-sc2013.cnf timed out in time 60.005086183547974!
+We have finished on file 7fca438c38e5b7a70e38778ec146cfe0-ctl_4291_567_2_unsat-sc2013.cnf
+We are looking at d7dbb2cba940af33b2bce37ea99b8110-6s130-opt.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/d7dbb2cba940af33b2bce37ea99b8110-6s130-opt.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/d7dbb2cba940af33b2bce37ea99b8110-6s130-opt.cnf results_nontrivial_gbc/proofs/d7dbb2cba940af33b2bce37ea99b8110-6s130-opt.cnf.proof.pr
+The file d7dbb2cba940af33b2bce37ea99b8110-6s130-opt.cnf timed out in time 60.01192259788513!
+We have finished on file d7dbb2cba940af33b2bce37ea99b8110-6s130-opt.cnf
+We are looking at 4e366e723d75fe39bf6db9a24ffb059b-Dodecahedron-k7.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/4e366e723d75fe39bf6db9a24ffb059b-Dodecahedron-k7.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/4e366e723d75fe39bf6db9a24ffb059b-Dodecahedron-k7.cnf results_nontrivial_gbc/proofs/4e366e723d75fe39bf6db9a24ffb059b-Dodecahedron-k7.cnf.proof.pr
+The file 4e366e723d75fe39bf6db9a24ffb059b-Dodecahedron-k7.cnf timed out in time 60.00579857826233!
+We have finished on file 4e366e723d75fe39bf6db9a24ffb059b-Dodecahedron-k7.cnf
+We are looking at 62dcbf79f5ecef5618c9d9a00311326c-pcmax-scheduling-m13-1655-9604-UNSAT.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/62dcbf79f5ecef5618c9d9a00311326c-pcmax-scheduling-m13-1655-9604-UNSAT.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/62dcbf79f5ecef5618c9d9a00311326c-pcmax-scheduling-m13-1655-9604-UNSAT.sanitized.cnf results_nontrivial_gbc/proofs/62dcbf79f5ecef5618c9d9a00311326c-pcmax-scheduling-m13-1655-9604-UNSAT.sanitized.cnf.proof.pr
+The file 62dcbf79f5ecef5618c9d9a00311326c-pcmax-scheduling-m13-1655-9604-UNSAT.sanitized.cnf timed out in time 60.00300717353821!
+We have finished on file 62dcbf79f5ecef5618c9d9a00311326c-pcmax-scheduling-m13-1655-9604-UNSAT.sanitized.cnf
+We are looking at 3bf8ba6bb4e4ea9ad08b1b058661ba2e-summle_X4044_steps7_I1-2-2-4-4-8-25-100.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/3bf8ba6bb4e4ea9ad08b1b058661ba2e-summle_X4044_steps7_I1-2-2-4-4-8-25-100.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/3bf8ba6bb4e4ea9ad08b1b058661ba2e-summle_X4044_steps7_I1-2-2-4-4-8-25-100.cnf results_nontrivial_gbc/proofs/3bf8ba6bb4e4ea9ad08b1b058661ba2e-summle_X4044_steps7_I1-2-2-4-4-8-25-100.cnf.proof.pr
+The file 3bf8ba6bb4e4ea9ad08b1b058661ba2e-summle_X4044_steps7_I1-2-2-4-4-8-25-100.cnf timed out in time 60.00590229034424!
+We have finished on file 3bf8ba6bb4e4ea9ad08b1b058661ba2e-summle_X4044_steps7_I1-2-2-4-4-8-25-100.cnf
+We are looking at c5ae0ec49de0959cd14431ce851c14f8-Circuit_multiplier22.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/c5ae0ec49de0959cd14431ce851c14f8-Circuit_multiplier22.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/c5ae0ec49de0959cd14431ce851c14f8-Circuit_multiplier22.cnf results_nontrivial_gbc/proofs/c5ae0ec49de0959cd14431ce851c14f8-Circuit_multiplier22.cnf.proof.pr
+The file c5ae0ec49de0959cd14431ce851c14f8-Circuit_multiplier22.cnf timed out in time 60.00369715690613!
+We have finished on file c5ae0ec49de0959cd14431ce851c14f8-Circuit_multiplier22.cnf
+We are looking at 14ea5857d75ae2b235a3ba97373ea732-af-synthesis_stb_50_40_9_unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/14ea5857d75ae2b235a3ba97373ea732-af-synthesis_stb_50_40_9_unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/14ea5857d75ae2b235a3ba97373ea732-af-synthesis_stb_50_40_9_unsat.cnf results_nontrivial_gbc/proofs/14ea5857d75ae2b235a3ba97373ea732-af-synthesis_stb_50_40_9_unsat.cnf.proof.pr
+The file 14ea5857d75ae2b235a3ba97373ea732-af-synthesis_stb_50_40_9_unsat.cnf timed out in time 60.00469994544983!
+We have finished on file 14ea5857d75ae2b235a3ba97373ea732-af-synthesis_stb_50_40_9_unsat.cnf
+We are looking at dc7817dfa2817916b266c1cfacd2ee66-constraints_25_4_5_12_12_0_0_0.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/dc7817dfa2817916b266c1cfacd2ee66-constraints_25_4_5_12_12_0_0_0.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/dc7817dfa2817916b266c1cfacd2ee66-constraints_25_4_5_12_12_0_0_0.sanitized.cnf results_nontrivial_gbc/proofs/dc7817dfa2817916b266c1cfacd2ee66-constraints_25_4_5_12_12_0_0_0.sanitized.cnf.proof.pr
+The file dc7817dfa2817916b266c1cfacd2ee66-constraints_25_4_5_12_12_0_0_0.sanitized.cnf timed out in time 60.00462532043457!
+We have finished on file dc7817dfa2817916b266c1cfacd2ee66-constraints_25_4_5_12_12_0_0_0.sanitized.cnf
+We are looking at a5dc6226e4c0bebb06926efe55640995-mdp-36-10-sat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/a5dc6226e4c0bebb06926efe55640995-mdp-36-10-sat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/a5dc6226e4c0bebb06926efe55640995-mdp-36-10-sat.cnf results_nontrivial_gbc/proofs/a5dc6226e4c0bebb06926efe55640995-mdp-36-10-sat.cnf.proof.pr
+The file a5dc6226e4c0bebb06926efe55640995-mdp-36-10-sat.cnf timed out in time 60.00297141075134!
+We have finished on file a5dc6226e4c0bebb06926efe55640995-mdp-36-10-sat.cnf
+We are looking at 278aa933fdef642f33fb02a2b18717c1-lec_mult_DvK_11x10.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/278aa933fdef642f33fb02a2b18717c1-lec_mult_DvK_11x10.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/278aa933fdef642f33fb02a2b18717c1-lec_mult_DvK_11x10.sanitized.cnf results_nontrivial_gbc/proofs/278aa933fdef642f33fb02a2b18717c1-lec_mult_DvK_11x10.sanitized.cnf.proof.pr
+The file 278aa933fdef642f33fb02a2b18717c1-lec_mult_DvK_11x10.sanitized.cnf timed out in time 60.00329542160034!
+We have finished on file 278aa933fdef642f33fb02a2b18717c1-lec_mult_DvK_11x10.sanitized.cnf
+We are looking at cb2e8b7fada420c5046f587ea754d052-clique_n2_k10.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/cb2e8b7fada420c5046f587ea754d052-clique_n2_k10.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/cb2e8b7fada420c5046f587ea754d052-clique_n2_k10.sanitized.cnf results_nontrivial_gbc/proofs/cb2e8b7fada420c5046f587ea754d052-clique_n2_k10.sanitized.cnf.proof.pr
+The file cb2e8b7fada420c5046f587ea754d052-clique_n2_k10.sanitized.cnf timed out in time 60.00317573547363!
+We have finished on file cb2e8b7fada420c5046f587ea754d052-clique_n2_k10.sanitized.cnf
+We are looking at 07e6413459f92b613498a719125b6239-j3037_10_mdd_bm1.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/07e6413459f92b613498a719125b6239-j3037_10_mdd_bm1.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/07e6413459f92b613498a719125b6239-j3037_10_mdd_bm1.cnf results_nontrivial_gbc/proofs/07e6413459f92b613498a719125b6239-j3037_10_mdd_bm1.cnf.proof.pr
+The file 07e6413459f92b613498a719125b6239-j3037_10_mdd_bm1.cnf timed out in time 60.0034544467926!
+We have finished on file 07e6413459f92b613498a719125b6239-j3037_10_mdd_bm1.cnf
+We are looking at 576ebc1333f2c466c2dec98792721e1f-j3037_9_rggt_b.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/576ebc1333f2c466c2dec98792721e1f-j3037_9_rggt_b.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/576ebc1333f2c466c2dec98792721e1f-j3037_9_rggt_b.cnf results_nontrivial_gbc/proofs/576ebc1333f2c466c2dec98792721e1f-j3037_9_rggt_b.cnf.proof.pr
+The file 576ebc1333f2c466c2dec98792721e1f-j3037_9_rggt_b.cnf timed out in time 60.0256233215332!
+We have finished on file 576ebc1333f2c466c2dec98792721e1f-j3037_9_rggt_b.cnf
+We are looking at 5b5dfab02ce5c12a50be3bc7d7cc42c7-pcmax-scheduling-m15-2352-13561-SAT.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/5b5dfab02ce5c12a50be3bc7d7cc42c7-pcmax-scheduling-m15-2352-13561-SAT.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/5b5dfab02ce5c12a50be3bc7d7cc42c7-pcmax-scheduling-m15-2352-13561-SAT.sanitized.cnf results_nontrivial_gbc/proofs/5b5dfab02ce5c12a50be3bc7d7cc42c7-pcmax-scheduling-m15-2352-13561-SAT.sanitized.cnf.proof.pr
+The file 5b5dfab02ce5c12a50be3bc7d7cc42c7-pcmax-scheduling-m15-2352-13561-SAT.sanitized.cnf timed out in time 60.00359869003296!
+We have finished on file 5b5dfab02ce5c12a50be3bc7d7cc42c7-pcmax-scheduling-m15-2352-13561-SAT.sanitized.cnf
+We are looking at 5ab3040d8617bf9f4d4cef4e56dcfd03-g2-hwmcc15deep-6s161-k17.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/5ab3040d8617bf9f4d4cef4e56dcfd03-g2-hwmcc15deep-6s161-k17.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/5ab3040d8617bf9f4d4cef4e56dcfd03-g2-hwmcc15deep-6s161-k17.cnf results_nontrivial_gbc/proofs/5ab3040d8617bf9f4d4cef4e56dcfd03-g2-hwmcc15deep-6s161-k17.cnf.proof.pr
+The file 5ab3040d8617bf9f4d4cef4e56dcfd03-g2-hwmcc15deep-6s161-k17.cnf timed out in time 60.00505590438843!
+We have finished on file 5ab3040d8617bf9f4d4cef4e56dcfd03-g2-hwmcc15deep-6s161-k17.cnf
+We are looking at 67c533489a498495525efee429340958-cliquecolouring_n15_k9_c8.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/67c533489a498495525efee429340958-cliquecolouring_n15_k9_c8.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/67c533489a498495525efee429340958-cliquecolouring_n15_k9_c8.sanitized.cnf results_nontrivial_gbc/proofs/67c533489a498495525efee429340958-cliquecolouring_n15_k9_c8.sanitized.cnf.proof.pr
+The file 67c533489a498495525efee429340958-cliquecolouring_n15_k9_c8.sanitized.cnf timed out in time 60.00363898277283!
+We have finished on file 67c533489a498495525efee429340958-cliquecolouring_n15_k9_c8.sanitized.cnf
+We are looking at 778e0fd8f034b7cfd539b1b523ed4c4a-lec_mult_CvW_12x12.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/778e0fd8f034b7cfd539b1b523ed4c4a-lec_mult_CvW_12x12.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/778e0fd8f034b7cfd539b1b523ed4c4a-lec_mult_CvW_12x12.sanitized.cnf results_nontrivial_gbc/proofs/778e0fd8f034b7cfd539b1b523ed4c4a-lec_mult_CvW_12x12.sanitized.cnf.proof.pr
+The file 778e0fd8f034b7cfd539b1b523ed4c4a-lec_mult_CvW_12x12.sanitized.cnf timed out in time 60.00413227081299!
+We have finished on file 778e0fd8f034b7cfd539b1b523ed4c4a-lec_mult_CvW_12x12.sanitized.cnf
+We are looking at 91e0db01b254eb78f6643328045bfeb9-sted5_0x1e3-20.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/91e0db01b254eb78f6643328045bfeb9-sted5_0x1e3-20.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/91e0db01b254eb78f6643328045bfeb9-sted5_0x1e3-20.cnf results_nontrivial_gbc/proofs/91e0db01b254eb78f6643328045bfeb9-sted5_0x1e3-20.cnf.proof.pr
+The file 91e0db01b254eb78f6643328045bfeb9-sted5_0x1e3-20.cnf timed out in time 60.00532388687134!
+We have finished on file 91e0db01b254eb78f6643328045bfeb9-sted5_0x1e3-20.cnf
+We are looking at 915a25bd189357e4c6d7771b69a6849f-x9-09004.sat.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/915a25bd189357e4c6d7771b69a6849f-x9-09004.sat.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/915a25bd189357e4c6d7771b69a6849f-x9-09004.sat.sanitized.cnf results_nontrivial_gbc/proofs/915a25bd189357e4c6d7771b69a6849f-x9-09004.sat.sanitized.cnf.proof.pr
+The file 915a25bd189357e4c6d7771b69a6849f-x9-09004.sat.sanitized.cnf timed out in time 60.00264859199524!
+We have finished on file 915a25bd189357e4c6d7771b69a6849f-x9-09004.sat.sanitized.cnf
+We are looking at d11944fbca2dd6540f18bd05b6ccda0c-mdp-32-14-sat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/d11944fbca2dd6540f18bd05b6ccda0c-mdp-32-14-sat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/d11944fbca2dd6540f18bd05b6ccda0c-mdp-32-14-sat.cnf results_nontrivial_gbc/proofs/d11944fbca2dd6540f18bd05b6ccda0c-mdp-32-14-sat.cnf.proof.pr
+The file d11944fbca2dd6540f18bd05b6ccda0c-mdp-32-14-sat.cnf timed out in time 60.004013538360596!
+We have finished on file d11944fbca2dd6540f18bd05b6ccda0c-mdp-32-14-sat.cnf
+We are looking at f7e855b18105170b0718086d3f5b5923-j3045_10_rggt_b.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/f7e855b18105170b0718086d3f5b5923-j3045_10_rggt_b.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/f7e855b18105170b0718086d3f5b5923-j3045_10_rggt_b.cnf results_nontrivial_gbc/proofs/f7e855b18105170b0718086d3f5b5923-j3045_10_rggt_b.cnf.proof.pr
+The file f7e855b18105170b0718086d3f5b5923-j3045_10_rggt_b.cnf timed out in time 60.0044105052948!
+We have finished on file f7e855b18105170b0718086d3f5b5923-j3045_10_rggt_b.cnf
+We are looking at 3593875d75d6e836a3ac328c5426c1b5-Break_18_32.xml.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/3593875d75d6e836a3ac328c5426c1b5-Break_18_32.xml.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/3593875d75d6e836a3ac328c5426c1b5-Break_18_32.xml.cnf results_nontrivial_gbc/proofs/3593875d75d6e836a3ac328c5426c1b5-Break_18_32.xml.cnf.proof.pr
+The file 3593875d75d6e836a3ac328c5426c1b5-Break_18_32.xml.cnf timed out in time 60.00979948043823!
+We have finished on file 3593875d75d6e836a3ac328c5426c1b5-Break_18_32.xml.cnf
+We are looking at b172b4c218f1e44e205575d2b51e82c4-Schur_161_5_d38.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/b172b4c218f1e44e205575d2b51e82c4-Schur_161_5_d38.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/b172b4c218f1e44e205575d2b51e82c4-Schur_161_5_d38.cnf results_nontrivial_gbc/proofs/b172b4c218f1e44e205575d2b51e82c4-Schur_161_5_d38.cnf.proof.pr
+The file b172b4c218f1e44e205575d2b51e82c4-Schur_161_5_d38.cnf timed out in time 60.0027871131897!
+We have finished on file b172b4c218f1e44e205575d2b51e82c4-Schur_161_5_d38.cnf
+We are looking at 1165e12b6addad01b491c4616306186c-mulhs016-sc2009.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/1165e12b6addad01b491c4616306186c-mulhs016-sc2009.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/1165e12b6addad01b491c4616306186c-mulhs016-sc2009.cnf results_nontrivial_gbc/proofs/1165e12b6addad01b491c4616306186c-mulhs016-sc2009.cnf.proof.pr
+The file 1165e12b6addad01b491c4616306186c-mulhs016-sc2009.cnf timed out in time 60.003533124923706!
+We have finished on file 1165e12b6addad01b491c4616306186c-mulhs016-sc2009.cnf
+We are looking at 67b4844c4bfbaf961cbbd79b953aa5c2-stb_588_138.apx_1_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/67b4844c4bfbaf961cbbd79b953aa5c2-stb_588_138.apx_1_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/67b4844c4bfbaf961cbbd79b953aa5c2-stb_588_138.apx_1_DC-AD.cnf results_nontrivial_gbc/proofs/67b4844c4bfbaf961cbbd79b953aa5c2-stb_588_138.apx_1_DC-AD.cnf.proof.pr
+The file 67b4844c4bfbaf961cbbd79b953aa5c2-stb_588_138.apx_1_DC-AD.cnf timed out in time 60.00342154502869!
+We have finished on file 67b4844c4bfbaf961cbbd79b953aa5c2-stb_588_138.apx_1_DC-AD.cnf
+We are looking at 8ffd718f763ed7a3f691cf46e57f8d98-mdp-32-10-sat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/8ffd718f763ed7a3f691cf46e57f8d98-mdp-32-10-sat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/8ffd718f763ed7a3f691cf46e57f8d98-mdp-32-10-sat.cnf results_nontrivial_gbc/proofs/8ffd718f763ed7a3f691cf46e57f8d98-mdp-32-10-sat.cnf.proof.pr
+The file 8ffd718f763ed7a3f691cf46e57f8d98-mdp-32-10-sat.cnf timed out in time 60.00584387779236!
+We have finished on file 8ffd718f763ed7a3f691cf46e57f8d98-mdp-32-10-sat.cnf
+We are looking at 16ca57f2cdffd5b0260fc771017e1f04-mdp-36-10-unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/16ca57f2cdffd5b0260fc771017e1f04-mdp-36-10-unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/16ca57f2cdffd5b0260fc771017e1f04-mdp-36-10-unsat.cnf results_nontrivial_gbc/proofs/16ca57f2cdffd5b0260fc771017e1f04-mdp-36-10-unsat.cnf.proof.pr
+The file 16ca57f2cdffd5b0260fc771017e1f04-mdp-36-10-unsat.cnf timed out in time 60.00348925590515!
+We have finished on file 16ca57f2cdffd5b0260fc771017e1f04-mdp-36-10-unsat.cnf
+We are looking at 0fa8623240b5c14c1308f863a6dc88ab-urqh1c5x5.shuffled-as.sat03-1468.cnf.mis-103.debugged.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/0fa8623240b5c14c1308f863a6dc88ab-urqh1c5x5.shuffled-as.sat03-1468.cnf.mis-103.debugged.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/0fa8623240b5c14c1308f863a6dc88ab-urqh1c5x5.shuffled-as.sat03-1468.cnf.mis-103.debugged.cnf results_nontrivial_gbc/proofs/0fa8623240b5c14c1308f863a6dc88ab-urqh1c5x5.shuffled-as.sat03-1468.cnf.mis-103.debugged.cnf.proof.pr
+The file 0fa8623240b5c14c1308f863a6dc88ab-urqh1c5x5.shuffled-as.sat03-1468.cnf.mis-103.debugged.cnf timed out in time 60.00411772727966!
+We have finished on file 0fa8623240b5c14c1308f863a6dc88ab-urqh1c5x5.shuffled-as.sat03-1468.cnf.mis-103.debugged.cnf
+We are looking at b087c195e5b7bb191d3a701aa0aa8cf1-Break_unsat_14_23.xml.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/b087c195e5b7bb191d3a701aa0aa8cf1-Break_unsat_14_23.xml.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/b087c195e5b7bb191d3a701aa0aa8cf1-Break_unsat_14_23.xml.cnf results_nontrivial_gbc/proofs/b087c195e5b7bb191d3a701aa0aa8cf1-Break_unsat_14_23.xml.cnf.proof.pr
+The file b087c195e5b7bb191d3a701aa0aa8cf1-Break_unsat_14_23.xml.cnf timed out in time 60.004772424697876!
+We have finished on file b087c195e5b7bb191d3a701aa0aa8cf1-Break_unsat_14_23.xml.cnf
+We are looking at 2dd4b14a8a820e7baa073554ae2c6cb0-rphp_p8_r160.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/2dd4b14a8a820e7baa073554ae2c6cb0-rphp_p8_r160.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/2dd4b14a8a820e7baa073554ae2c6cb0-rphp_p8_r160.sanitized.cnf results_nontrivial_gbc/proofs/2dd4b14a8a820e7baa073554ae2c6cb0-rphp_p8_r160.sanitized.cnf.proof.pr
+The file 2dd4b14a8a820e7baa073554ae2c6cb0-rphp_p8_r160.sanitized.cnf timed out in time 60.010538816452026!
+We have finished on file 2dd4b14a8a820e7baa073554ae2c6cb0-rphp_p8_r160.sanitized.cnf
+We are looking at ab3438b504b296fcee78ec9e71969863-mdp-36-14-sat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/ab3438b504b296fcee78ec9e71969863-mdp-36-14-sat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/ab3438b504b296fcee78ec9e71969863-mdp-36-14-sat.cnf results_nontrivial_gbc/proofs/ab3438b504b296fcee78ec9e71969863-mdp-36-14-sat.cnf.proof.pr
+The file ab3438b504b296fcee78ec9e71969863-mdp-36-14-sat.cnf timed out in time 60.003193616867065!
+We have finished on file ab3438b504b296fcee78ec9e71969863-mdp-36-14-sat.cnf
+We are looking at 462d72f9b78ab1cd080667ff12a114ac-lec_mult_CvK_12x12.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/462d72f9b78ab1cd080667ff12a114ac-lec_mult_CvK_12x12.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/462d72f9b78ab1cd080667ff12a114ac-lec_mult_CvK_12x12.sanitized.cnf results_nontrivial_gbc/proofs/462d72f9b78ab1cd080667ff12a114ac-lec_mult_CvK_12x12.sanitized.cnf.proof.pr
+The file 462d72f9b78ab1cd080667ff12a114ac-lec_mult_CvK_12x12.sanitized.cnf timed out in time 60.00386571884155!
+We have finished on file 462d72f9b78ab1cd080667ff12a114ac-lec_mult_CvK_12x12.sanitized.cnf
+We are looking at 05ed64e4e6229f446082752936768489-stb_495_168.apx_2_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/05ed64e4e6229f446082752936768489-stb_495_168.apx_2_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/05ed64e4e6229f446082752936768489-stb_495_168.apx_2_DC-AD.cnf results_nontrivial_gbc/proofs/05ed64e4e6229f446082752936768489-stb_495_168.apx_2_DC-AD.cnf.proof.pr
+The file 05ed64e4e6229f446082752936768489-stb_495_168.apx_2_DC-AD.cnf timed out in time 60.00397300720215!
+We have finished on file 05ed64e4e6229f446082752936768489-stb_495_168.apx_2_DC-AD.cnf
+We are looking at 1545660e72158c7e90da5ad4c877a124-hwmcc20miters-iso-rast-p06.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/1545660e72158c7e90da5ad4c877a124-hwmcc20miters-iso-rast-p06.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/1545660e72158c7e90da5ad4c877a124-hwmcc20miters-iso-rast-p06.sanitized.cnf results_nontrivial_gbc/proofs/1545660e72158c7e90da5ad4c877a124-hwmcc20miters-iso-rast-p06.sanitized.cnf.proof.pr
+The file 1545660e72158c7e90da5ad4c877a124-hwmcc20miters-iso-rast-p06.sanitized.cnf timed out in time 60.01354932785034!
+We have finished on file 1545660e72158c7e90da5ad4c877a124-hwmcc20miters-iso-rast-p06.sanitized.cnf
+We are looking at 3988a60c6e93167763c6fd2a347d5859-Break_08_24.xml.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/3988a60c6e93167763c6fd2a347d5859-Break_08_24.xml.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/3988a60c6e93167763c6fd2a347d5859-Break_08_24.xml.cnf results_nontrivial_gbc/proofs/3988a60c6e93167763c6fd2a347d5859-Break_08_24.xml.cnf.proof.pr
+The file 3988a60c6e93167763c6fd2a347d5859-Break_08_24.xml.cnf returned SAT in time 1.0666654109954834!
+We have finished on file 3988a60c6e93167763c6fd2a347d5859-Break_08_24.xml.cnf
+We are looking at 37a11ae189df2834a3f294736f34608f-mdp-28-16-unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/37a11ae189df2834a3f294736f34608f-mdp-28-16-unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/37a11ae189df2834a3f294736f34608f-mdp-28-16-unsat.cnf results_nontrivial_gbc/proofs/37a11ae189df2834a3f294736f34608f-mdp-28-16-unsat.cnf.proof.pr
+The file 37a11ae189df2834a3f294736f34608f-mdp-28-16-unsat.cnf timed out in time 60.00309491157532!
+We have finished on file 37a11ae189df2834a3f294736f34608f-mdp-28-16-unsat.cnf
+We are looking at f054205a7cef98e5021016f864c69816-summle_X11112_steps6_I1-2-2-4-4-8-25-100.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/f054205a7cef98e5021016f864c69816-summle_X11112_steps6_I1-2-2-4-4-8-25-100.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/f054205a7cef98e5021016f864c69816-summle_X11112_steps6_I1-2-2-4-4-8-25-100.cnf results_nontrivial_gbc/proofs/f054205a7cef98e5021016f864c69816-summle_X11112_steps6_I1-2-2-4-4-8-25-100.cnf.proof.pr
+The file f054205a7cef98e5021016f864c69816-summle_X11112_steps6_I1-2-2-4-4-8-25-100.cnf timed out in time 60.00479292869568!
+We have finished on file f054205a7cef98e5021016f864c69816-summle_X11112_steps6_I1-2-2-4-4-8-25-100.cnf
+We are looking at 32585e66749f42e161e94fc49fd64750-pcmax-scheduling-m26-6398-62377-UNSAT.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/32585e66749f42e161e94fc49fd64750-pcmax-scheduling-m26-6398-62377-UNSAT.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/32585e66749f42e161e94fc49fd64750-pcmax-scheduling-m26-6398-62377-UNSAT.sanitized.cnf results_nontrivial_gbc/proofs/32585e66749f42e161e94fc49fd64750-pcmax-scheduling-m26-6398-62377-UNSAT.sanitized.cnf.proof.pr
+The file 32585e66749f42e161e94fc49fd64750-pcmax-scheduling-m26-6398-62377-UNSAT.sanitized.cnf timed out in time 60.003122329711914!
+We have finished on file 32585e66749f42e161e94fc49fd64750-pcmax-scheduling-m26-6398-62377-UNSAT.sanitized.cnf
+We are looking at af05a6b68a1cff165b684d9ff0ae3b3b-x9-12098.sat.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/af05a6b68a1cff165b684d9ff0ae3b3b-x9-12098.sat.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/af05a6b68a1cff165b684d9ff0ae3b3b-x9-12098.sat.sanitized.cnf results_nontrivial_gbc/proofs/af05a6b68a1cff165b684d9ff0ae3b3b-x9-12098.sat.sanitized.cnf.proof.pr
+The file af05a6b68a1cff165b684d9ff0ae3b3b-x9-12098.sat.sanitized.cnf timed out in time 60.00665998458862!
+We have finished on file af05a6b68a1cff165b684d9ff0ae3b3b-x9-12098.sat.sanitized.cnf
+We are looking at dafc03ea784fee849febca7b64230558-pcmax-scheduling-m30-14113-167638-UNSAT.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/dafc03ea784fee849febca7b64230558-pcmax-scheduling-m30-14113-167638-UNSAT.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/dafc03ea784fee849febca7b64230558-pcmax-scheduling-m30-14113-167638-UNSAT.sanitized.cnf results_nontrivial_gbc/proofs/dafc03ea784fee849febca7b64230558-pcmax-scheduling-m30-14113-167638-UNSAT.sanitized.cnf.proof.pr
+The file dafc03ea784fee849febca7b64230558-pcmax-scheduling-m30-14113-167638-UNSAT.sanitized.cnf timed out in time 60.005391359329224!
+We have finished on file dafc03ea784fee849febca7b64230558-pcmax-scheduling-m30-14113-167638-UNSAT.sanitized.cnf
+We are looking at b3c587501567db72e6e66c6930cf15ed-StConn_7_128.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/b3c587501567db72e6e66c6930cf15ed-StConn_7_128.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/b3c587501567db72e6e66c6930cf15ed-StConn_7_128.sanitized.cnf results_nontrivial_gbc/proofs/b3c587501567db72e6e66c6930cf15ed-StConn_7_128.sanitized.cnf.proof.pr
+The file b3c587501567db72e6e66c6930cf15ed-StConn_7_128.sanitized.cnf timed out in time 60.00374746322632!
+We have finished on file b3c587501567db72e6e66c6930cf15ed-StConn_7_128.sanitized.cnf
+We are looking at 4c54efa61599e33d514bf718ff23ad09-lec_mult_CvK_12x11.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/4c54efa61599e33d514bf718ff23ad09-lec_mult_CvK_12x11.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/4c54efa61599e33d514bf718ff23ad09-lec_mult_CvK_12x11.sanitized.cnf results_nontrivial_gbc/proofs/4c54efa61599e33d514bf718ff23ad09-lec_mult_CvK_12x11.sanitized.cnf.proof.pr
+The file 4c54efa61599e33d514bf718ff23ad09-lec_mult_CvK_12x11.sanitized.cnf timed out in time 60.003844022750854!
+We have finished on file 4c54efa61599e33d514bf718ff23ad09-lec_mult_CvK_12x11.sanitized.cnf
+We are looking at 4f2d6659b5c9bf594ea12e3e1a85799f-mdp-32-11-unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/4f2d6659b5c9bf594ea12e3e1a85799f-mdp-32-11-unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/4f2d6659b5c9bf594ea12e3e1a85799f-mdp-32-11-unsat.cnf results_nontrivial_gbc/proofs/4f2d6659b5c9bf594ea12e3e1a85799f-mdp-32-11-unsat.cnf.proof.pr
+The file 4f2d6659b5c9bf594ea12e3e1a85799f-mdp-32-11-unsat.cnf timed out in time 60.00578188896179!
+We have finished on file 4f2d6659b5c9bf594ea12e3e1a85799f-mdp-32-11-unsat.cnf
+We are looking at b76fa2f50a42120ec54fa98c29113326-lec_mult_DvK_12x12.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/b76fa2f50a42120ec54fa98c29113326-lec_mult_DvK_12x12.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/b76fa2f50a42120ec54fa98c29113326-lec_mult_DvK_12x12.sanitized.cnf results_nontrivial_gbc/proofs/b76fa2f50a42120ec54fa98c29113326-lec_mult_DvK_12x12.sanitized.cnf.proof.pr
+The file b76fa2f50a42120ec54fa98c29113326-lec_mult_DvK_12x12.sanitized.cnf timed out in time 60.002766609191895!
+We have finished on file b76fa2f50a42120ec54fa98c29113326-lec_mult_DvK_12x12.sanitized.cnf
+We are looking at db15a85651e0d941a11bf8640625edd8-mdp-32-11-sat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/db15a85651e0d941a11bf8640625edd8-mdp-32-11-sat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/db15a85651e0d941a11bf8640625edd8-mdp-32-11-sat.cnf results_nontrivial_gbc/proofs/db15a85651e0d941a11bf8640625edd8-mdp-32-11-sat.cnf.proof.pr
+The file db15a85651e0d941a11bf8640625edd8-mdp-32-11-sat.cnf timed out in time 60.00356602668762!
+We have finished on file db15a85651e0d941a11bf8640625edd8-mdp-32-11-sat.cnf
+We are looking at bb591c6447fb6b4180f6d288eb2ff62a-lec_mult_DvW_11x10.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/bb591c6447fb6b4180f6d288eb2ff62a-lec_mult_DvW_11x10.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/bb591c6447fb6b4180f6d288eb2ff62a-lec_mult_DvW_11x10.sanitized.cnf results_nontrivial_gbc/proofs/bb591c6447fb6b4180f6d288eb2ff62a-lec_mult_DvW_11x10.sanitized.cnf.proof.pr
+The file bb591c6447fb6b4180f6d288eb2ff62a-lec_mult_DvW_11x10.sanitized.cnf timed out in time 60.004274129867554!
+We have finished on file bb591c6447fb6b4180f6d288eb2ff62a-lec_mult_DvW_11x10.sanitized.cnf
+We are looking at 5952b9f18b73dabb531c60e3ac85d26f-ctl_4291_567_9_unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/5952b9f18b73dabb531c60e3ac85d26f-ctl_4291_567_9_unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/5952b9f18b73dabb531c60e3ac85d26f-ctl_4291_567_9_unsat.cnf results_nontrivial_gbc/proofs/5952b9f18b73dabb531c60e3ac85d26f-ctl_4291_567_9_unsat.cnf.proof.pr
+The file 5952b9f18b73dabb531c60e3ac85d26f-ctl_4291_567_9_unsat.cnf timed out in time 60.00924253463745!
+We have finished on file 5952b9f18b73dabb531c60e3ac85d26f-ctl_4291_567_9_unsat.cnf
+We are looking at 40737c2f46512069d54b0d2bb3b47a20-ER_400_20_4.apx_2_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/40737c2f46512069d54b0d2bb3b47a20-ER_400_20_4.apx_2_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/40737c2f46512069d54b0d2bb3b47a20-ER_400_20_4.apx_2_DC-AD.cnf results_nontrivial_gbc/proofs/40737c2f46512069d54b0d2bb3b47a20-ER_400_20_4.apx_2_DC-AD.cnf.proof.pr
+The file 40737c2f46512069d54b0d2bb3b47a20-ER_400_20_4.apx_2_DC-AD.cnf timed out in time 60.003194093704224!
+We have finished on file 40737c2f46512069d54b0d2bb3b47a20-ER_400_20_4.apx_2_DC-AD.cnf
+We are looking at 0ac6aaf6db6a0e4ec3a06e865d01086f-pcmax-scheduling-m13-2011-12813-UNSAT.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/0ac6aaf6db6a0e4ec3a06e865d01086f-pcmax-scheduling-m13-2011-12813-UNSAT.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/0ac6aaf6db6a0e4ec3a06e865d01086f-pcmax-scheduling-m13-2011-12813-UNSAT.sanitized.cnf results_nontrivial_gbc/proofs/0ac6aaf6db6a0e4ec3a06e865d01086f-pcmax-scheduling-m13-2011-12813-UNSAT.sanitized.cnf.proof.pr
+The file 0ac6aaf6db6a0e4ec3a06e865d01086f-pcmax-scheduling-m13-2011-12813-UNSAT.sanitized.cnf timed out in time 60.003448247909546!
+We have finished on file 0ac6aaf6db6a0e4ec3a06e865d01086f-pcmax-scheduling-m13-2011-12813-UNSAT.sanitized.cnf
+We are looking at bd19da88800086971e554e9d66bc641d-stb_588_138.apx_1_DC-ST.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/bd19da88800086971e554e9d66bc641d-stb_588_138.apx_1_DC-ST.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/bd19da88800086971e554e9d66bc641d-stb_588_138.apx_1_DC-ST.cnf results_nontrivial_gbc/proofs/bd19da88800086971e554e9d66bc641d-stb_588_138.apx_1_DC-ST.cnf.proof.pr
+The file bd19da88800086971e554e9d66bc641d-stb_588_138.apx_1_DC-ST.cnf timed out in time 60.00381660461426!
+We have finished on file bd19da88800086971e554e9d66bc641d-stb_588_138.apx_1_DC-ST.cnf
+We are looking at 83b330c934d6dd35d56e1b1ca3638b3c-j3037_1_mdd_b.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/83b330c934d6dd35d56e1b1ca3638b3c-j3037_1_mdd_b.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/83b330c934d6dd35d56e1b1ca3638b3c-j3037_1_mdd_b.cnf results_nontrivial_gbc/proofs/83b330c934d6dd35d56e1b1ca3638b3c-j3037_1_mdd_b.cnf.proof.pr
+The file 83b330c934d6dd35d56e1b1ca3638b3c-j3037_1_mdd_b.cnf timed out in time 60.00511360168457!
+We have finished on file 83b330c934d6dd35d56e1b1ca3638b3c-j3037_1_mdd_b.cnf
+We are looking at d7f2e4ec8e631387c928c79e1054c663-stb_418_125.apx_1_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/d7f2e4ec8e631387c928c79e1054c663-stb_418_125.apx_1_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/d7f2e4ec8e631387c928c79e1054c663-stb_418_125.apx_1_DC-AD.cnf results_nontrivial_gbc/proofs/d7f2e4ec8e631387c928c79e1054c663-stb_418_125.apx_1_DC-AD.cnf.proof.pr
+The file d7f2e4ec8e631387c928c79e1054c663-stb_418_125.apx_1_DC-AD.cnf timed out in time 60.0025851726532!
+We have finished on file d7f2e4ec8e631387c928c79e1054c663-stb_418_125.apx_1_DC-AD.cnf
+We are looking at 55199d55fa9c3751a525d6c0a0e649bd-WS_500_16_90_70.apx_2_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/55199d55fa9c3751a525d6c0a0e649bd-WS_500_16_90_70.apx_2_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/55199d55fa9c3751a525d6c0a0e649bd-WS_500_16_90_70.apx_2_DC-AD.cnf results_nontrivial_gbc/proofs/55199d55fa9c3751a525d6c0a0e649bd-WS_500_16_90_70.apx_2_DC-AD.cnf.proof.pr
+The file 55199d55fa9c3751a525d6c0a0e649bd-WS_500_16_90_70.apx_2_DC-AD.cnf timed out in time 60.00333595275879!
+We have finished on file 55199d55fa9c3751a525d6c0a0e649bd-WS_500_16_90_70.apx_2_DC-AD.cnf
+We are looking at 6f4df706246d29bf38adadd274fadab3-SGI_30_60_19_60_6-dir.shuffled-as.sat03-112.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/6f4df706246d29bf38adadd274fadab3-SGI_30_60_19_60_6-dir.shuffled-as.sat03-112.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/6f4df706246d29bf38adadd274fadab3-SGI_30_60_19_60_6-dir.shuffled-as.sat03-112.cnf results_nontrivial_gbc/proofs/6f4df706246d29bf38adadd274fadab3-SGI_30_60_19_60_6-dir.shuffled-as.sat03-112.cnf.proof.pr
+The file 6f4df706246d29bf38adadd274fadab3-SGI_30_60_19_60_6-dir.shuffled-as.sat03-112.cnf timed out in time 60.00450682640076!
+We have finished on file 6f4df706246d29bf38adadd274fadab3-SGI_30_60_19_60_6-dir.shuffled-as.sat03-112.cnf
+We are looking at c3e53c353f30d9e2eb54ed93d6ce4f02-x9-09007.sat.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/c3e53c353f30d9e2eb54ed93d6ce4f02-x9-09007.sat.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/c3e53c353f30d9e2eb54ed93d6ce4f02-x9-09007.sat.sanitized.cnf results_nontrivial_gbc/proofs/c3e53c353f30d9e2eb54ed93d6ce4f02-x9-09007.sat.sanitized.cnf.proof.pr
+The file c3e53c353f30d9e2eb54ed93d6ce4f02-x9-09007.sat.sanitized.cnf timed out in time 60.002715826034546!
+We have finished on file c3e53c353f30d9e2eb54ed93d6ce4f02-x9-09007.sat.sanitized.cnf
+We are looking at 9e749596a8de36d8ab706c96cf128455-WS_500_16_70_10.apx_2_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/9e749596a8de36d8ab706c96cf128455-WS_500_16_70_10.apx_2_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/9e749596a8de36d8ab706c96cf128455-WS_500_16_70_10.apx_2_DC-AD.cnf results_nontrivial_gbc/proofs/9e749596a8de36d8ab706c96cf128455-WS_500_16_70_10.apx_2_DC-AD.cnf.proof.pr
+The file 9e749596a8de36d8ab706c96cf128455-WS_500_16_70_10.apx_2_DC-AD.cnf timed out in time 60.003042697906494!
+We have finished on file 9e749596a8de36d8ab706c96cf128455-WS_500_16_70_10.apx_2_DC-AD.cnf
+We are looking at 5432e4dd44480fadbd66647db1750c80-pcmax-scheduling-m24-24102-255206-SAT.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/5432e4dd44480fadbd66647db1750c80-pcmax-scheduling-m24-24102-255206-SAT.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/5432e4dd44480fadbd66647db1750c80-pcmax-scheduling-m24-24102-255206-SAT.sanitized.cnf results_nontrivial_gbc/proofs/5432e4dd44480fadbd66647db1750c80-pcmax-scheduling-m24-24102-255206-SAT.sanitized.cnf.proof.pr
+The file 5432e4dd44480fadbd66647db1750c80-pcmax-scheduling-m24-24102-255206-SAT.sanitized.cnf timed out in time 60.006211280822754!
+We have finished on file 5432e4dd44480fadbd66647db1750c80-pcmax-scheduling-m24-24102-255206-SAT.sanitized.cnf
+We are looking at c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf results_nontrivial_gbc/proofs/c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf.proof.pr
+The file c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf returned SAT in time 2.267960786819458!
+We have finished on file c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf
+We are looking at 16c27d738cb45b766b8823ca4f428cf0-rbsat-v760c43649gyes7.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/16c27d738cb45b766b8823ca4f428cf0-rbsat-v760c43649gyes7.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/16c27d738cb45b766b8823ca4f428cf0-rbsat-v760c43649gyes7.cnf results_nontrivial_gbc/proofs/16c27d738cb45b766b8823ca4f428cf0-rbsat-v760c43649gyes7.cnf.proof.pr
+The file 16c27d738cb45b766b8823ca4f428cf0-rbsat-v760c43649gyes7.cnf timed out in time 60.00378680229187!
+We have finished on file 16c27d738cb45b766b8823ca4f428cf0-rbsat-v760c43649gyes7.cnf
+We are looking at 09d7add3bf3b75c5d1023a92e752989a-Break_unsat_04_03.xml.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/09d7add3bf3b75c5d1023a92e752989a-Break_unsat_04_03.xml.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/09d7add3bf3b75c5d1023a92e752989a-Break_unsat_04_03.xml.cnf results_nontrivial_gbc/proofs/09d7add3bf3b75c5d1023a92e752989a-Break_unsat_04_03.xml.cnf.proof.pr
+The file 09d7add3bf3b75c5d1023a92e752989a-Break_unsat_04_03.xml.cnf returned UNSAT in time 0.1657102108001709!
+We have finished on file 09d7add3bf3b75c5d1023a92e752989a-Break_unsat_04_03.xml.cnf
+We are looking at ec84eecb124c63d4757e083dd0e5a9ff-mchess_15.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/ec84eecb124c63d4757e083dd0e5a9ff-mchess_15.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/ec84eecb124c63d4757e083dd0e5a9ff-mchess_15.cnf results_nontrivial_gbc/proofs/ec84eecb124c63d4757e083dd0e5a9ff-mchess_15.cnf.proof.pr
+The file ec84eecb124c63d4757e083dd0e5a9ff-mchess_15.cnf timed out in time 60.00311994552612!
+We have finished on file ec84eecb124c63d4757e083dd0e5a9ff-mchess_15.cnf
+We are looking at 2c3c28f6d939d157e909c57a265fc908-mchess_17.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/2c3c28f6d939d157e909c57a265fc908-mchess_17.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/2c3c28f6d939d157e909c57a265fc908-mchess_17.cnf results_nontrivial_gbc/proofs/2c3c28f6d939d157e909c57a265fc908-mchess_17.cnf.proof.pr
+The file 2c3c28f6d939d157e909c57a265fc908-mchess_17.cnf timed out in time 60.00357437133789!
+We have finished on file 2c3c28f6d939d157e909c57a265fc908-mchess_17.cnf
+We are looking at e99e266b422513a2898c13898a1de501-rbsat-v760c43649gyes9.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/e99e266b422513a2898c13898a1de501-rbsat-v760c43649gyes9.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/e99e266b422513a2898c13898a1de501-rbsat-v760c43649gyes9.cnf results_nontrivial_gbc/proofs/e99e266b422513a2898c13898a1de501-rbsat-v760c43649gyes9.cnf.proof.pr
+The file e99e266b422513a2898c13898a1de501-rbsat-v760c43649gyes9.cnf timed out in time 60.004475355148315!
+We have finished on file e99e266b422513a2898c13898a1de501-rbsat-v760c43649gyes9.cnf
+We are looking at 09b61bbf19748094a7d896aac314ab36-x9-12063.sat.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/09b61bbf19748094a7d896aac314ab36-x9-12063.sat.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/09b61bbf19748094a7d896aac314ab36-x9-12063.sat.sanitized.cnf results_nontrivial_gbc/proofs/09b61bbf19748094a7d896aac314ab36-x9-12063.sat.sanitized.cnf.proof.pr
+The file 09b61bbf19748094a7d896aac314ab36-x9-12063.sat.sanitized.cnf timed out in time 60.003230571746826!
+We have finished on file 09b61bbf19748094a7d896aac314ab36-x9-12063.sat.sanitized.cnf
+We are looking at 695e287a447fcdd924985a6e73057a38-rbsat-v1150c84314gyes1.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/695e287a447fcdd924985a6e73057a38-rbsat-v1150c84314gyes1.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/695e287a447fcdd924985a6e73057a38-rbsat-v1150c84314gyes1.cnf results_nontrivial_gbc/proofs/695e287a447fcdd924985a6e73057a38-rbsat-v1150c84314gyes1.cnf.proof.pr
+The file 695e287a447fcdd924985a6e73057a38-rbsat-v1150c84314gyes1.cnf timed out in time 60.005598306655884!
+We have finished on file 695e287a447fcdd924985a6e73057a38-rbsat-v1150c84314gyes1.cnf
+We are looking at c76f3c6c2e2eae85fc5f3d499f3db88d-mp1-blockpuzzle_5x10_s7_free4.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/c76f3c6c2e2eae85fc5f3d499f3db88d-mp1-blockpuzzle_5x10_s7_free4.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/c76f3c6c2e2eae85fc5f3d499f3db88d-mp1-blockpuzzle_5x10_s7_free4.cnf results_nontrivial_gbc/proofs/c76f3c6c2e2eae85fc5f3d499f3db88d-mp1-blockpuzzle_5x10_s7_free4.cnf.proof.pr
+The file c76f3c6c2e2eae85fc5f3d499f3db88d-mp1-blockpuzzle_5x10_s7_free4.cnf timed out in time 60.005526542663574!
+We have finished on file c76f3c6c2e2eae85fc5f3d499f3db88d-mp1-blockpuzzle_5x10_s7_free4.cnf
+We are looking at 18c0eb461bda29214bd43b84199a3b61-cliquecolouring_n31_k5_c4.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/18c0eb461bda29214bd43b84199a3b61-cliquecolouring_n31_k5_c4.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/18c0eb461bda29214bd43b84199a3b61-cliquecolouring_n31_k5_c4.sanitized.cnf results_nontrivial_gbc/proofs/18c0eb461bda29214bd43b84199a3b61-cliquecolouring_n31_k5_c4.sanitized.cnf.proof.pr
+The file 18c0eb461bda29214bd43b84199a3b61-cliquecolouring_n31_k5_c4.sanitized.cnf timed out in time 60.00302982330322!
+We have finished on file 18c0eb461bda29214bd43b84199a3b61-cliquecolouring_n31_k5_c4.sanitized.cnf
+We are looking at ddc0720fa5a91d9cc0dc726644ab9e9f-6s167-opt.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/ddc0720fa5a91d9cc0dc726644ab9e9f-6s167-opt.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/ddc0720fa5a91d9cc0dc726644ab9e9f-6s167-opt.cnf results_nontrivial_gbc/proofs/ddc0720fa5a91d9cc0dc726644ab9e9f-6s167-opt.cnf.proof.pr
+The file ddc0720fa5a91d9cc0dc726644ab9e9f-6s167-opt.cnf timed out in time 60.003796339035034!
+We have finished on file ddc0720fa5a91d9cc0dc726644ab9e9f-6s167-opt.cnf
+We are looking at 9a06700729bf3426beb8a62040f92960-mdp-36-12-unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/9a06700729bf3426beb8a62040f92960-mdp-36-12-unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/9a06700729bf3426beb8a62040f92960-mdp-36-12-unsat.cnf results_nontrivial_gbc/proofs/9a06700729bf3426beb8a62040f92960-mdp-36-12-unsat.cnf.proof.pr
+The file 9a06700729bf3426beb8a62040f92960-mdp-36-12-unsat.cnf timed out in time 60.005799531936646!
+We have finished on file 9a06700729bf3426beb8a62040f92960-mdp-36-12-unsat.cnf
+We are looking at 8704094951693f99fd21403a039c8131-mchess_16.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/8704094951693f99fd21403a039c8131-mchess_16.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/8704094951693f99fd21403a039c8131-mchess_16.cnf results_nontrivial_gbc/proofs/8704094951693f99fd21403a039c8131-mchess_16.cnf.proof.pr
+The file 8704094951693f99fd21403a039c8131-mchess_16.cnf timed out in time 60.00324892997742!
+We have finished on file 8704094951693f99fd21403a039c8131-mchess_16.cnf
+We are looking at 8b18bb75459a4161633ba2a3c8ee183e-x9-11062.sat.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/8b18bb75459a4161633ba2a3c8ee183e-x9-11062.sat.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/8b18bb75459a4161633ba2a3c8ee183e-x9-11062.sat.sanitized.cnf results_nontrivial_gbc/proofs/8b18bb75459a4161633ba2a3c8ee183e-x9-11062.sat.sanitized.cnf.proof.pr
+The file 8b18bb75459a4161633ba2a3c8ee183e-x9-11062.sat.sanitized.cnf timed out in time 60.00353980064392!
+We have finished on file 8b18bb75459a4161633ba2a3c8ee183e-x9-11062.sat.sanitized.cnf
+We are looking at be18894105e006399cc018abc14b204f-af-synthesis_stb_50_40_9_sat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/be18894105e006399cc018abc14b204f-af-synthesis_stb_50_40_9_sat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/be18894105e006399cc018abc14b204f-af-synthesis_stb_50_40_9_sat.cnf results_nontrivial_gbc/proofs/be18894105e006399cc018abc14b204f-af-synthesis_stb_50_40_9_sat.cnf.proof.pr
+The file be18894105e006399cc018abc14b204f-af-synthesis_stb_50_40_9_sat.cnf timed out in time 60.005470514297485!
+We have finished on file be18894105e006399cc018abc14b204f-af-synthesis_stb_50_40_9_sat.cnf
+We are looking at b11374f7fe60b9a63fbfde24b1a0a439-stb_418_125.apx_2_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/b11374f7fe60b9a63fbfde24b1a0a439-stb_418_125.apx_2_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/b11374f7fe60b9a63fbfde24b1a0a439-stb_418_125.apx_2_DC-AD.cnf results_nontrivial_gbc/proofs/b11374f7fe60b9a63fbfde24b1a0a439-stb_418_125.apx_2_DC-AD.cnf.proof.pr
+The file b11374f7fe60b9a63fbfde24b1a0a439-stb_418_125.apx_2_DC-AD.cnf timed out in time 60.00665640830994!
+We have finished on file b11374f7fe60b9a63fbfde24b1a0a439-stb_418_125.apx_2_DC-AD.cnf
+We are looking at 00d1fe07ab948b348bb3fb423b1ef40d-lec_mult_KvW_12x11.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/00d1fe07ab948b348bb3fb423b1ef40d-lec_mult_KvW_12x11.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/00d1fe07ab948b348bb3fb423b1ef40d-lec_mult_KvW_12x11.sanitized.cnf results_nontrivial_gbc/proofs/00d1fe07ab948b348bb3fb423b1ef40d-lec_mult_KvW_12x11.sanitized.cnf.proof.pr
+The file 00d1fe07ab948b348bb3fb423b1ef40d-lec_mult_KvW_12x11.sanitized.cnf timed out in time 60.00327014923096!
+We have finished on file 00d1fe07ab948b348bb3fb423b1ef40d-lec_mult_KvW_12x11.sanitized.cnf
+We are looking at 0d3fcbb89bfb8e821058ba3ea4284de1-j3045_10_gmto_b.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/0d3fcbb89bfb8e821058ba3ea4284de1-j3045_10_gmto_b.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/0d3fcbb89bfb8e821058ba3ea4284de1-j3045_10_gmto_b.cnf results_nontrivial_gbc/proofs/0d3fcbb89bfb8e821058ba3ea4284de1-j3045_10_gmto_b.cnf.proof.pr
+The file 0d3fcbb89bfb8e821058ba3ea4284de1-j3045_10_gmto_b.cnf timed out in time 60.00325393676758!
+We have finished on file 0d3fcbb89bfb8e821058ba3ea4284de1-j3045_10_gmto_b.cnf
+We are looking at 4be4ae25aae88528bc10f8369bba86df-ER_400_20_4.apx_1_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/4be4ae25aae88528bc10f8369bba86df-ER_400_20_4.apx_1_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/4be4ae25aae88528bc10f8369bba86df-ER_400_20_4.apx_1_DC-AD.cnf results_nontrivial_gbc/proofs/4be4ae25aae88528bc10f8369bba86df-ER_400_20_4.apx_1_DC-AD.cnf.proof.pr
+The file 4be4ae25aae88528bc10f8369bba86df-ER_400_20_4.apx_1_DC-AD.cnf timed out in time 60.00307583808899!
+We have finished on file 4be4ae25aae88528bc10f8369bba86df-ER_400_20_4.apx_1_DC-AD.cnf
+We are looking at fae08ac5b6d7eeb4f56f1cfac6c51703-j3045_4_mdd_bm1.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/fae08ac5b6d7eeb4f56f1cfac6c51703-j3045_4_mdd_bm1.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/fae08ac5b6d7eeb4f56f1cfac6c51703-j3045_4_mdd_bm1.cnf results_nontrivial_gbc/proofs/fae08ac5b6d7eeb4f56f1cfac6c51703-j3045_4_mdd_bm1.cnf.proof.pr
+The file fae08ac5b6d7eeb4f56f1cfac6c51703-j3045_4_mdd_bm1.cnf timed out in time 60.004600048065186!
+We have finished on file fae08ac5b6d7eeb4f56f1cfac6c51703-j3045_4_mdd_bm1.cnf
+We are looking at 7b9d8b9b31b530effd634f5a8f1f4411-stb_531_83.apx_2_DC-ST.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/7b9d8b9b31b530effd634f5a8f1f4411-stb_531_83.apx_2_DC-ST.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/7b9d8b9b31b530effd634f5a8f1f4411-stb_531_83.apx_2_DC-ST.cnf results_nontrivial_gbc/proofs/7b9d8b9b31b530effd634f5a8f1f4411-stb_531_83.apx_2_DC-ST.cnf.proof.pr
+The file 7b9d8b9b31b530effd634f5a8f1f4411-stb_531_83.apx_2_DC-ST.cnf timed out in time 60.002816915512085!
+We have finished on file 7b9d8b9b31b530effd634f5a8f1f4411-stb_531_83.apx_2_DC-ST.cnf
+We are looking at 25447f441df2f134223d3e43319c99ad-lec_mult_CvW_12x11.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/25447f441df2f134223d3e43319c99ad-lec_mult_CvW_12x11.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/25447f441df2f134223d3e43319c99ad-lec_mult_CvW_12x11.sanitized.cnf results_nontrivial_gbc/proofs/25447f441df2f134223d3e43319c99ad-lec_mult_CvW_12x11.sanitized.cnf.proof.pr
+The file 25447f441df2f134223d3e43319c99ad-lec_mult_CvW_12x11.sanitized.cnf timed out in time 60.00369119644165!
+We have finished on file 25447f441df2f134223d3e43319c99ad-lec_mult_CvW_12x11.sanitized.cnf
+We are looking at b3f53d4c67b234d27e21f5e56bfd39e8-StConn_8_32.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/b3f53d4c67b234d27e21f5e56bfd39e8-StConn_8_32.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/b3f53d4c67b234d27e21f5e56bfd39e8-StConn_8_32.sanitized.cnf results_nontrivial_gbc/proofs/b3f53d4c67b234d27e21f5e56bfd39e8-StConn_8_32.sanitized.cnf.proof.pr
+The file b3f53d4c67b234d27e21f5e56bfd39e8-StConn_8_32.sanitized.cnf timed out in time 60.00462865829468!
+We have finished on file b3f53d4c67b234d27e21f5e56bfd39e8-StConn_8_32.sanitized.cnf
+We are looking at 45a09efb026036ff4b8d19024a7563a9-fermat-931960058139995587.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/45a09efb026036ff4b8d19024a7563a9-fermat-931960058139995587.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/45a09efb026036ff4b8d19024a7563a9-fermat-931960058139995587.cnf results_nontrivial_gbc/proofs/45a09efb026036ff4b8d19024a7563a9-fermat-931960058139995587.cnf.proof.pr
+The file 45a09efb026036ff4b8d19024a7563a9-fermat-931960058139995587.cnf timed out in time 60.004305362701416!
+We have finished on file 45a09efb026036ff4b8d19024a7563a9-fermat-931960058139995587.cnf
+We are looking at dacb03ea801d459ef08db23a8b1d104f-lec_mult_DvW_12x12.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/dacb03ea801d459ef08db23a8b1d104f-lec_mult_DvW_12x12.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/dacb03ea801d459ef08db23a8b1d104f-lec_mult_DvW_12x12.sanitized.cnf results_nontrivial_gbc/proofs/dacb03ea801d459ef08db23a8b1d104f-lec_mult_DvW_12x12.sanitized.cnf.proof.pr
+The file dacb03ea801d459ef08db23a8b1d104f-lec_mult_DvW_12x12.sanitized.cnf timed out in time 60.00297927856445!
+We have finished on file dacb03ea801d459ef08db23a8b1d104f-lec_mult_DvW_12x12.sanitized.cnf
+We are looking at 1548977b4e27032fe07cda357782cd6a-mdp-28-14-unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/1548977b4e27032fe07cda357782cd6a-mdp-28-14-unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/1548977b4e27032fe07cda357782cd6a-mdp-28-14-unsat.cnf results_nontrivial_gbc/proofs/1548977b4e27032fe07cda357782cd6a-mdp-28-14-unsat.cnf.proof.pr
+The file 1548977b4e27032fe07cda357782cd6a-mdp-28-14-unsat.cnf timed out in time 60.00368547439575!
+We have finished on file 1548977b4e27032fe07cda357782cd6a-mdp-28-14-unsat.cnf
+We are looking at 7f1c7da531539f3be4a1e0e916913086-pcmax-scheduling-m19-2974-16501-UNSAT.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/7f1c7da531539f3be4a1e0e916913086-pcmax-scheduling-m19-2974-16501-UNSAT.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/7f1c7da531539f3be4a1e0e916913086-pcmax-scheduling-m19-2974-16501-UNSAT.sanitized.cnf results_nontrivial_gbc/proofs/7f1c7da531539f3be4a1e0e916913086-pcmax-scheduling-m19-2974-16501-UNSAT.sanitized.cnf.proof.pr
+The file 7f1c7da531539f3be4a1e0e916913086-pcmax-scheduling-m19-2974-16501-UNSAT.sanitized.cnf timed out in time 60.00408434867859!
+We have finished on file 7f1c7da531539f3be4a1e0e916913086-pcmax-scheduling-m19-2974-16501-UNSAT.sanitized.cnf
+We are looking at 23daec2c71ce3c1e346e6042f3dc42eb-mdp-32-14-unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/23daec2c71ce3c1e346e6042f3dc42eb-mdp-32-14-unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/23daec2c71ce3c1e346e6042f3dc42eb-mdp-32-14-unsat.cnf results_nontrivial_gbc/proofs/23daec2c71ce3c1e346e6042f3dc42eb-mdp-32-14-unsat.cnf.proof.pr
+The file 23daec2c71ce3c1e346e6042f3dc42eb-mdp-32-14-unsat.cnf timed out in time 60.00400996208191!
+We have finished on file 23daec2c71ce3c1e346e6042f3dc42eb-mdp-32-14-unsat.cnf
+We are looking at f376d4c191518ed704326960b6b19a4b-x9-10084.sat.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/f376d4c191518ed704326960b6b19a4b-x9-10084.sat.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/f376d4c191518ed704326960b6b19a4b-x9-10084.sat.sanitized.cnf results_nontrivial_gbc/proofs/f376d4c191518ed704326960b6b19a4b-x9-10084.sat.sanitized.cnf.proof.pr
+The file f376d4c191518ed704326960b6b19a4b-x9-10084.sat.sanitized.cnf timed out in time 60.0029182434082!
+We have finished on file f376d4c191518ed704326960b6b19a4b-x9-10084.sat.sanitized.cnf
+We are looking at 0fa9521ff633b27be11525a7b0f7d8b6-jgiraldezlevy.2200.9086.08.40.41.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/0fa9521ff633b27be11525a7b0f7d8b6-jgiraldezlevy.2200.9086.08.40.41.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/0fa9521ff633b27be11525a7b0f7d8b6-jgiraldezlevy.2200.9086.08.40.41.cnf results_nontrivial_gbc/proofs/0fa9521ff633b27be11525a7b0f7d8b6-jgiraldezlevy.2200.9086.08.40.41.cnf.proof.pr
+The file 0fa9521ff633b27be11525a7b0f7d8b6-jgiraldezlevy.2200.9086.08.40.41.cnf timed out in time 60.00416111946106!
+We have finished on file 0fa9521ff633b27be11525a7b0f7d8b6-jgiraldezlevy.2200.9086.08.40.41.cnf
+We are looking at bdcdb52d16f87ea20f091ca4b0b6a36f-lec_mult_CvK_11x10.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/bdcdb52d16f87ea20f091ca4b0b6a36f-lec_mult_CvK_11x10.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/bdcdb52d16f87ea20f091ca4b0b6a36f-lec_mult_CvK_11x10.sanitized.cnf results_nontrivial_gbc/proofs/bdcdb52d16f87ea20f091ca4b0b6a36f-lec_mult_CvK_11x10.sanitized.cnf.proof.pr
+The file bdcdb52d16f87ea20f091ca4b0b6a36f-lec_mult_CvK_11x10.sanitized.cnf timed out in time 60.00372767448425!
+We have finished on file bdcdb52d16f87ea20f091ca4b0b6a36f-lec_mult_CvK_11x10.sanitized.cnf
+We are looking at 04ded94454830d4ea960327e8b91f5a3-mdp-28-14-sat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/04ded94454830d4ea960327e8b91f5a3-mdp-28-14-sat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/04ded94454830d4ea960327e8b91f5a3-mdp-28-14-sat.cnf results_nontrivial_gbc/proofs/04ded94454830d4ea960327e8b91f5a3-mdp-28-14-sat.cnf.proof.pr
+The file 04ded94454830d4ea960327e8b91f5a3-mdp-28-14-sat.cnf timed out in time 60.005033016204834!
+We have finished on file 04ded94454830d4ea960327e8b91f5a3-mdp-28-14-sat.cnf
+We are looking at 2eb039a5aa6bfb6e41d3afd41071ca55-ER_500_30_3.apx_1_DC-ST.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/2eb039a5aa6bfb6e41d3afd41071ca55-ER_500_30_3.apx_1_DC-ST.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/2eb039a5aa6bfb6e41d3afd41071ca55-ER_500_30_3.apx_1_DC-ST.cnf results_nontrivial_gbc/proofs/2eb039a5aa6bfb6e41d3afd41071ca55-ER_500_30_3.apx_1_DC-ST.cnf.proof.pr
+The file 2eb039a5aa6bfb6e41d3afd41071ca55-ER_500_30_3.apx_1_DC-ST.cnf timed out in time 60.004268169403076!
+We have finished on file 2eb039a5aa6bfb6e41d3afd41071ca55-ER_500_30_3.apx_1_DC-ST.cnf
+We are looking at 5cb1ca8fe8a9d9125ea9accd498445f1-stb_531_83.apx_1_DC-ST.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/5cb1ca8fe8a9d9125ea9accd498445f1-stb_531_83.apx_1_DC-ST.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/5cb1ca8fe8a9d9125ea9accd498445f1-stb_531_83.apx_1_DC-ST.cnf results_nontrivial_gbc/proofs/5cb1ca8fe8a9d9125ea9accd498445f1-stb_531_83.apx_1_DC-ST.cnf.proof.pr
+The file 5cb1ca8fe8a9d9125ea9accd498445f1-stb_531_83.apx_1_DC-ST.cnf timed out in time 60.004005670547485!
+We have finished on file 5cb1ca8fe8a9d9125ea9accd498445f1-stb_531_83.apx_1_DC-ST.cnf
+We are looking at 195852083a05edee1902233698eec14a-x9-11077.sat.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/195852083a05edee1902233698eec14a-x9-11077.sat.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/195852083a05edee1902233698eec14a-x9-11077.sat.sanitized.cnf results_nontrivial_gbc/proofs/195852083a05edee1902233698eec14a-x9-11077.sat.sanitized.cnf.proof.pr
+The file 195852083a05edee1902233698eec14a-x9-11077.sat.sanitized.cnf timed out in time 60.003971338272095!
+We have finished on file 195852083a05edee1902233698eec14a-x9-11077.sat.sanitized.cnf
+We are looking at d1940d3d830eb16a7d2270ca4af4acba-mdp-28-11-sat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/d1940d3d830eb16a7d2270ca4af4acba-mdp-28-11-sat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/d1940d3d830eb16a7d2270ca4af4acba-mdp-28-11-sat.cnf results_nontrivial_gbc/proofs/d1940d3d830eb16a7d2270ca4af4acba-mdp-28-11-sat.cnf.proof.pr
+The file d1940d3d830eb16a7d2270ca4af4acba-mdp-28-11-sat.cnf timed out in time 60.00518798828125!
+We have finished on file d1940d3d830eb16a7d2270ca4af4acba-mdp-28-11-sat.cnf
+We are looking at c5a98231dd54cbca06135293bb7e1985-x9-11053.sat.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/c5a98231dd54cbca06135293bb7e1985-x9-11053.sat.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/c5a98231dd54cbca06135293bb7e1985-x9-11053.sat.sanitized.cnf results_nontrivial_gbc/proofs/c5a98231dd54cbca06135293bb7e1985-x9-11053.sat.sanitized.cnf.proof.pr
+The file c5a98231dd54cbca06135293bb7e1985-x9-11053.sat.sanitized.cnf timed out in time 60.00306844711304!
+We have finished on file c5a98231dd54cbca06135293bb7e1985-x9-11053.sat.sanitized.cnf
+We are looking at dd57f6ebf07a7f932a82bed1877788e6-lec_mult_KvW_10x10.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/dd57f6ebf07a7f932a82bed1877788e6-lec_mult_KvW_10x10.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/dd57f6ebf07a7f932a82bed1877788e6-lec_mult_KvW_10x10.sanitized.cnf results_nontrivial_gbc/proofs/dd57f6ebf07a7f932a82bed1877788e6-lec_mult_KvW_10x10.sanitized.cnf.proof.pr
+The file dd57f6ebf07a7f932a82bed1877788e6-lec_mult_KvW_10x10.sanitized.cnf timed out in time 60.00336217880249!
+We have finished on file dd57f6ebf07a7f932a82bed1877788e6-lec_mult_KvW_10x10.sanitized.cnf
+We are looking at d5f6b2092795aad67d1df1fd3a329552-ER_400_20_7.apx_2_DC-ST.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/d5f6b2092795aad67d1df1fd3a329552-ER_400_20_7.apx_2_DC-ST.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/d5f6b2092795aad67d1df1fd3a329552-ER_400_20_7.apx_2_DC-ST.cnf results_nontrivial_gbc/proofs/d5f6b2092795aad67d1df1fd3a329552-ER_400_20_7.apx_2_DC-ST.cnf.proof.pr
+The file d5f6b2092795aad67d1df1fd3a329552-ER_400_20_7.apx_2_DC-ST.cnf timed out in time 60.003122329711914!
+We have finished on file d5f6b2092795aad67d1df1fd3a329552-ER_400_20_7.apx_2_DC-ST.cnf
+We are looking at ea827f81bd0e9735739adc0d9da1b446-ER_500_30_3.apx_2_DC-AD.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/ea827f81bd0e9735739adc0d9da1b446-ER_500_30_3.apx_2_DC-AD.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/ea827f81bd0e9735739adc0d9da1b446-ER_500_30_3.apx_2_DC-AD.cnf results_nontrivial_gbc/proofs/ea827f81bd0e9735739adc0d9da1b446-ER_500_30_3.apx_2_DC-AD.cnf.proof.pr
+The file ea827f81bd0e9735739adc0d9da1b446-ER_500_30_3.apx_2_DC-AD.cnf timed out in time 60.00725817680359!
+We have finished on file ea827f81bd0e9735739adc0d9da1b446-ER_500_30_3.apx_2_DC-AD.cnf
+We are looking at 425c81fc3af7f5124b6282583d80df11-mdp-32-12-unsat.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/425c81fc3af7f5124b6282583d80df11-mdp-32-12-unsat.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/425c81fc3af7f5124b6282583d80df11-mdp-32-12-unsat.cnf results_nontrivial_gbc/proofs/425c81fc3af7f5124b6282583d80df11-mdp-32-12-unsat.cnf.proof.pr
+The file 425c81fc3af7f5124b6282583d80df11-mdp-32-12-unsat.cnf timed out in time 60.00325870513916!
+We have finished on file 425c81fc3af7f5124b6282583d80df11-mdp-32-12-unsat.cnf
+We are looking at bbfed8974655bca520259deb10d2347b-x9-09054.sat.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/bbfed8974655bca520259deb10d2347b-x9-09054.sat.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/bbfed8974655bca520259deb10d2347b-x9-09054.sat.sanitized.cnf results_nontrivial_gbc/proofs/bbfed8974655bca520259deb10d2347b-x9-09054.sat.sanitized.cnf.proof.pr
+The file bbfed8974655bca520259deb10d2347b-x9-09054.sat.sanitized.cnf timed out in time 60.003092765808105!
+We have finished on file bbfed8974655bca520259deb10d2347b-x9-09054.sat.sanitized.cnf
+We are looking at 09c1b79b1cfe3522364fe60aef780703-x9-12092.sat.sanitized.cnf
+CADICAL_FILENAME="results_nontrivial_gbc/global_clauses/09c1b79b1cfe3522364fe60aef780703-x9-12092.sat.sanitized.cnf.global_clauses.txt" build/cadical --report=true --chrono=false --inprocessing=true --verbose=3 --no-binary satcomp_benchmarks_nontrivial_gbc/09c1b79b1cfe3522364fe60aef780703-x9-12092.sat.sanitized.cnf results_nontrivial_gbc/proofs/09c1b79b1cfe3522364fe60aef780703-x9-12092.sat.sanitized.cnf.proof.pr
+The file 09c1b79b1cfe3522364fe60aef780703-x9-12092.sat.sanitized.cnf timed out in time 60.003756046295166!
+We have finished on file 09c1b79b1cfe3522364fe60aef780703-x9-12092.sat.sanitized.cnf

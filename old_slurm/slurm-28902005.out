@@ -1,0 +1,3 @@
++ cd /ocean/projects/cis230065p/ashah12/cadical
++ python3 run_clause_lengths.py
+slurmstepd: error: *** JOB 28902005 ON r467 CANCELLED AT 2025-02-04T23:53:04 ***

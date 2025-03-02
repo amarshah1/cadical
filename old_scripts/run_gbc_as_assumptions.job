@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH -N 1
-#SBATCH -t 8:00:00
+#SBATCH -t 1:00:00
 #SBATCH --ntasks-per-node=128
 
 # type 'man sbatch' for more information and options
@@ -20,4 +20,4 @@ set -x
 
 cd /ocean/projects/cis230065p/ashah12/cadical
 
-python3 run_clause_lengths.py
+python3 run_gbc_as_assumptions.py

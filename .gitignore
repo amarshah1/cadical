@@ -1,2 +1,8 @@
 build
 makefile
+satcomp_benchmarks*
+checking_clauses*
+results*
+old_results/*
+old_txt/*
+*.txt
