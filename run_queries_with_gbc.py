@@ -7,39 +7,46 @@ from concurrent.futures import ProcessPoolExecutor
 import zipfile
 import sys
 import csv
+import argparse
 
 # Configuration
-TIMEOUT = 20  # seconds
-input_dir = "checking_clauses/"
+TIMEOUT = 10 # seconds
+input_dir = "checking_clauses_filtercorrect/"
 
 
-def process_file(subdir, results_directory):
+def process_file(subdir, seed, results_directory):
     """Function to process a single file in parallel execution."""
     sat_results = []
     unsat_results = []
     error_results = []
     timeout_results = []
-    print(os.listdir(input_dir + subdir))
-    for file_name in os.listdir(input_dir + subdir):
-        print(f"We are looking at {input_dir}{subdir}/{file_name}")
+    # print(os.listdir(input_dir + subdir))
+    print(f"Looking at subdir: {subdir}")
+    # for file_name in os.listdir(input_dir + subdir):
+        # if not file_name.endswith(f"{seed}.cnf"):
+        #     continue
+    if True:
+        file_name = subdir + f"_scramble{seed}.cnf"
         file_path = os.path.join(input_dir, subdir, file_name)
+        print(f"We are looking at {file_path}")
+
 
         # Construct command
-        cmd = f'CADICAL_FILENAME="{results_directory}/{file_name}" build/cadical {file_path}'
+        cmd = f'CADICAL_FILENAME="{results_directory}/{file_name}" build/cadical --report=true --chrono=false --inprocessing=true --no-binary {file_path} {results_directory}/{file_name}.proof.pr'
 
         start_time = time.time()
         try:
             result = subprocess.run(cmd, shell=True, timeout=TIMEOUT, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
             elapsed_time = time.time() - start_time
-            print(f"The file {file_name} terminated in time {elapsed_time}!")
+            print(f"The file {subdir}/{file_name} terminated in time {elapsed_time}!")
         except subprocess.TimeoutExpired:
             elapsed_time = time.time() - start_time
-            print(f"The file {file_name} timed out in time {elapsed_time}!")
+            print(f"The file {subdir}/{file_name} timed out in time {elapsed_time}!")
             timeout_results.append((file_name, None))
         except subprocess.CalledProcessError as result:
             elapsed_time = time.time() - start_time
             if result.returncode == 10:
-                onflicts_file = f"{results_directory}/{file_name}_conflicts"
+                conflicts_file = f"{results_directory}/{file_name}_conflicts"
                 try:
                     with open(conflicts_file, "r") as f:
                         num_conflicts = int(f.read().strip())
@@ -47,7 +54,7 @@ def process_file(subdir, results_directory):
                     print(f"Warning: Could not read conflicts from {conflicts_file} ({e})")
                     num_conflicts = None  # Default value if reading fails
 
-                print(f"The file {file_name} returned SAT in time {elapsed_time}!")
+                print(f"The file {subdir}/{file_name} returned SAT in time {elapsed_time}!")
                 sat_results.append(file_name)
             elif result.returncode == 20:
                 conflicts_file = f"{results_directory}/{file_name}_conflicts"
@@ -58,10 +65,11 @@ def process_file(subdir, results_directory):
                     print(f"Warning: Could not read conflicts from {conflicts_file} ({e})")
                     num_conflicts = None  # Default value if reading fails
 
-                print(f"The file {file_name} returned UNSAT in time {elapsed_time}!")   
+                print(f"The file {subdir}/{file_name} returned UNSAT in time {elapsed_time}!")   
                 unsat_results.append((file_name, num_conflicts))
             else:
-                print(f"The file {file_name} returned a non-zero exit status in time {elapsed_time}!")   
+                print(f"The file {subdir}/{file_name} returned a non-zero exit status in time {elapsed_time}!")   
+                print(cmd)
                 error_results.append(file_name)
 
 
@@ -114,9 +122,9 @@ def process_results(results):
         
         print(f"CSV written: {csv_path}")
 
-def run_clause_lengths():
+def run_clause_lengths(seed):
     """Runs clause length analysis in parallel."""
-    clauses_dir = f"garbage_global_clauses/"
+    clauses_dir = f"garbage_global_clauses{seed}/"
 
     os.makedirs(clauses_dir, exist_ok=True)
 
@@ -126,10 +134,10 @@ def run_clause_lengths():
     # Parallel execution
     proc_num = 64
     with ProcessPoolExecutor(max_workers=proc_num) as executor:
-        results = list(executor.map(process_file, files, [clauses_dir] * len(files)))
+        results = list(executor.map(process_file, files, [seed] * len(files), [clauses_dir] * len(files)))
 
     # Write results to a CSV file
-    csv_filename = "useful_clauses3.csv"
+    csv_filename = f"useful_clauses{seed}.csv"
     process_results(results)
 
     # Extract column names from the first dictionary
@@ -142,10 +150,18 @@ def run_clause_lengths():
 
     print(f"CSV saved as {csv_filename}")
 
+
+
 def main():
     """Main function to parse arguments and execute processing."""
-    
-    run_clause_lengths()
+    parser = argparse.ArgumentParser(description="Process clause lengths with an input parameter.")
+    parser.add_argument("seed", type=int, help="Which seed to run on")
+    args = parser.parse_args()
+
+    print(f"STARTING RUN_QUERIES_WITH_GBC with seed {args.seed}")
+
+
+    run_clause_lengths(args.seed)
 
 if __name__ == "__main__":
     main()
