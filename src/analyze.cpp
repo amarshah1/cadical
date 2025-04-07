@@ -1,4 +1,6 @@
 #include "internal.hpp"
+#include <optional>
+#include <functional>  // for std::reference_wrapper
 
 namespace CaDiCaL {
 
@@ -277,9 +279,10 @@ inline void Internal::analyze_literal (int lit, int &open,
   assert (val (lit) < 0);
   assert (v.level <= level);
   assert (v.reason != external_reason);
-  if (v.level < level)
+  if (v.level < level) {
     // amar: this is where they are populating clause
     clause.push_back (lit);
+  }
   Level &l = control[v.level];
   if (!l.seen.count++) {
     LOG ("found new level %d contributing to conflict", v.level);
@@ -298,20 +301,43 @@ inline void Internal::analyze_reason (int lit, Clause *reason, int &open,
                                       int &antecedent_size) {
   assert (reason);
   assert (reason != external_reason);
-  printf("\n");
-  print_clause (reason);
+  // printf("\n");
+  // print_clause (reason);
   bump_clause (reason);
   if (lrat)
     lrat_chain.push_back (reason->id);
-  printf("looking at lit %d \n", lit);
-  for (const auto &other : *reason)
-    if (other != lit) {
-      printf("analyzing %d with val: %d \n", other, val (other));
-    }
+  // // printf("looking at lit %d \n", lit);
   for (const auto &other : *reason)
     if (other != lit) {
       // printf("analyzing %d with val: %d \n", other, val (other));
+    }
+  for (const auto &other : *reason)
+    if (other != lit) {
+      Var minus_nineteen_var = var (-19);
+      Clause *minus_nineteen_reason = minus_nineteen_var.reason;
+
+      if (minus_nineteen_reason) {
+          printf("4. The reason for -19 is: \n");
+          print_clause(minus_nineteen_reason);
+      } else {
+        printf("4. The reason for -19 is a null pointer");
+      }
+      
+      
+      printf("analyzing %d with val: %d \n", other, val (other));
       analyze_literal (other, open, resolvent_size, antecedent_size);
+
+
+      minus_nineteen_var = var (-19);
+      minus_nineteen_reason = minus_nineteen_var.reason;
+
+      if (minus_nineteen_reason) {
+          printf("5. The reason for -19 is: \n");
+          print_clause(minus_nineteen_reason);
+      } else {
+        printf("5. The reason for -19 is a null pointer");
+      }
+
     }
 }
 
@@ -451,7 +477,7 @@ struct analyze_trail_larger {
 
 // Generate new driving clause and compute jump level.
 
-Clause *Internal::new_driving_clause (const int glue, int &jump) {
+Clause *Internal::new_driving_clause (const int glue, int &jump, bool in_trivial) {
 
   const size_t size = clause.size ();
   Clause *res;
@@ -482,8 +508,10 @@ Clause *Internal::new_driving_clause (const int glue, int &jump) {
            analyze_trail_negative_rank (this), analyze_trail_larger (this));
 
     jump = var (clause[1]).level;
-    res = new_learned_redundant_clause (glue);
-    res->used = 1 + (glue <= opts.reducetier2glue);
+    if (!in_trivial) {
+      res = new_learned_redundant_clause (glue);
+      res->used = 1 + (glue <= opts.reducetier2glue);
+    }
   }
 
   LOG ("jump level %d", jump);
@@ -868,9 +896,10 @@ void Internal::otfs_strengthen_clause (Clause *c, int lit, int new_size,
 // chronological backtrafcking (see discussion above) the algorithm becomes
 // slightly more involved.
 
-void Internal::analyze () {
+void Internal::analyze (bool in_trivial) {
 
   START (analyze);
+  printf("starting an analyze\n");
 
   assert (conflict);
   assert (lrat_chain.empty ());
@@ -887,6 +916,17 @@ void Internal::analyze () {
 
   if (external_prop && !external_prop_is_lazy) {
     explain_external_propagations ();
+  }
+
+  Var minus_nineteen_var = var (-19);
+  Clause *minus_nineteen_reason = minus_nineteen_var.reason;
+
+  if (minus_nineteen_reason) {
+    printf("0. The reason for -19 is: \n");
+    print_clause(minus_nineteen_reason);
+  } else {
+    printf("0. The reason for -19 is a null pointer");
+    // in_trivial = false;
   }
 
   if (opts.chrono || external_prop) {
@@ -973,6 +1013,8 @@ void Internal::analyze () {
   //
   Clause *reason = conflict;
   LOG (reason, "analyzing conflict");
+  printf("We have reason: ");
+  print_clause (reason);
 
   assert (clause.empty ());
   assert (lrat_chain.empty ());
@@ -1002,6 +1044,8 @@ void Internal::analyze () {
       LOG (reason, "found candidate (size %d) for OTFS resolvent",
            antecedent_size);
       reason = on_the_fly_strengthen (reason, uip);
+      printf("We have a new strengthened reason:");
+      print_clause (reason);
       assert (conflict_size >= 2);
       if (opts.bump)
         bump_variables ();
@@ -1067,6 +1111,8 @@ void Internal::analyze () {
     if (!--open)
       break;
     reason = var (uip).reason;
+    printf("We have for uip %d, the reason is:", uip);
+    print_clause (reason);
     assert (reason != external_reason);
     LOG (reason, "analyzing %d reason", uip);
     assert (resolvent_size);
@@ -1135,7 +1181,10 @@ void Internal::analyze () {
   // flipped 1st UIP literal.
   //
   int jump;
-  Clause *driving_clause = new_driving_clause (glue, jump);
+  Clause *driving_clause;
+  printf("about to do driving clause\n");
+  driving_clause = new_driving_clause (glue, jump, in_trivial); // learning a clause I think - Amar
+  printf("made it past driving clause\n");
   UPDATE_AVERAGE (averages.current.jump, jump);
 
   int new_level = determine_actual_backtrack_level (jump);
@@ -1162,14 +1211,26 @@ void Internal::analyze () {
   clear_analyzed_literals ();
   clear_unit_analyzed_literals ();
   clear_analyzed_levels ();
+
+  // printing clause to file if we can
+
+  // if (opts.globalrecord && opts.globalrecordnonpr && clause.size() > 0) {
+  //   for (int l : clause)
+  //       outFile << l << " ";  // Use get() to access the reference
+  //   outFile << "\n";             // Again use get() to access the reference
+  // }
+
   clause.clear ();
   conflict = 0;
 
   lrat_chain.clear ();
+  printf("0.made it to the end of analyze\n");
   STOP (analyze);
 
-  if (driving_clause && opts.eagersubsume)
+  if (driving_clause && opts.eagersubsume && !in_trivial)
     eagerly_subsume_recently_learned_clauses (driving_clause);
+  printf("1.made it to the end of analyze\n");
+
 }
 
 // We wait reporting a learned unit until propagation of that unit is

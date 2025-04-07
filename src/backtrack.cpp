@@ -11,6 +11,7 @@ inline void Internal::unassign (int lit) {
   assert (val (lit) > 0);
   set_val (lit, 0);
 
+  // printf ("unassign %d", lit);
   int idx = vidx (lit);
   LOG ("unassign %d @ %d", lit, var (idx).level);
   num_assigned--;
@@ -75,9 +76,9 @@ void Internal::update_target_and_best () {
 
 void Internal::backtrack (int new_level) {
 
-  LOG("WE ARE BACKTRACKING AT LEVEL %D\n", level);
+  // printf("WE ARE BACKTRACKING AT LEVEL %d\n", level);
 
-  printf("We are backtracking from level %d to level %d \n", level, new_level);
+  // printf("We are backtracking from level %d to level %d \n", level, new_level);
   assert (new_level <= level);
   if (new_level == level)
     return;

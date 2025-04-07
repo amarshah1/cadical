@@ -105,10 +105,11 @@ inline void Internal::search_assign (int lit, Clause *reason) {
   if (level)
     require_mode (SEARCH);
 
+  // printf("search_assign on %d\n", lit);
   const int idx = vidx (lit);
   const bool from_external = reason == external_reason;
   LOG("val: %d", val (idx));
-  printf("\nSearch assume on literal %d with value %d\n", lit, val (idx));
+  // printf("Search assume on literal %d with value %d\n", lit, val (idx));
   assert (!val (idx));
   LOG("In search_assign with the literal: %d which has been eliminated: %d\n", lit, flags (idx).eliminated ());
   // LOG("We are considering the clause: ");
@@ -207,8 +208,9 @@ void Internal::assign_unit (int lit) {
 
 void Internal::search_assume_decision (int lit) {
   require_mode (SEARCH);
-  printf("propagated: %d", propagated);
-  printf("trail.size: %d", trail.size ());
+  // printf("looking at lit: %d \n", lit);
+  // printf("propagated: %d \n", propagated);
+  // printf("trail.size: %d \n", trail.size ());
   assert (propagated == trail.size ());
   new_trail_level (lit);
   notify_decision ();
@@ -248,6 +250,8 @@ void Internal::search_assign_external (int lit) {
 // more bytes for each clause.
 
 bool Internal::propagate () {
+
+  // printf("starting on a propagate\n");
 
   if (level)
     require_mode (SEARCH);

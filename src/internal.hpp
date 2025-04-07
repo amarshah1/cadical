@@ -20,6 +20,8 @@
 #include <cstdlib>
 #include <cstring>
 #include <map>
+#include <optional>
+#include <functional>
 
 // Less common 'C' header.
 
@@ -366,12 +368,13 @@ struct Internal {
   // Unsigned literals (abs) with checks.
   //
   int vidx (int lit) const {
+    // printf("Checking vidx with %d\n", lit);
     int idx;
     assert (lit);
     assert (lit != INT_MIN);
     idx = abs (lit);
     if (idx > max_var)
-      printf("The max_var is %d", max_var);
+      printf("We are comparing %d to max_var %d", idx, max_var);
     assert (idx <= max_var);
     return idx;
   }
@@ -624,6 +627,7 @@ struct Internal {
   void eager_delete_clause (Clause *);
   void mark_garbage (Clause *);
   void assign_original_unit (uint64_t, int);
+  void assign_original_unit_gbc (uint64_t, int, vector<int>);
   void add_new_original_clause (uint64_t);
   Clause *new_learned_redundant_clause (int glue);
   Clause *new_learned_irredundant_global_clause (int lit, vector<int> negated_conditional, vector<int> autarky_minus_lit, int glue);  // added by amar
@@ -631,6 +635,7 @@ struct Internal {
   Clause *new_hyper_binary_resolved_clause (bool red, int glue);
   Clause *new_clause_as (const Clause *orig);
   Clause *new_resolved_irredundant_clause ();
+  // std::ofstream& outFile;
 
   // Forward reasoning through propagation in 'propagate.cpp'.
   //
@@ -678,7 +683,7 @@ struct Internal {
                         int &antecedent_size);
   void analyze_reason (int lit, Clause *, int &open, int &resolvent_size,
                        int &antecedent_size);
-  Clause *new_driving_clause (const int glue, int &jump);
+  Clause *new_driving_clause (const int glue, int &jump, bool in_trivial = false);
   int find_conflict_level (int &forced);
   int determine_actual_backtrack_level (int jump);
   void otfs_strengthen_clause (Clause *, int, int,
@@ -686,7 +691,7 @@ struct Internal {
   void otfs_subsume_clause (Clause *subsuming, Clause *subsumed);
   int otfs_find_backtrack_level (int &forced);
   Clause *on_the_fly_strengthen (Clause *conflict, int lit);
-  void analyze ();
+  void analyze (bool in_trivial = false);
   void iterate (); // report learned unit clause
 
   // Learning from external propagator in 'external_propagate.cpp'
@@ -1120,6 +1125,9 @@ struct Internal {
   void print_vector(vector<int> c);
   void set_assumptions_mode (bool is_assumption);
   void set_assumptions (vector<int> assumptions);
+  void propagate_for_unit (int lit);
+  vector<int> get_touched_literals ();
+  int global_preprocess ();
   Clause *new_clause_garbage (bool red, int glue = 100);
   bool globalling ();
   bool globalling_decide ();
@@ -1129,6 +1137,11 @@ struct Internal {
   int global_decision1 = 0;
   int global_decision2 = 0;
   void global();
+  bool compare_alpha_a(int a, int b);
+  void custom_sort_alpha_a(std::vector<int>& alpha_a);
+  pair<vector<int>, vector<int>> greedy_sort_alpha_a(std::vector<int> alpha_a, std::vector<int> alpha_c);
+  bool check_if_clause_trivial(vector<int> c);
+  bool in_check_if_clause_trivial = false;
   bool least_conditional_part(std::ofstream& outFile, std::ofstream& outFile_pr);
   void print_assignment();
   int length_of_current_assignment();

@@ -13,6 +13,20 @@ TIMEOUT = 30  # seconds
 TIMEOUT_GBC = 5 # timeout for checking if a gbc is trival
 NUM_SCRAMBLES = 10
 
+unsat_files_prelearn = [
+    "8704094951693f99fd21403a039c8131-mchess_16.cnf",
+    "ec84eecb124c63d4757e083dd0e5a9ff-mchess_15.cnf",
+    "2c3c28f6d939d157e909c57a265fc908-mchess_17.cnf",
+    "cb2e8b7fada420c5046f587ea754d052-clique_n2_k10.sanitized.cnf"
+]
+
+sat_files_prelearn = [
+    "8b18bb75459a4161633ba2a3c8ee183e-x9-11062.sat.sanitized.cnf",
+    "c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf",
+    "a45a0358685867bd4f1c7f7c0b0e379c-x9-10014.sat.sanitized.cnf",
+    "3a75ad246dbc750a7391ad887c5b0835-x9-11093.sat.sanitized.cnf"
+]
+
 
 def filter_gbc(original_formula, gbc_file, output_folder, file_name):
     # Read the global clauses file

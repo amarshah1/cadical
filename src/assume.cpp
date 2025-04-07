@@ -511,6 +511,7 @@ void Internal::reset_assumptions () {
     melt (lit);
   }
   LOG ("cleared %zd assumptions", assumptions.size ());
+  printf ("cleared %d assumptions", assumptions.size ());
   assumptions.clear ();
   marked_failed = true;
 }

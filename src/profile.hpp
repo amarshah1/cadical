@@ -56,6 +56,7 @@ struct Internal;
   PROFILE (elim, 2) \
   PROFILE (extend, 3) \
   PROFILE (global, 3) \
+  PROFILE (trivial, 3) \
   PROFILE (incremental, 0) \
   PROFILE (instantiate, 2) \
   PROFILE (lucky, 2) \

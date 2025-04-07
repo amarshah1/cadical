@@ -38,10 +38,15 @@ int Internal::next_decision_variable_with_best_score () {
 }
 
 int Internal::next_decision_variable () {
-  if (use_scores ()) 
-    return next_decision_variable_with_best_score ();
-  else
-    return next_decision_variable_on_queue ();
+  if (use_scores ()) {
+    int dec = next_decision_variable_with_best_score ();
+    // // printf("deciding with best_score: %d at level: %d\n", dec, level);
+    return dec;
+  } else {
+    int dec = next_decision_variable_on_queue ();
+    // // printf("deciding with decision_variable_on_queue: %d at level: %d\n", dec, level);
+    return dec;
+  }
 }
 
 /*------------------------------------------------------------------------*/
@@ -116,32 +121,50 @@ bool Internal::better_decision (int lit, int other) {
     return btab[lit_idx] > btab[other_idx];
 }
 
+// function that decides the next decision based on occurence list
+int next_decision_touched_literals () {
+  // todo
+  return 1;
+}
+
+
 // Search for the next decision and assign it to the saved phase.  Requires
 // that not all variables are assigned.
 
 int Internal::decide () {
   assert (!satisfied ());
   START (decide);
+  // // printf( "We are in decide!!!\n");
   global_switch = false; // once you make a decision, reset global switch to false
   int res = 0;
+
+  // if (level == 1 and opts.globaltouch) {
+  //   const int lit = next_decision_touched_literals();
+  //   search_assume_decision (lit);
+  // }
   if ((size_t) level < assumptions.size ()) {
+    // printf(" In decide option 1\n");
     const int lit = assumptions[level];
     assert (assumed (lit));
     const signed char tmp = val (lit);
     if (tmp < 0) {
       LOG ("assumption %d falsified", lit);
+      // printf ("1. assumption %d falsified", lit);
       res = 20;
     } else if (tmp > 0) {
       LOG ("assumption %d already satisfied", lit);
+      // printf ("1. assumption %d already satisfied", lit);
       new_trail_level (0);
       LOG ("added pseudo decision level");
+      // printf ("1. added pseudo decision level \n");
       notify_decision ();
     } else {
       LOG ("deciding assumption %d", lit);
+      // printf ("1. deciding assumption %d \n", lit);
       search_assume_decision (lit);
     }
   } else if ((size_t) level == assumptions.size () && constraint.size ()) {
-
+    // printf(" In decide option 2\n");
     int satisfied_lit = 0;  // The literal satisfying the constrain.
     int unassigned_lit = 0; // Highest score unassigned literal.
     int previous_lit = 0;   // Move satisfied literals to the front.
@@ -164,17 +187,20 @@ int Internal::decide () {
       const signed char tmp = val (lit);
       if (tmp < 0) {
         LOG ("constraint literal %d falsified", lit);
+        // printf ("2. constraint literal %d falsified\n", lit);
         continue;
       }
 
       if (tmp > 0) {
         LOG ("constraint literal %d satisfied", lit);
+        // printf ("2. constraint literal %d satisfied\n", lit);
         satisfied_lit = lit;
         break;
       }
 
       assert (!tmp);
       LOG ("constraint literal %d unassigned", lit);
+      // printf ("2. constraint literal %d unassigned\n", lit);
 
       if (!unassigned_lit || better_decision (lit, unassigned_lit))
         unassigned_lit = lit;
@@ -187,9 +213,11 @@ int Internal::decide () {
       LOG ("literal %d satisfies constraint and "
            "is implied by assumptions",
            satisfied_lit);
+      // printf ("2. literal %d satisfies constraint and is implied by assumptions\n", satisfied_lit);
 
       new_trail_level (0);
       LOG ("added pseudo decision level for constraint");
+      // printf ("2. added pseudo decision level for constraint \n");
       notify_decision ();
 
     } else {
@@ -209,11 +237,13 @@ int Internal::decide () {
       if (unassigned_lit) {
 
         LOG ("deciding %d to satisfy constraint", unassigned_lit);
+        // printf ("2.2. deciding %d to satisfy constraint\n", unassigned_lit);
         search_assume_decision (unassigned_lit);
 
       } else {
 
         LOG ("failing constraint");
+        // printf ("2.2. failing constraint\n");
         unsat_constraint = true;
         res = 20;
       }
@@ -226,7 +256,7 @@ int Internal::decide () {
 #endif
 
   } else {
-    
+    // // printf(" In decide option 3\n");
     int decision = ask_decision ();
     if ((size_t) level < assumptions.size () ||
       ((size_t) level == assumptions.size () && constraint.size ())) {
@@ -242,6 +272,7 @@ int Internal::decide () {
         const bool target = (opts.target > 1 || (stable && opts.target));
         decision = decide_phase (idx, target);
       }
+      // // printf("3. We are making the decision %d\n");
       search_assume_decision (decision);
     }
   }

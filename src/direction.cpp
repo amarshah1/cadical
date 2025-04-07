@@ -6,7 +6,7 @@ using namespace std;
 namespace CaDiCaL {
 
 
-// void Internal::print_clause (CaDiCaL::Clause *const &c) {
+// void Internal::// print_clause (CaDiCaL::Clause *const &c) {
 //     // for(const_literal_iterator l = c->begin (); l != c->end (); l++){
 //     //         const int lit = *l;
 //     //         printf("%d ", lit);
@@ -35,12 +35,12 @@ bool Internal::direction() {
             if (*l == assumption) {
                 occurs_positively = true;
                 LOG("occurs positively at:");
-                print_clause (c);
+                // print_clause (c);
             }
             else if (*l == -assumption) {
                 occurs_negatively = true;
                 LOG("occurs negatively at:");
-                print_clause (c);
+                // print_clause (c);
             }
             if (occurs_negatively && occurs_positively) {
                 break;
@@ -55,7 +55,7 @@ bool Internal::direction() {
             vector<int> other_lits = {};
 
             LOG("looking at clause:");
-            print_clause (c);
+            // print_clause (c);
 
             for(const_literal_iterator l = c->begin (); l != c->end (); l++){
                 if (*l == assumption) {
@@ -75,7 +75,7 @@ bool Internal::direction() {
             vector<int> other_lits = {};
 
             LOG("looking at clause:");
-            print_clause (c);
+            // print_clause (c);
 
             for(const_literal_iterator l = c->begin (); l != c->end (); l++){
                 if (*l == -assumption) {

@@ -3,6 +3,12 @@
 #include <fstream>  // For file handling
 #include <cstdlib>
 #include <ctime>
+#include <csignal>
+#include <algorithm>
+#include <random>
+#include <unordered_set>
+#include <set>
+#include <utility>  // For std::pair
 using namespace std;
 
 namespace CaDiCaL {
@@ -48,30 +54,234 @@ void Internal::print_assignment() {
         printf("%d ", fixed_literals[i]);
     }
     printf("assignment length: %d; fixed_literals length : %d \n ", assignment_length, fixed_literals.size ());
-    printf("\n");
 }
 
 void Internal::print_clause (CaDiCaL::Clause *const &c) {
+    // printf("Entering print_clause\n");
+    // if (!c)
+    //     printf("c is a null pointer!\n");
+    assert (c); // don't want a null pointer
     for(const_literal_iterator l = c->begin (); l != c->end (); l++){
             const int lit = *l;
             printf("%d ", lit);
         }
+    printf("\n");
+}
+
+// // Custom comparison logic as a non-static member function
+bool Internal::compare_alpha_a(int a, int b) {
+    printf("comparing %d and %d\n", a, b);
+    backtrack ();
+    search_assume_decision(a);
+
+    if (!propagate()) {
+        // we should never get here since we are propagating only from alpha_a
+        assert (false);
+        // std::cout << "We reach a conflict from a single propagation on " << a << " and will analyze\n";
+        // analyze();
+
+        // if (!propagate()) {
+        //     analyze();
+        //     std::cout << "We should have reached a contradiction!\n";
+        // }
+    } else if (val(b) > 0) {
+        printf("We get that %d < %d\n", a, b);
+        return true;  // a should come before b
+    }
+
+    return false;  // Otherwise, maintain original order
+}
+
+//custom sort function as I cannot use std::sort to sort alpha_a since compare_alpha_a is non-statics
+// basically does a naive swapping thing
+// need to make this more efficient and do a topological sort
+void Internal::custom_sort_alpha_a(std::vector<int>& alpha_a) {
+    for (size_t i = 0; i < alpha_a.size(); ++i) {
+        for  (size_t j = i + 1; j < alpha_a.size(); ++j) {
+            if (compare_alpha_a(alpha_a[j] , alpha_a[i])) {
+                printf("comparing %d and %d\n", alpha_a[i], alpha_a[j]);
+                int temp = alpha_a[j];
+                alpha_a[j] = alpha_a[i];
+                alpha_a[i] = temp;
+            }
+        }
+    }
+}
+
+void printSet(const unordered_set<int> uset) {
+    printf("  { ");
+        for (const auto& elem : uset) {
+            printf("%d ", elem);
+        }
+        printf("}\n");
+}
+
+
+void printVectorOfSets(const vector<unordered_set<int>>& vec) {
+    printf("[\n");
+    for (const auto& uset : vec) {
+        printSet(uset);
+    }
+    printf("]\n");
+}
+
+
+// todo: need to double check that this works
+// Function to find the smallest number of subsets that maximize union
+pair<vector<int>, vector<int>> greedySetCover(vector<unordered_set<int>>& subsets, vector<int> total_elements) {
+    printf("We are in greedy_set_cover!\n");
+    
+
+    unordered_set<int> covered;
+    unordered_set<int> uncovered(total_elements.begin(), total_elements.end());;
+    int num_elements = 0;
+    // set<int> all_elements;
+    vector<int> chosen_subsets;
+    
+    // Collect all elements from the subsets
+    // for (const auto& subset : subsets) {
+    //     uncovered.insert(subset.begin(), subset.end());
+    //     num_elements += 1;
+    // }
+
+
+    
+    // Greedy selection process
+    while (covered.size() < total_elements.size ()) {
+        printf("New iteration!");
+        int best_idx = -1;
+        size_t max_new_elements = 0;
+        
+        // Find the subset that adds the most new elements
+        for (size_t i = 0; i < subsets.size(); i++) {
+            size_t new_elements = 0;
+            for (int elem : subsets[i]) {
+                if (covered.find(elem) == covered.end()) {
+                    new_elements++;
+                }
+            }
+            
+            if (new_elements > max_new_elements) {
+                max_new_elements = new_elements;
+                best_idx = i;
+            }
+        }
+
+        // No more useful subsets found
+        if (best_idx == -1) break;
+
+        printf("We have found the best subset with id %d: \n", best_idx);
+        printSet(subsets[best_idx]);
+        
+        
+        
+        // Add the chosen subset to the solution
+        chosen_subsets.push_back(best_idx);
+        covered.insert(subsets[best_idx].begin(), subsets[best_idx].end());
+        for (const auto& elem : subsets[best_idx]) {
+            uncovered.erase(elem);
+            printf("erasing %d from uncovered!\n", elem);
+            printSet(uncovered);
+        }
+    }
+
+    vector<int> uncovered_vector(uncovered.begin (), uncovered.end ());
+
+
+    
+    return std::make_pair(chosen_subsets, uncovered_vector);
+}
+
+
+
+// todo : need to write this
+pair<vector<int>, vector<int>> Internal::greedy_sort_alpha_a(std::vector<int> alpha_a, std::vector<int> neg_alpha_c) {
+
+    printf("doing a greedy_sort_alpha_a with: \n");
+    printf("alpha_a: ");
+    print_vector(alpha_a);
+    printf("neg_alpha_c");
+    print_vector(neg_alpha_c);
+
+    vector<int> alpha_a_useful;
+    vector<unordered_set<int>> alpha_a_propagated;
+
+    for (int i=0; i < alpha_a.size(); i++){
+            printf("Trying to shrink using %d\n", alpha_a[i]);
+            Flags &f = flags (alpha_a[i]);
+
+            if (f.status == Flags::FIXED) {
+                continue;
+            }   
+
+            backtrack (0);
+            search_assume_decision(-alpha_a[i]); 
+
+            if (!propagate ()) {
+                printf("We got a conflict when propagating from %d\n", -alpha_a[i]);
+                analyze ();
+
+                if (!propagate ()) {
+                    printf ("got to a conflict \n");
+                    STOP (global);
+                    break;
+                }
+                continue;
+            } 
+            unordered_set<int> propagated;
+            for (int j=0; j < neg_alpha_c.size(); j ++) {
+                int v = val (neg_alpha_c[j]);
+                if (v < 0) {
+                    printf("The literal %d in ~alpha_a implies literal %d in alpha_c by unit propagation \n", -alpha_a[i], -neg_alpha_c[j]);
+                    assert (j < neg_alpha_c.size());
+                    propagated.insert(neg_alpha_c[j]);
+                }
+            }
+            if (propagated.size () > 0) {
+                alpha_a_useful.push_back(alpha_a[i]);
+                alpha_a_propagated.push_back(propagated);
+            }
+        }
+    // was remembering literals without this backtrack
+    backtrack (0);
+
+    printf("We are calling greedySsetCover!\n ");
+    printf("Subsets:");
+    printVectorOfSets(alpha_a_propagated);
+    printf("neg_alpha_c:");
+    print_vector (neg_alpha_c);
+
+    auto [chosen_indices, neg_alpha_c_without_c0] = greedySetCover(alpha_a_propagated, neg_alpha_c);
+
+    vector<int> alpha_a_useful_final;
+
+    // Add elements from alpha_a_useful based on chosen_indices
+    for (int index : chosen_indices) {
+        alpha_a_useful_final.push_back(alpha_a_useful[index]);
+    }
+
+    printf("We are returning alpha_a_useful_final: ");
+    print_vector (alpha_a_useful_final);
+
+    printf("We are returning neg_alpha_c_without_c0: ");
+    print_vector (neg_alpha_c_without_c0);
+
+
+    return std::make_pair(alpha_a_useful_final, neg_alpha_c_without_c0);
 }
 
 void Internal::print_vector (vector<int> c) {
     for(int i = 0; i < c.size(); i++){
             printf("%d ", c[i]);
         }
-    printf("\n");
+    // printf("\n");
 }
 
 void Internal::print_all_clauses() {
-    // printf ("Printing all clauses: \n");
-    // for (const auto &c: clauses) {
-    //     printf( "    ");
-    //     print_clause (c);
-    //     printf("\n");
-    // }
+    printf ("Printing all clauses: \n");
+    for (const auto &c: clauses) {
+        print_clause (c);
+    }
 }
 
 int Internal::length_of_current_assignment() {
@@ -108,13 +318,49 @@ int min(int i, int j) {
         return j;
 }
 
+bool Internal::check_if_clause_trivial(vector<int> c) {
+    START (trivial);
+    printf("checking if clause is trivial: ");
+    print_vector (c);
+    backtrack ();
+    bool is_trivial = false;
+    for (auto lit : c) {
+        if (val (lit) > 0) {
+            printf("Literal %d is trivially true\n", lit);
+            is_trivial = true;
+            break;
+        } else if (val (lit) < 0) {
+            printf("Literal %d is trivially false\n", lit);
+            // is_trivial = true;
+            continue;
+        }
+        search_assume_decision (-1 * lit);
+        
+        if (!propagate ()) {
+            printf("found a conflict on %d!\n", lit);
+            analyze (false); // todo: made these false right now to avoid bug, but will have to check later
+            while (!unsat && !propagate ()) {
+                printf("found another conflict!\n");
+                analyze (false);
+            }
+            printf("finished with conflicts!\n");
+            is_trivial = true;
+            break;
+        }
+    }
+    backtrack ();
+    STOP (trivial);
+    printf("Finished check trivial!\n");
+    return is_trivial;
+}
+
 bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& outFile_pr) {
 
     START (global);
 
-    printf("we have propagated: %d \n", propagated);
-    printf("we have trail.size: %d \n", trail.size ());
-    print_assignment();
+    // printf("we have propagated: %d \n", propagated);
+    // printf("we have trail.size: %d \n", trail.size ());
+    // print_assignment();
     // bool satisfied = false; // Root level satisfied.
 
     // use add_new_original_clause (makes it stay forever)
@@ -164,8 +410,8 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
         // below commented out old way since it is less effiecient
         // need to double check that what I have rn works
         if (c->garbage) {
-            printf("skipping clause: ");
-            print_clause (c);
+            // printf("skipping clause: ");
+            // print_clause (c);
             continue;
         }
         bool skip_clause = false;
@@ -179,10 +425,29 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
             }
         } 
         if (skip_clause) {
-            printf("skipping clause2: ");
-            print_clause (c);
+            // printf("skipping clause2 of size %d: ", c->size);
+            // print_clause (c);
+            // printf("\n");
             continue;
         }
+        // printf("got past the skip_clause2!\n");
+        // print_clause (c);
+
+        // if (c->size == 3) {
+        //     const_literal_iterator l = c->begin ();
+        //     const int lit = *l;
+        //     const_literal_iterator l2 = l + 1;
+        //     const int lit2 = *l2;
+        //     const_literal_iterator l3 = l + 2;
+        //     const int lit3 = *l3;
+        //     if ((lit == -2476044) && (lit2 == -24211) && (lit3 == -2474496)) {
+        //         if (val (24211) < 0 && val(-2476032) > 0 && val (2469759) < 0 && val (-2476031) > 0 && val (-2476030) > 0 && val (-2476029) > 0 && val (-24104) > 0) {
+        //             raise(SIGTRAP);  // Trigger a breakpoint in gdb
+        //         }
+        //     }
+        // }
+
+        // fflush(stdout);
 
         for (auto lit : *c) {
             const signed char lit_val = val (lit);
@@ -203,23 +468,26 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
                     continue;
                 }
                 // printf("    got to a false literal : %d for clause: ", lit);
+                // fflush(stdout);
                 // print_clause (c);
                 // add to touched list if not already in neg_alpha_c
                 if (!getbit(lit, 0)) {
                     alpha_touches.push_back(lit);
                     // printf("    length of alpha_touches is: %d \n", alpha_touches.size());
+                    // fflush(stdout);
                 }
             }
         }
 
         // LOG("\n    touched wihtout sat is: %d", touched_without_sat);
         if (!satisfies_clause) {
-            LOG("    we do not satisfy the clause. Alpha_touches size: %d \n", alpha_touches.size());
+            // printf("    we do not satisfy the clause. Alpha_touches size: %d \n", alpha_touches.size());
+            // fflush(stdout);
             // add alpha_touches to neg_alpha_c
             neg_alpha_c.insert(neg_alpha_c.end(), alpha_touches.begin(), alpha_touches.end());
             // set "added to neg_alpha_c" bit
             for (int i=0; i < alpha_touches.size(); i++){
-                printf("adding to neg_alpha_c: %d \n", alpha_touches[i]);
+                // printf("adding to neg_alpha_c: %d \n", alpha_touches[i]);
                 setbit(alpha_touches[i], 0);
             }
         }
@@ -255,7 +523,7 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
                 new_clause.push_back(key);
                 clauses_to_add.push_back(new_clause);
             } else {
-                // printf("[AUTARKY DECISION ALERT: %d]", key);
+                // // printf("[AUTARKY DECISION ALERT: %d]", key);
             }
 
             // if (val > max_val && !is_decision (key)) {
@@ -267,43 +535,6 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
             alpha_a.push_back(key);
         }
     }
-    // printf("\n");
-
-    // if (print_out) {
-    //     int alpha_c_decision = 0;
-
-    //     for (int i=0; i < neg_alpha_c.size(); i++) {
-    //         if (is_decision (neg_alpha_c[i]))
-    //             alpha_c_decision++;
-    //     }
-
-    //     int alpha_a_decision = 0;
-
-    //     if (max_key && is_decision (max_key)) {
-    //         alpha_a_decision += 1;
-    //     }
-
-    //     for (int i=0; i < alpha_a.size(); i++) {
-    //         if (is_decision (alpha_a[i]))
-    //             alpha_a_decision++;
-    //     }
-
-
-    //     std::ofstream file("tmp2.txt", std::ios::app);  // Open file in append mode
-
-    //     // Check if the file opened successfully
-    //     if (!file) {
-    //         LOG("Error opening file for writing!");
-    //         return false;
-    //     }
-    //     else {
-
-    //         // Write x and y in "x, y" format
-    //         file << neg_alpha_c.size() << ", " << alpha_a.size() << "," << max_key << ", " << (length_of_current_assignment ()) << ", " << alpha_c_decision << ", " << alpha_a_decision << ", " << level << std::endl;
-
-    //         file.close();  // Close the file
-    //     }
-    //     }
 
     // have to unset all of the bits
     for(int i=0; i < neg_alpha_c.size(); i++){
@@ -314,168 +545,266 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
     // it is unsound add globally blocked clause when neg_alpha_c = alpha
     // if (max_key == 0) {
     //     STOP (global);
-    //     printf("We are exiting: %d\n", clauses_to_add.size());
+    //     // printf("We are exiting: %d\n", clauses_to_add.size());
     //     return false;
     // }
 
 
     vector <int>neg_alpha_c_minus_c0(neg_alpha_c);
-    vector <int>alpha_a_useful(alpha_a);
+    // todo: try to remember why we start alpha_a_useful as alpha_a and shrink vs the opposite
+    vector <int>alpha_a_useful;
 
     int useful_alpha_i = 0;
 
-    LOG(neg_alpha_c_minus_c0, "We start with neg_alpha_c_minus_c0:");
-    LOG(alpha_a, "We start with alpha_a:");
+    // // printf(neg_alpha_c_minus_c0, "We start with neg_alpha_c_minus_c0:");
+    // // printf(alpha_a, "We start with alpha_a:");
     // for (int i =0; i < alpha_a.size (); i++) {
     //     if (is_decision (alpha_a[i])) {
     //         LOG("is decision: %d", i);
     //     }
     // }
 
+    Var minus_nineteen_var = var (-19);
+    Clause *minus_nineteen_reason = minus_nineteen_var.reason;
+
+    if (minus_nineteen_reason) {
+        printf("2. The reason for -19 is: \n");
+        print_clause(minus_nineteen_reason);
+    }
+
+    printf("\n");
     printf("We are at level: %d \n", level);
 
     print_assignment ();
 
-    printf("We have alpha_a before:");
+    printf("We have alpha_a before sort:");
     print_vector(alpha_a);
 
-    printf("We have neg_alpha_c before:");
-    print_vector(neg_alpha_c);
 
 
-    // try to shrink clauses using binary clause propagation, instead of a more general propagation
-    if (opts.globalbcp) {
-        for (int i=0; i < alpha_a.size(); i++){
+    // putting alpha_a in a random order for rn; todo: get rid of this
+    // std::random_device rd;  // Non-deterministic random number source
+    // std::default_random_engine rng(rd());  // Seeding the engine
 
-            printf("We are are on %d", alpha_a[i]);
+    // std::shuffle(alpha_a.begin(), alpha_a.end(), rng);
 
-            // want to skip over fixed literals using something like this
-            // todo : I think this shouldn't be necessary because we checked it earlier when creating alpha_a
-            Flags &f = flags (alpha_a[i]);
+    // sorting alpha_a in ascending order ~> dumb trick to get pigeonhole to work (todo: add this back)
 
-            if (f.status == Flags::FIXED) {
-                printf("We are skipping %d \n", alpha_a[i]);
-                continue;
-            }   
+    if (opts.globalalphaagreedy) {
+        custom_sort_alpha_a(alpha_a);
+        printf("Pre-entering a gread_sort_alpha_a");
+        std::tie(alpha_a_useful, neg_alpha_c_minus_c0) = greedy_sort_alpha_a(alpha_a, neg_alpha_c); // issue with variable shadowing
 
-            Watches &ws = watches (alpha_a[i]);
-            const const_watch_iterator end = ws.end ();
-            watch_iterator j = ws.begin ();
-            const_watch_iterator k;
-            bool erase_i = true;
-            for (k = j; k != end; k++) {
-                Watch w = *k;
-                Clause *c = w.clause;
+        printf("We have alpha_a_useful:");
+        print_vector(alpha_a_useful);
+        printf("\n");
 
-                for (int alpha_c_j=0; alpha_c_j < neg_alpha_c_minus_c0.size();alpha_c_j++) {
-                    if (c-> size == 2 && ((c->literals[0] == alpha_a[i] && c->literals[1] == -neg_alpha_c_minus_c0[alpha_c_j]) || (c->literals[1] == alpha_a[i] && c->literals[0] == -neg_alpha_c_minus_c0[alpha_c_j] ))) {
-                        neg_alpha_c_minus_c0.erase(neg_alpha_c_minus_c0.begin() + alpha_c_j);
-                        erase_i = false;
-                        break;
+        printf("We have neg_alpha_c_minus_c0:");
+        print_vector(neg_alpha_c_minus_c0);
+        printf("\n");
+    } else {
+
+        printf("We are entering the else case!\n");
+
+        if (opts.globalalphaasort) {
+            custom_sort_alpha_a(alpha_a);
+        }
+
+
+
+        
+
+
+        
+        //  [](int a, int b, int backtrack) {
+        //     // if (a % 10 == 0) {
+        //     //     return true;
+        //     // } else if (b % 10 == 0) {
+        //     //     return false;
+        //     // }
+        //     // return std::abs(a) < std::abs(b);
+        //     backtrack ();
+        // });
+
+        printf("We have alpha_a after sort:");
+        print_vector(alpha_a);
+        printf("\n");
+
+        printf("We have neg_alpha_c before:");
+        print_vector(neg_alpha_c);
+        printf("\n");
+        // fflush(stdout);
+
+
+
+
+        printf("shrinking: \n");
+        // try to shrink clauses using binary clause propagation, instead of a more general propagation
+        if (opts.globalbcp) {
+            for (int i=0; i < alpha_a.size(); i++){
+
+                // printf("We are are on %d", alpha_a[i]);
+
+                // want to skip over fixed literals using something like this
+                // todo : I think this shouldn't be necessary because we checked it earlier when creating alpha_a
+                Flags &f = flags (alpha_a[i]);
+
+                if (f.status == Flags::FIXED) {
+                    // printf("We are skipping %d \n", alpha_a[i]);
+                    continue;
+                }   
+
+                Watches &ws = watches (alpha_a[i]);
+                const const_watch_iterator end = ws.end ();
+                watch_iterator j = ws.begin ();
+                const_watch_iterator k;
+                bool keep_i = false;
+                for (k = j; k != end; k++) {
+                    Watch w = *k;
+                    Clause *c = w.clause;
+
+                    for (int alpha_c_j=0; alpha_c_j < neg_alpha_c_minus_c0.size();alpha_c_j++) {
+                        if (c-> size == 2 && ((c->literals[0] == alpha_a[i] && c->literals[1] == -neg_alpha_c_minus_c0[alpha_c_j]) || (c->literals[1] == alpha_a[i] && c->literals[0] == -neg_alpha_c_minus_c0[alpha_c_j] ))) {
+                            neg_alpha_c_minus_c0.erase(neg_alpha_c_minus_c0.begin() + alpha_c_j);
+                            keep_i = true;
+                            break;
+                        }
                     }
                 }
-            }
 
-            if (erase_i) {
-                printf("Removing %d from alpha_a_useful from position %d \n", alpha_a_useful[useful_alpha_i], useful_alpha_i);
-                alpha_a_useful.erase(alpha_a_useful.begin() + useful_alpha_i);
-                printf("Now we have alpha_a_useful: ");
-                print_vector(alpha_a_useful);
-            } else 
-                useful_alpha_i += 1;
-        }
-    // otherwise try to shrink clauses using internal propagator
-    } else {
-        for (int i=0; i < alpha_a.size(); i++){
-
-            // want to skip over fixed literals using something like this
-            // todo : I think this shouldn't be necessary because we checked it earlier when creating alpha_a
-            Flags &f = flags (alpha_a[i]);
-
-            if (f.status == Flags::FIXED) {
-                printf("We are skipping %d \n", alpha_a[i]);
-                continue;
-            }   
-
-            // need to backtrack from existing state
-            backtrack (0);
-            print_assignment ();
-            printf("checking propagations from %d \n", -alpha_a[i]);
-            printf("We have propagated: %d; trail.size: %d \n", -alpha_a[i], propagated, trail.size ());
-
-            search_assume_decision(-alpha_a[i]); 
-
-
-            if (!propagate ()) {
-                printf("We got a conflict when propagating from %d\n", -alpha_a[i]);
-                print_assignment ();
-                analyze ();
-                propagate ();
-                print_assignment ();
-                if (unsat) {
-                    STOP (global);
-                    return false;
-                }
-                // todo : this needs to be a loop
-                printf("found unit : %d! \n", alpha_a[i]);
-                useful_alpha_i += 1;
-                continue;
-            } 
-
-            bool erase_i = true;
-
-            LOG(neg_alpha_c_minus_c0, "We have neg_alpha_c_minus_c0:");
-
-
-            for (int j=0; j < neg_alpha_c_minus_c0.size();) {
-                int v = val (neg_alpha_c_minus_c0[j]);
-                if (v < 0) {
-                    printf("The literal %d in ~alpha_a implies literal %d in alpha_c by unit propagation \n", -alpha_a[i], -neg_alpha_c_minus_c0[j]);
-                    neg_alpha_c_minus_c0.erase(neg_alpha_c_minus_c0.begin() + j);
-                    erase_i = false;
-
-                    // todo: currently have to add these binary clauses to make proof gor through. I don't like this though
-                    // clause.push_back(alpha_a[i]);
-                    // clause.push_back(-neg_alpha_c[j]);
-                    // sort_vec_by_decision_level(&clause);
-                    // printf("We are adding the binary unit-prop clause:");
-                    // print_vector(clause);
-                    // if (clause.size () > 1)
-                    //     Clause* c = new_learned_redundant_clause (1);
-                    // else {
-                    //     assign_original_unit (++clause_id, clause[0]);
-                    // }
-                    // clause.clear ();
-
-                } else {
-                    j++;
+                if (keep_i) {
+                    alpha_a_useful.push_back(alpha_a[i]);
                 }
             }
+        // otherwise try to shrink clauses using internal propagator
+        } else {
+            for (int i=0; i < alpha_a.size(); i++){
+                printf("Trying to shrink using %d\n", alpha_a[i]);
 
-            if (erase_i) {
-                printf("Removing %d from alpha_a_useful from position %d \n", alpha_a_useful[useful_alpha_i], useful_alpha_i);
-                alpha_a_useful.erase(alpha_a_useful.begin() + useful_alpha_i);
-                printf("Now we have alpha_a_useful: ");
-                print_vector(alpha_a_useful);
-            } else 
-                useful_alpha_i += 1;
+                // want to skip over fixed literals using something like this
+                // todo : I think this shouldn't be necessary because we checked it earlier when creating alpha_a
+                Flags &f = flags (alpha_a[i]);
+
+                if (f.status == Flags::FIXED) {
+                    // printf("We are skipping %d \n", alpha_a[i]);
+                    continue;
+                }   
+
+                // need to backtrack from existing state
+                // printf("Before backtrack; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+
+                backtrack (0);
+                // printf("right after a backtrack!\n");
+                // print_assignment ();
+                // printf("checking propagations from %d \n", -alpha_a[i]);
+                // printf("We have propagated: %d; propagated: %d; trail.size: %d \n", -alpha_a[i], propagated, trail.size ());
+
+                search_assume_decision(-alpha_a[i]); 
+
+                // if we learn a singleton conflict, the gbc becomes trivial
+                bool dont_learn_gbc = false;
+
+
+                if (!propagate ()) {
+                    printf("We got a conflict when propagating from %d\n", -alpha_a[i]);
+                    // print_assignment ();
+                    // printf("At position 1; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+
+                    analyze ();
+                    // printf("At position 2; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+
+                    // print_assignment ();
+                    // I am not sure if the conflict checking here is completely correct
+                    if (!propagate ()) {
+                        // printf("At position 3; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+                        printf ("got to a conflict \n");
+                        STOP (global);
+                        return false;
+                    }
+                    // printf("found unit : %d! \n", alpha_a[i]);
+                    // // printf("Removing %d from alpha_a_useful from position since it is trivial %d \n", alpha_a_useful[useful_alpha_i], useful_alpha_i);
+                    // alpha_a_useful.erase(alpha_a_useful.begin() + useful_alpha_i);
+                    // // printf("Now we have alpha_a_useful: ");
+                    // print_vector(alpha_a_useful);
+                    continue;
+                } 
+
+                bool keep_i = false;
+
+                LOG(neg_alpha_c_minus_c0, "We have neg_alpha_c_minus_c0:");
+
+                // vector<int> new_neg_alpha_c_minus_c0;
+                // vector<int>::iterator it = neg_alpha_c_minus_c0.begin();
+
+                for (int j=0; j < neg_alpha_c_minus_c0.size();) {
+                    int v = val (neg_alpha_c_minus_c0[j]);
+                    if (v < 0) {
+                        // print_assignment ();
+                        printf("The literal %d in ~alpha_a implies literal %d in alpha_c by unit propagation \n", -alpha_a[i], -neg_alpha_c_minus_c0[j]);
+                        // new_neg_alpha_c_minus_c0.push_back(neg_alpha_c_minus_c0[j]);
+                        assert (j < neg_alpha_c_minus_c0.size());
+                        neg_alpha_c_minus_c0.erase(neg_alpha_c_minus_c0.begin() + j);
+                        keep_i = true;
+
+                        // todo: currently have to add these binary clauses to make proof gor through. I don't like this though
+                        // clause.push_back(alpha_a[i]);
+                        // clause.push_back(-neg_alpha_c[j]);
+                        // sort_vec_by_decision_level(&clause);
+                        // // printf("We are adding the binary unit-prop clause:");
+                        // print_vector(clause);
+                        // if (clause.size () > 1)
+                        //     Clause* c = new_learned_redundant_clause (1);
+                        // else {
+                        //     assign_original_unit (++clause_id, clause[0]);
+                        // }
+                        // clause.clear ();
+                    } else {
+                        j++;
+                    }
+                }
+                // neg_alpha_c_minus_c0 = new_neg_alpha_c_minus_c0;
+
+                // if (erase_i) {
+                //     // printf("Removing %d from alpha_a_useful from position %d \n", alpha_a_useful[useful_alpha_i], useful_alpha_i);
+                //     alpha_a_useful.erase(alpha_a_useful.begin() + useful_alpha_i);
+                //     // (printf)("Now we have alpha_a_useful: ");
+                //     print_vector(alpha_a_useful);
+                // } else 
+                //     useful_alpha_i += 1;
+                if (keep_i)
+                    alpha_a_useful.push_back(alpha_a[i]);
+            }
+        // was remembering literals without this backtrack
+        backtrack (0);
         }
-    // was remembering literals without this backtrack
-    backtrack (0);
     }
 
-
+    printf("\n AFTERWARDS WE HAVE:");
     printf("We have alpha_a:");
     print_vector(alpha_a);
+    printf("\n");
 
     printf("We have alpha_a_useful:");
     print_vector(alpha_a_useful);
+    printf("\n");
 
     printf("We have neg_alpha_c:");
     print_vector(neg_alpha_c);
+    printf("\n");
 
     printf("We have neg_alpha_c_minus_c0:");
     print_vector(neg_alpha_c_minus_c0);
+    printf("\n");
+
+    minus_nineteen_var = var (-19);
+    minus_nineteen_reason = minus_nineteen_var.reason;
+
+    if (minus_nineteen_reason) {
+        printf("3. The reason for -19 is: \n");
+        print_clause(minus_nineteen_reason);
+    }
+
+    
 
 
     
@@ -494,18 +823,16 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
             if (new_clause.size() > 1) {
                 int last_element = new_clause.back ();
                 sort_vec_by_decision_level(&new_clause);
+                bool is_clause_trivial = opts.globalfiltertriv && check_if_clause_trivial (new_clause);
                 clause = new_clause;
-                printf("we are adding the globally blocked clause:");
+                // todo : got rid of non-shrunk clause learning for rn
+                printf("With is_clause-triv: %d, we are adding the globally blocked clause (non-shrunk):", is_clause_trivial);
                 print_vector(clause);
+                printf("\n");
                 vector<int> neg_alpha_c_a(neg_alpha_c);
                 neg_alpha_c_a.push_back(last_element);
-                printf("made it here \n");
-                if (opts.globallearn) {
-                    Clause* c = new_learned_weak_irredundant_global_clause (last_element, neg_alpha_c_a, alpha_a, 1);
-                }
-                printf("made it here2 \n");
 
-                if (opts.globalrecord) {
+                if (opts.globalrecord && !is_clause_trivial) {
                     outFile_pr << last_element << " ";
                     outFile_pr <<  " ";
                     for (int val : neg_alpha_c_a) {
@@ -520,35 +847,53 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
                     outFile_pr << "\n";
                     outFile_pr.flush();
                 }
-                printf("made it here3 \n");
+
+                if (opts.globallearn) {
+                    printf("Learning the original clause (no shrink)! \n ");
+                    if (!is_clause_trivial)   
+                        Clause* c = new_learned_weak_irredundant_global_clause (last_element, neg_alpha_c_a, alpha_a, 1);
+                }
+
+          
 
                 clause.clear ();
-                printf("made it here4 \n");
 
             }
         } else { //(!alpha_a_useful.empty()) {
             // clause = neg_alpha_c_minus_c0.append(alpha_a);
-            neg_alpha_c_minus_c0.insert(neg_alpha_c_minus_c0.end(), alpha_a_useful.begin(), alpha_a_useful.end());
-            clause = neg_alpha_c_minus_c0;
+            vector<int> neg_alpha_c_minus_c0_alpha_a(neg_alpha_c_minus_c0);
+            neg_alpha_c_minus_c0_alpha_a.insert(neg_alpha_c_minus_c0_alpha_a.end(), alpha_a_useful.begin(), alpha_a_useful.end());
+            printf("checking if this clauses is trivial");
+            bool is_clause_trivial = opts.globalfiltertriv && check_if_clause_trivial (neg_alpha_c_minus_c0_alpha_a);
+            clause = neg_alpha_c_minus_c0_alpha_a;
             sort_vec_by_decision_level(&clause);
-            printf("We are adding the reduced globally blocked clause:");
-            print_vector(clause);
+            // printf("We are adding the reduced globally blocked clause:");
+            // print_vector(clause);
             if (opts.globallearn) {
                 if (clause.size () > 1) {
-                    printf("actually learning the cluase!");
-                    Clause* c = new_learned_weak_irredundant_global_clause (alpha_a_useful.back(), neg_alpha_c_minus_c0, alpha_a, 1);
+                    printf("actually learning the clause!");
+                    // todo remove this only taking binary clause
+                    if (!is_clause_trivial)
+                        Clause* c = new_learned_weak_irredundant_global_clause (alpha_a_useful.back(), neg_alpha_c_minus_c0_alpha_a, alpha_a, 1);
                     // Clause* c = new_learned_redundant_clause (1);
+                    printf("With is_clause_trivial %d, we are adding the globally blocked clause: ", is_clause_trivial);
+                    print_vector(alpha_a_useful);
+                    printf(" ");
+                    print_vector(neg_alpha_c_minus_c0_alpha_a);
+                    printf("\n");
                 } else {
                     // todo : currently, I can only assign a unit at level 0
-                    if (!opts.globalbcp)
-                        assign_original_unit (++clause_id, clause[0]);
+                    if (!opts.globalbcp) {
+                        assign_original_unit_gbc (++clause_id, clause[0], alpha_a);
+                        printf("we are adding the globally blocked unit: %d\n", clause[0]);
+                    }
                 }
             }
-            printf("made it past the learning! \n");
-            if (opts.globalrecord) {
-                printf("actually recording the clause!");
+            // printf("made it past the learning! \n");
+            if (opts.globalrecord && !is_clause_trivial) {
+                // printf("actually recording the clause!");
                     outFile_pr << alpha_a_useful.back() << " ";
-                    for (int val : neg_alpha_c_minus_c0) {
+                    for (int val : neg_alpha_c_minus_c0_alpha_a) {
                         outFile << val << " ";
                         outFile_pr << val << " ";
                     }
@@ -560,14 +905,15 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
                     outFile_pr << "\n";
                     outFile_pr.flush();
                 }
-            printf("made it past the recording! \n");
+            // printf("made it past the recording! \n");
 
             clause.clear ();
         }
 
-    // note we do this inside the for loop, since we only want to do add one clause
-    STOP (global);
-    return adding_a_clause;
+        // note we do this inside the for loop, since we only want to do add one clause
+        printf("exited globally blocked stuff \n");
+        STOP (global);
+        return adding_a_clause;
     }
     return false;
 }
@@ -598,14 +944,14 @@ bool Internal::globalling () {
 //     return false;
 //   }
 
-  printf("Checking the decisions %d and %d \n", global_decision1, global_decision2);
+  // printf("Checking the decisions %d and %d \n", global_decision1, global_decision2);
 
-//   printf ("%d; %d;%d;%d;%d", abs (global_decision1), abs (global_decision2), max_var, 0 < abs (global_decision1) <= max_var, 0 < abs (global_decision2) <= max_var);
+//   // printf ("%d; %d;%d;%d;%d", abs (global_decision1), abs (global_decision2), max_var, 0 < abs (global_decision1) <= max_var, 0 < abs (global_decision2) <= max_var);
 
   if (0 < abs (global_decision1) && abs (global_decision1) <= max_var && 0 < abs (global_decision2) && abs (global_decision2) <= max_var && is_decision (global_decision1) && is_decision (global_decision2))
     return false;
 
-  printf("made it past this check");
+  // printf("made it past this check");
 
 
   bool reached_first_decision = false;
@@ -637,9 +983,9 @@ for (int i =1; i< control.size (); i++) {
     }
 }
 
-    print_assignment ();
+    // print_assignment ();
 
-    printf("Added new decisions %d and %d \n", global_decision1, global_decision2);
+    // printf("Added new decisions %d and %d \n", global_decision1, global_decision2);
 
 
 //   global_switch = true;
@@ -659,8 +1005,8 @@ for (int i =1; i< control.size (); i++) {
 //   if (level <= averages.current.jump)
 //     return false; // Main heuristic.
 
-  printf("Globalling with assignment");
-  print_assignment ();
+  // printf("Globalling with assignment");
+//   print_assignment ();
 
   return true;
 
@@ -702,7 +1048,7 @@ bool Internal::globalling_decide () {
 
   if (level != 0) { //(0 == level || level > 5)
     return false; 
-    printf("We are failing as we are in level %d", level);
+    // printf("We are failing as we are in level %d", level);
   }
 
 
@@ -713,11 +1059,11 @@ bool Internal::globalling_decide () {
   // right now it is two random decisions
   // try to figure out a better way to do it
 
-//   printf("started the test thingy \n");
+//   // printf("started the test thingy \n");
 //   print_assignment ();
 //   search_assume_decision(-1);
 //   if (!propagate ()) {
-//     printf("got a conflict!\n");
+//     // printf("got a conflict!\n");
 //     analyze ();
 //   }
 
@@ -725,15 +1071,15 @@ bool Internal::globalling_decide () {
 
 
 //   if (!propagate ()) {
-//     printf("got a conflict!\n");
+//     // printf("got a conflict!\n");
 //     analyze ();
 //   }
 
-//    printf("DOING A GLOBAL CHECK!!! \n");
+//    // printf("DOING A GLOBAL CHECK!!! \n");
 //    global_counter = global_counter + 1;
 //    least_conditional_part ();
 //    backtrack ();
-//    printf("did the test thingy");
+//    // printf("did the test thingy");
 
    std::ofstream outFile("global_clauses.txt");
    std::ofstream outFile_pr("global_clauses_pr.txt");
@@ -757,11 +1103,11 @@ bool Internal::globalling_decide () {
 
             
 
-            printf("making the decisions %d and %d \n", fst_val, snd_val);
+            // printf("making the decisions %d and %d \n", fst_val, snd_val);
             if (val (fst_val))
                 continue;
 
-            printf("    deciding first val \n");
+            // printf("    deciding first val \n");
             search_assume_decision(fst_val);
 
             if (!propagate ()) {
@@ -776,9 +1122,9 @@ bool Internal::globalling_decide () {
                 continue;
             }
             
-            printf("    deciding second val \n");
+            // printf("    deciding second val \n");
             search_assume_decision(snd_val);
-            printf("    made second search_assume_decision");
+            // printf("    made second search_assume_decision");
 
             if (!propagate ()) {
                 // analyze ();
@@ -787,7 +1133,7 @@ bool Internal::globalling_decide () {
                 continue;
             }
 
-            printf("DOING A GLOBAL CHECK!!! \n");
+            // printf("DOING A GLOBAL CHECK!!! \n");
             global_counter = global_counter + 1;
             least_conditional_part (outFile, outFile_pr);
             backtrack ();
@@ -795,22 +1141,22 @@ bool Internal::globalling_decide () {
         }
      }
   } else {
-    printf("enters random stage");
+    // printf("enters random stage");
     for (int k = 0; k < 4 * Internal::max_var; k++) {
-        printf("enters for loop");
+        // printf("enters for loop");
         // srand(std::time(0));
         int i = (rand() % Internal::max_var) + 1;
-        printf("one \n");
+        // printf("one \n");
         // srand(std::time(0));
-        printf("two \n");
+        // printf("two \n");
         int j = (rand() % Internal::max_var) + 1;
-        printf("We have i %d adn j %d with max_var %d \n", i, j , Internal::max_var);
+        // printf("We have i %d adn j %d with max_var %d \n", i, j , Internal::max_var);
         if (i == j)
             continue;
 
 
         // srand(std::time(0));
-        printf("three \n");
+        // printf("three \n");
         int sign = rand() % 4;
 
         int fst_sign = pow(-1, (sign/2));
@@ -820,11 +1166,11 @@ bool Internal::globalling_decide () {
         int snd_val = snd_sign * j;
 
 
-        printf("making the decisions (randomly) %d and %d \n", fst_val, snd_val);
+        // printf("making the decisions (randomly) %d and %d \n", fst_val, snd_val);
         if (val (fst_val))
             continue;
 
-        printf("    deciding first val \n");
+        // printf("    deciding first val \n");
         search_assume_decision(fst_val);
 
         if (!propagate ()) {
@@ -839,9 +1185,9 @@ bool Internal::globalling_decide () {
             continue;
         }
         
-        printf("    deciding second val \n");
+        // printf("    deciding second val \n");
         search_assume_decision(snd_val);
-        printf("    made second search_assume_decision");
+        // printf("    made second search_assume_decision");
 
         if (!propagate ()) {
             // analyze ();
@@ -850,7 +1196,7 @@ bool Internal::globalling_decide () {
             continue;
         }
 
-        printf("DOING A GLOBAL CHECK!!! \n");
+        // printf("DOING A GLOBAL CHECK!!! \n");
         global_counter = global_counter + 1;
         least_conditional_part (outFile, outFile_pr);
         backtrack ();

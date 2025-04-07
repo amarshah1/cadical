@@ -10,11 +10,11 @@ import csv
 import argparse
 
 # Configuration
-TIMEOUT = 10 # seconds
-input_dir = "checking_clauses_filtercorrect/"
+TIMEOUT = 1800 # seconds
+# input_dir = "checking_clauses_preprocessing_ordered/"
 
 
-def process_file(subdir, seed, results_directory):
+def process_file(subdir, seed, input_dir, results_directory):
     """Function to process a single file in parallel execution."""
     sat_results = []
     unsat_results = []
@@ -32,7 +32,7 @@ def process_file(subdir, seed, results_directory):
 
 
         # Construct command
-        cmd = f'CADICAL_FILENAME="{results_directory}/{file_name}" build/cadical --report=true --chrono=false --inprocessing=true --no-binary {file_path} {results_directory}/{file_name}.proof.pr'
+        cmd = f'CADICAL_FILENAME="{results_directory}/{file_name}" ../default_cadical/cadical/build/cadical --report=true --chrono=false --inprocessing=true --no-binary {file_path} {results_directory}/{file_name}.proof.pr'
 
         start_time = time.time()
         try:
@@ -122,9 +122,9 @@ def process_results(results):
         
         print(f"CSV written: {csv_path}")
 
-def run_clause_lengths(seed):
+def run_clause_lengths(seed, input_dir):
     """Runs clause length analysis in parallel."""
-    clauses_dir = f"garbage_global_clauses{seed}/"
+    clauses_dir = f"garbage_global_clauses{seed}"
 
     os.makedirs(clauses_dir, exist_ok=True)
 
@@ -134,7 +134,7 @@ def run_clause_lengths(seed):
     # Parallel execution
     proc_num = 64
     with ProcessPoolExecutor(max_workers=proc_num) as executor:
-        results = list(executor.map(process_file, files, [seed] * len(files), [clauses_dir] * len(files)))
+        results = list(executor.map(process_file, files, [seed] * len(files), [input_dir] * len(files), [clauses_dir] * len(files)))
 
     # Write results to a CSV file
     csv_filename = f"useful_clauses{seed}.csv"
@@ -155,13 +155,14 @@ def run_clause_lengths(seed):
 def main():
     """Main function to parse arguments and execute processing."""
     parser = argparse.ArgumentParser(description="Process clause lengths with an input parameter.")
-    parser.add_argument("seed", type=int, help="Which seed to run on")
+    parser.add_argument("seed", type=int, help="The seed (number after scranfilized)")
+    parser.add_argument("input_dir", type=str, help="The folder where we get our input queries")
     args = parser.parse_args()
 
     print(f"STARTING RUN_QUERIES_WITH_GBC with seed {args.seed}")
 
 
-    run_clause_lengths(args.seed)
+    run_clause_lengths(args.seed, args.input_dir)
 
 if __name__ == "__main__":
     main()

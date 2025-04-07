@@ -43,7 +43,7 @@ bool Internal::detect_rat() {
             continue;
 
         LOG("IT OCCURS IN CLAUSE: ");
-        print_clause (c);
+        // print_clause (c);
 
 
         // todo right now will only consider if 
@@ -74,7 +74,7 @@ bool Internal::detect_rat() {
             vector<int> other_lits = {};
 
             LOG("looking at clause:");
-            print_clause (c);
+            // print_clause (c);
 
             for(const_literal_iterator l = c->begin (); l != c->end (); l++){
                 if (*l == assumption) {

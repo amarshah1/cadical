@@ -1,5 +1,6 @@
 #include "internal.hpp"
 #include <fstream>  // For file handling
+#include <ctime>
 
 namespace CaDiCaL {
 
@@ -273,13 +274,15 @@ int Internal::cdcl_loop_with_inprocessing () {
 
   std::ofstream outFile;
   char* filename = getenv("CADICAL_FILENAME");
-  outFile.open (filename);
+  std::string filename_str = filename;  // Implicit conversion
+  filename_str += "_inprocessing";
+  outFile.open (filename_str);
   if (!outFile) {
       error ("Error: File could not be created.");
   }
 
   std::ofstream outFile_pr;
-  std::string filename_pr = filename;  // Implicit conversion
+  std::string filename_pr = filename_str;  // Implicit conversion
   filename_pr += "_pr";
 
   outFile_pr.open (filename_pr);
@@ -331,7 +334,7 @@ int Internal::cdcl_loop_with_inprocessing () {
     } else if (terminated_asynchronously ()) // externally terminated 
       break;
     else if (restarting ()) {
-      printf ("we are restarting from level: %d", level);
+      // printf ("we are restarting from level: %d", level);
       restart (); // restart by backtracking
     } else if (rephasing ())
       rephase (); // reset variable phases
@@ -382,37 +385,57 @@ int Internal::cdcl_loop_with_inprocessing () {
       // todo: find a better way to do this
       if (added_a_clause && !opts.globalbcp) {
         backtrack ();
-        print_assignment ();
-        if (!propagate ()) {
-          printf("found a conflict here!");
-          analyze ();
-        }
+        // print_assignment ();
+        // if (!propagate ()) {
+        //   printf("found a conflict here!");
+        //   analyze ();
+        // }
         printf("propagated once at level %d! \n", level);
         // decide ();
         Flags &f = flags (global_decision1);
+        bool second_propagate = true;
         if (!(f.status == Flags::FIXED)) {
           printf("Literal %d is not fixed \n", global_decision1);
           search_assume_decision (global_decision1);
+          // printf("At internal position 1; propagated: %d; trail.size: %d \n", propagated, trail.size ());
           if (!propagate ()) {
+            // printf("At internal position 2; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+
             printf("found a conflict here!");
             analyze ();
+            // printf("At internal position 3; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+            if (!propagate ()) {
+              // printf("At internal position 4; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+              printf("Found a double conflict on first propagate!");
+              second_propagate = false;
+            }
           }
         }
+        // printf("At internal position 5; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+
         printf("propagated twice at level %d! \n", level);
         // decide ();
         // kinda hacky ~but I was running into a problem with pigeonhole where global_decision2 was 0
-        if (global_decision2) {
+        if (global_decision2 && second_propagate) {
           Flags &g = flags (global_decision2);
-          if (!(g.status == Flags::FIXED)) {
+          if (!(g.status == Flags::FIXED) && !val (global_decision2)) {
             printf("Literal %d is not fixed \n", global_decision2);
             search_assume_decision (global_decision2);
+              // printf("At internal position 6; propagated: %d; trail.size: %d \n", propagated, trail.size ());
             if (!propagate ()) {
               printf("found a conflict here!");
               analyze ();
+               if (!propagate ()) {
+                  printf("Found a double conflict on second propagate!");
+                  analyze ();
+                  // todo: might need to propagate after this
+                }
             }
           }
         }
         printf("propagated thrice at level %d! \n", level);
+        // todo: not sure if this will actually do what I want it to do
+        reset_assumptions ();
       }
 
 
@@ -730,6 +753,189 @@ int Internal::preprocess () {
   return 0;
 }
 
+// void Internal::propagate_for_unit(int lit) {
+//     backtrack ();
+//     printf("We are propagating on just %d \n", lit);
+//     printf("We have propagated: %d and trail.size %d \n", propagated, trail.size ());
+//     Flags &f = Internal::flags (lit);
+//     if (f.status == Flags::FIXED || !val (lit)) {
+//       printf("skipping ALL of %d \n", lit);
+//       return;
+//     }
+
+//     search_assume_decision (lit);
+//     if (!propagate ()) {
+//         printf ("We reach a conflict from a single propagation on %d and will analyze\n", lit);
+//         analyze ();
+//         if (!propagate ()) {
+//           analyze ();
+//           printf ("We should have reached a contradiction! \n");
+//           // if (!propagate ()) {
+//           //   printf("Made it inside the unecessary propagation! \n");
+//           // }
+//         }
+//     } 
+//     // else {
+//     //   bool added_a_clause = least_conditional_part(outFile, outFile_pr);
+//     // }
+// }
+
+// gets all of the touched literals based on the current assignment
+// this heuristic is described in PreLearn paper
+vector<int> Internal::get_touched_literals () {
+  vector<int> touched_literals;
+  for (auto &c : clauses) {
+    bool clause_touched = false;
+    bool clause_satisfied = false;
+    vector<int> variables_to_consider;
+    for (auto l : *c) {
+      if (val (l) > 0) {
+        clause_satisfied = true;
+        break;
+      } else if (val (l) < 0) {
+        clause_touched = true;
+      } else if (!getbit (l, 1) && !(Internal::flags (l).status == Flags::FIXED)) {
+          variables_to_consider.push_back(l);
+      }
+    }
+    if (clause_touched && !clause_satisfied) {
+      for (auto l : variables_to_consider) {
+          touched_literals.push_back(l);
+          setbit (l, 1);
+      }
+    }
+  }
+  for (auto l : touched_literals) {
+    unsetbit (l, 1);
+  }
+
+  return touched_literals;
+}
+
+// amar : created an option to learn globally blocked clauses in a preprocessing step
+int Internal::global_preprocess () {
+   std::ofstream outFile;
+  char* filename = getenv("CADICAL_FILENAME");
+  outFile.open (filename);
+  if (!outFile) {
+      error ("Error: File could not be created.");
+  }
+
+  std::ofstream outFile_pr;
+  std::string filename_pr = filename;  // Implicit conversion
+  filename_pr += "_pr";
+  unsigned int seed = static_cast<unsigned int>(std::time(NULL)); // Store the seed
+  // unsigned int seed = 1743620179;
+  printf("We are using the SEED: %d\n", seed);
+  srand(seed);
+
+  outFile_pr.open (filename_pr);
+  if (!outFile_pr) {
+      error ("Error: File could not be created.");
+  }
+
+  for (int count = 1; count <= Internal::max_var; count++) {
+    int i_no_polarity = (rand() % max_var) + 1;
+    int i_polarity = (rand() % 2);
+    // int i = (i_polarity ? -1 : 1) * i_no_polarity;
+    int i = i_no_polarity;
+    // i = 413;
+    // i = count;
+    backtrack ();
+    // need to have this outside to skip the extra unnecessary loops
+    Flags &f = Internal::flags (i);
+    if (f.status == Flags::FIXED) {
+      printf("skipping ALL of %d \n", i);
+      continue;
+    }
+    search_assume_decision (i);
+    if (!propagate ()) {
+      analyze ();
+      if (!propagate ()) {
+        printf("IN EARLY PROPAGATE: found unsat from %d\n", i);
+        break;
+      }
+      printf("IN EARLY PROPAGATE: found conflict from %d\n", i);
+      continue;
+    }
+    vector<int> touched_literals = get_touched_literals ();
+    printf("For literal %d, we touch: ", i);
+    print_vector (touched_literals);
+    // for (int j = i + 1; j <= Internal::max_var; j++) {
+    for (auto j : touched_literals) {
+        assert (!unsat);
+        for (int polarity : {-1, 1}) { 
+          assert (!unsat);
+          int j_polar = polarity * j;
+          // j_polar = 428;
+          // if (i > 15) 
+          //   j_polar = i - 14;
+          // else
+          //   j_polar = i + 14;
+          // printf("We are propagating on %d and %d \n", i, j_polar);
+          printf("We have propagated: %d and trail.size %d \n", propagated, trail.size ());
+
+          // need to have this in the inner loop beause this could be set in the inner loop!!!!
+          Flags &f = Internal::flags (i);
+          if (f.status == Flags::FIXED) {
+            printf("skipping ALL of %d \n", i);
+            break;
+          }
+          Flags &f2 = Internal::flags (j_polar);
+          if (f2.status == Flags::FIXED) {
+            printf("skipping one interation of %d \n", j_polar);
+            continue;
+          }
+          backtrack ();
+          search_assume_decision (i);
+          if (!propagate ()) {
+            printf ("We reach a conflict from a single propagation on %d and will analyze\n", i);
+            analyze ();
+            if (!propagate ()) {
+              analyze ();
+              printf ("We should have reached a contradiction! \n");
+              break;
+              // if (!propagate ()) {
+              //   printf("Made it inside the unecessary propagation! \n");
+              // }
+            }
+          } else {
+            if (val (j_polar) != 0) {
+              printf("propagating %d give %d \n", i, j_polar);
+              continue;
+            }
+            search_assume_decision (j_polar);
+            if (!propagate ()) {
+              analyze ();
+              if (!propagate ()) {
+                analyze ();
+                if (!propagate ()) {
+                  analyze ();
+                }
+              }
+            } else {
+              bool added_a_clause = least_conditional_part(outFile, outFile_pr);
+              printf("We have just finished adding a clause step!\n");
+            }
+          }
+      }
+      if (unsat) break;
+    }
+    if (unsat) break;
+    backtrack ();
+    search_assume_decision (i);
+    if (!propagate ())
+      analyze ();
+    backtrack ();
+    search_assume_decision (i);
+    if (!propagate ())
+      analyze ();
+    if (unsat) break;
+  }
+
+
+}
+
 /*------------------------------------------------------------------------*/
 
 int Internal::try_to_satisfy_formula_by_saved_phases () {
@@ -899,6 +1105,8 @@ int Internal::solve (bool preprocess_only) {
   }
   if (!res && !level)
     res = preprocess ();
+  if (!res && opts.globalpreprocess)
+    res = global_preprocess ();
   if (!preprocess_only) {
     if (!res && !level)
       res = local_search ();
