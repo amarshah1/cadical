@@ -825,7 +825,7 @@ int Internal::global_preprocess () {
   std::string filename_pr = filename;  // Implicit conversion
   filename_pr += "_pr";
   unsigned int seed = static_cast<unsigned int>(std::time(NULL)); // Store the seed
-  // unsigned int seed = 1743620179;
+  // unsigned int seed = 1744666512;
   printf("We are using the SEED: %d\n", seed);
   srand(seed);
 
@@ -848,8 +848,10 @@ int Internal::global_preprocess () {
       printf("skipping ALL of %d \n", i);
       continue;
     }
+    printf("deciding on i: %d\n", i);
     search_assume_decision (i);
     if (!propagate ()) {
+      printf("1.Right before analyze!\n");
       analyze ();
       if (!propagate ()) {
         printf("IN EARLY PROPAGATE: found unsat from %d\n", i);
@@ -872,7 +874,7 @@ int Internal::global_preprocess () {
           //   j_polar = i - 14;
           // else
           //   j_polar = i + 14;
-          // printf("We are propagating on %d and %d \n", i, j_polar);
+          printf("We are propagating on %d and %d \n", i, j_polar);
           printf("We have propagated: %d and trail.size %d \n", propagated, trail.size ());
 
           // need to have this in the inner loop beause this could be set in the inner loop!!!!
@@ -890,8 +892,10 @@ int Internal::global_preprocess () {
           search_assume_decision (i);
           if (!propagate ()) {
             printf ("We reach a conflict from a single propagation on %d and will analyze\n", i);
+            printf("1.Right before analyze!\n");
             analyze ();
             if (!propagate ()) {
+              printf("2.Right before analyze!\n");
               analyze ();
               printf ("We should have reached a contradiction! \n");
               break;
@@ -906,28 +910,46 @@ int Internal::global_preprocess () {
             }
             search_assume_decision (j_polar);
             if (!propagate ()) {
+              printf("3.Right before analyze!\n");
               analyze ();
-              if (!propagate ()) {
+              if (!unsat && !propagate ()) {
+                printf("4.Right before analyze!\n");
                 analyze ();
-                if (!propagate ()) {
+                if (!unsat && !propagate ()) {
+                  printf("5.Right before analyze!\n");
                   analyze ();
                 }
               }
             } else {
+              printf("Before added_a_clause, we have propagated: %d and trail.size %d \n", propagated, trail.size ());
               bool added_a_clause = least_conditional_part(outFile, outFile_pr);
-              printf("We have just finished adding a clause step!\n");
+              printf("After added_a_clause, we have propagated: %d and trail.size %d \n", propagated, trail.size ());
+              backtrack ();
+              printf("We have just finished adding a clause step and returned %d!\n", added_a_clause);
             }
           }
+        if (unsat) break;
       }
       if (unsat) break;
     }
+    printf("out of loop!\n");
     if (unsat) break;
     backtrack ();
+    f = Internal::flags (i);
+    if (f.status == Flags::FIXED) {
+      printf("skipping ALL of %d \n", i);
+      continue;
+    }
     search_assume_decision (i);
-    if (!propagate ())
+    if (!propagate ()) {
+      printf("6.Right before analyze!\n");
       analyze ();
+      backtrack ();
+      continue;
+    }
     backtrack ();
-    search_assume_decision (i);
+    assert (Internal::flags (i).status != Flags::FIXED);
+    search_assume_decision (-i);
     if (!propagate ())
       analyze ();
     if (unsat) break;

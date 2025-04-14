@@ -221,9 +221,12 @@ pair<vector<int>, vector<int>> Internal::greedy_sort_alpha_a(std::vector<int> al
                 printf("We got a conflict when propagating from %d\n", -alpha_a[i]);
                 analyze ();
 
+                if (unsat)
+                    break;
+                    
                 if (!propagate ()) {
                     printf ("got to a conflict \n");
-                    STOP (global);
+                    analyze ();
                     break;
                 }
                 continue;
@@ -719,6 +722,7 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
                         // printf("At position 3; propagated: %d; trail.size: %d \n", propagated, trail.size ());
                         printf ("got to a conflict \n");
                         STOP (global);
+                        analyze ();
                         return false;
                     }
                     // printf("found unit : %d! \n", alpha_a[i]);
@@ -918,70 +922,70 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
     return false;
 }
 
-bool Internal::globalling () {
-  LOG("in the globally blocked checking step \n");
+// bool Internal::globalling () {
+//   LOG("in the globally blocked checking step \n");
 
-  if (!opts.global)
-    return false;
-//   if (!preprocessing && !opts.inprocessing)
+//   if (!opts.global)
 //     return false;
-  // for right now we only do global step in assumptions
-//   if (!in_assumptions)
-//     return false;
-//   if (preprocessing)
-//     assert (lim.preprocessing);
+// //   if (!preprocessing && !opts.inprocessing)
+// //     return false;
+//   // for right now we only do global step in assumptions
+// //   if (!in_assumptions)
+// //     return false;
+// //   if (preprocessing)
+// //     assert (lim.preprocessing);
 
-  // Triggered in regular 'opts.globalint' conflict intervals.
-  //
-//   if (lim.global > stats.conflicts)
-//     return false;
+//   // Triggered in regular 'opts.globalint' conflict intervals.
+//   //
+// //   if (lim.global > stats.conflicts)
+// //     return false;
 
-  if (level != 2) { //(0 == level || level > 5)
-    return false; // One decision necessary.
-  }
-
-//   if (global_switch) {
-//     return false;
+//   if (level != 2) { //(0 == level || level > 5)
+//     return false; // One decision necessary.
 //   }
 
-  // printf("Checking the decisions %d and %d \n", global_decision1, global_decision2);
+// //   if (global_switch) {
+// //     return false;
+// //   }
 
-//   // printf ("%d; %d;%d;%d;%d", abs (global_decision1), abs (global_decision2), max_var, 0 < abs (global_decision1) <= max_var, 0 < abs (global_decision2) <= max_var);
+//   // printf("Checking the decisions %d and %d \n", global_decision1, global_decision2);
 
-  if (0 < abs (global_decision1) && abs (global_decision1) <= max_var && 0 < abs (global_decision2) && abs (global_decision2) <= max_var && is_decision (global_decision1) && is_decision (global_decision2))
-    return false;
+// //   // printf ("%d; %d;%d;%d;%d", abs (global_decision1), abs (global_decision2), max_var, 0 < abs (global_decision1) <= max_var, 0 < abs (global_decision2) <= max_var);
 
-  // printf("made it past this check");
+//   if (0 < abs (global_decision1) && abs (global_decision1) <= max_var && 0 < abs (global_decision2) && abs (global_decision2) <= max_var && is_decision (global_decision1) && is_decision (global_decision2))
+//     return false;
+
+//   // printf("made it past this check");
 
 
-  bool reached_first_decision = false;
-//   for (int i = 1; i <= Internal::max_var; i++) {
-//         const signed char tmp = val (i);
-//         if (tmp > 0 && is_decision (i)) {
-//             if (reached_first_decision) {
-//                 global_decision2 = i;
-//             } else  {
-//                 global_decision1 = i;
-//                 reached_first_decision = true;
-//             }
-//         } else if (tmp < 0 && is_decision (-i)) {
-//             if (reached_first_decision)
-//                 global_decision2 = -i;
-//             else {
-//                 global_decision1 = -i;
-//                 reached_first_decision = true;
-//             }
-//         }
+//   bool reached_first_decision = false;
+// //   for (int i = 1; i <= Internal::max_var; i++) {
+// //         const signed char tmp = val (i);
+// //         if (tmp > 0 && is_decision (i)) {
+// //             if (reached_first_decision) {
+// //                 global_decision2 = i;
+// //             } else  {
+// //                 global_decision1 = i;
+// //                 reached_first_decision = true;
+// //             }
+// //         } else if (tmp < 0 && is_decision (-i)) {
+// //             if (reached_first_decision)
+// //                 global_decision2 = -i;
+// //             else {
+// //                 global_decision1 = -i;
+// //                 reached_first_decision = true;
+// //             }
+// //         }
+// //     }
+
+// for (int i =1; i< control.size (); i++) {
+//     if (reached_first_decision) {
+//         global_decision2 = control[i].decision;
+//     } else {
+//         global_decision1 = control[i].decision;
+//         reached_first_decision = true;
 //     }
-
-for (int i =1; i< control.size (); i++) {
-    if (reached_first_decision) {
-        global_decision2 = control[i].decision;
-    } else {
-        global_decision1 = control[i].decision;
-        reached_first_decision = true;
-    }
-}
+// }
 
     // print_assignment ();
 
@@ -1008,7 +1012,7 @@ for (int i =1; i< control.size (); i++) {
   // printf("Globalling with assignment");
 //   print_assignment ();
 
-  return true;
+//   return true;
 
 //   if (!stats.current.irredundant)
 //     return false;
@@ -1017,7 +1021,7 @@ for (int i =1; i< control.size (); i++) {
 //     return false;
 //   double ratio = stats.current.irredundant / remain;
 //   return ratio <= opts.globalmaxrat;
-}
+// }
 
 
 
@@ -1026,187 +1030,187 @@ for (int i =1; i< control.size (); i++) {
 
 
 
-// a version of globalling that also makes decision
-// todo: write this
-bool Internal::globalling_decide () {
-  LOG("in the globally blocked checking step \n");
+// // a version of globalling that also makes decision
+// // todo: write this
+// bool Internal::globalling_decide () {
+//   LOG("in the globally blocked checking step \n");
 
-  if (!opts.global)
-    return false;
-  if (!preprocessing) // && !opts.inprocessing)
-    return false;
-//   // for right now we only do global step in assumptions
-//   if (!in_assumptions)
+//   if (!opts.global)
 //     return false;
-  if (preprocessing)
-    assert (lim.preprocessing);
-
-  // Triggered in regular 'opts.globalint' conflict intervals.
-  //
-//   if (lim.global > stats.conflicts)
+//   if (!preprocessing) // && !opts.inprocessing)
 //     return false;
+// //   // for right now we only do global step in assumptions
+// //   if (!in_assumptions)
+// //     return false;
+//   if (preprocessing)
+//     assert (lim.preprocessing);
 
-  if (level != 0) { //(0 == level || level > 5)
-    return false; 
-    // printf("We are failing as we are in level %d", level);
-  }
+//   // Triggered in regular 'opts.globalint' conflict intervals.
+//   //
+// //   if (lim.global > stats.conflicts)
+// //     return false;
 
-
-  // decide and propagate
-
-  vector<int> current_assignment;
-
-  // right now it is two random decisions
-  // try to figure out a better way to do it
-
-//   // printf("started the test thingy \n");
-//   print_assignment ();
-//   search_assume_decision(-1);
-//   if (!propagate ()) {
-//     // printf("got a conflict!\n");
-//     analyze ();
+//   if (level != 0) { //(0 == level || level > 5)
+//     return false; 
+//     // printf("We are failing as we are in level %d", level);
 //   }
 
-// search_assume_decision(527);
+
+//   // decide and propagate
+
+//   vector<int> current_assignment;
+
+//   // right now it is two random decisions
+//   // try to figure out a better way to do it
+
+// //   // printf("started the test thingy \n");
+// //   print_assignment ();
+// //   search_assume_decision(-1);
+// //   if (!propagate ()) {
+// //     // printf("got a conflict!\n");
+// //     analyze ();
+// //   }
+
+// // search_assume_decision(527);
 
 
-//   if (!propagate ()) {
-//     // printf("got a conflict!\n");
-//     analyze ();
-//   }
+// //   if (!propagate ()) {
+// //     // printf("got a conflict!\n");
+// //     analyze ();
+// //   }
 
-//    // printf("DOING A GLOBAL CHECK!!! \n");
-//    global_counter = global_counter + 1;
-//    least_conditional_part ();
-//    backtrack ();
-//    // printf("did the test thingy");
+// //    // printf("DOING A GLOBAL CHECK!!! \n");
+// //    global_counter = global_counter + 1;
+// //    least_conditional_part ();
+// //    backtrack ();
+// //    // printf("did the test thingy");
 
-   std::ofstream outFile("global_clauses.txt");
-   std::ofstream outFile_pr("global_clauses_pr.txt");
+//    std::ofstream outFile("global_clauses.txt");
+//    std::ofstream outFile_pr("global_clauses_pr.txt");
 
-    if (!outFile) {
-        error ("Error: File could not be created.");
-    }
+//     if (!outFile) {
+//         error ("Error: File could not be created.");
+//     }
 
-  if (!opts.globalrandom){
-    for (int i = 1; i <= Internal::max_var; i++) {
-        for (int j = 1; j <= Internal::max_var; j++) {
-        for (int sign = 0; sign < 4; sign++) {
-            if (j == i)
-                continue;
+//   if (!opts.globalrandom){
+//     for (int i = 1; i <= Internal::max_var; i++) {
+//         for (int j = 1; j <= Internal::max_var; j++) {
+//         for (int sign = 0; sign < 4; sign++) {
+//             if (j == i)
+//                 continue;
 
-            int fst_sign = pow(-1, (sign/2));
-            int snd_sign = pow(-1, (sign % 2));
+//             int fst_sign = pow(-1, (sign/2));
+//             int snd_sign = pow(-1, (sign % 2));
 
-            int fst_val = fst_sign * i;
-            int snd_val = snd_sign * j;
+//             int fst_val = fst_sign * i;
+//             int snd_val = snd_sign * j;
 
             
 
-            // printf("making the decisions %d and %d \n", fst_val, snd_val);
-            if (val (fst_val))
-                continue;
+//             // printf("making the decisions %d and %d \n", fst_val, snd_val);
+//             if (val (fst_val))
+//                 continue;
 
-            // printf("    deciding first val \n");
-            search_assume_decision(fst_val);
+//             // printf("    deciding first val \n");
+//             search_assume_decision(fst_val);
 
-            if (!propagate ()) {
-                // analyze ();
-                // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
-                backtrack ();
-                continue;
-            }
+//             if (!propagate ()) {
+//                 // analyze ();
+//                 // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
+//                 backtrack ();
+//                 continue;
+//             }
 
-            if (val (snd_val)) {
-                backtrack ();
-                continue;
-            }
+//             if (val (snd_val)) {
+//                 backtrack ();
+//                 continue;
+//             }
             
-            // printf("    deciding second val \n");
-            search_assume_decision(snd_val);
-            // printf("    made second search_assume_decision");
+//             // printf("    deciding second val \n");
+//             search_assume_decision(snd_val);
+//             // printf("    made second search_assume_decision");
 
-            if (!propagate ()) {
-                // analyze ();
-                // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
-                backtrack ();
-                continue;
-            }
+//             if (!propagate ()) {
+//                 // analyze ();
+//                 // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
+//                 backtrack ();
+//                 continue;
+//             }
 
-            // printf("DOING A GLOBAL CHECK!!! \n");
-            global_counter = global_counter + 1;
-            least_conditional_part (outFile, outFile_pr);
-            backtrack ();
-        }
-        }
-     }
-  } else {
-    // printf("enters random stage");
-    for (int k = 0; k < 4 * Internal::max_var; k++) {
-        // printf("enters for loop");
-        // srand(std::time(0));
-        int i = (rand() % Internal::max_var) + 1;
-        // printf("one \n");
-        // srand(std::time(0));
-        // printf("two \n");
-        int j = (rand() % Internal::max_var) + 1;
-        // printf("We have i %d adn j %d with max_var %d \n", i, j , Internal::max_var);
-        if (i == j)
-            continue;
-
-
-        // srand(std::time(0));
-        // printf("three \n");
-        int sign = rand() % 4;
-
-        int fst_sign = pow(-1, (sign/2));
-        int snd_sign = pow(-1, (sign % 2));
-
-        int fst_val = fst_sign * i;
-        int snd_val = snd_sign * j;
+//             // printf("DOING A GLOBAL CHECK!!! \n");
+//             global_counter = global_counter + 1;
+//             least_conditional_part (outFile, outFile_pr);
+//             backtrack ();
+//         }
+//         }
+//      }
+//   } else {
+//     // printf("enters random stage");
+//     for (int k = 0; k < 4 * Internal::max_var; k++) {
+//         // printf("enters for loop");
+//         // srand(std::time(0));
+//         int i = (rand() % Internal::max_var) + 1;
+//         // printf("one \n");
+//         // srand(std::time(0));
+//         // printf("two \n");
+//         int j = (rand() % Internal::max_var) + 1;
+//         // printf("We have i %d adn j %d with max_var %d \n", i, j , Internal::max_var);
+//         if (i == j)
+//             continue;
 
 
-        // printf("making the decisions (randomly) %d and %d \n", fst_val, snd_val);
-        if (val (fst_val))
-            continue;
+//         // srand(std::time(0));
+//         // printf("three \n");
+//         int sign = rand() % 4;
 
-        // printf("    deciding first val \n");
-        search_assume_decision(fst_val);
+//         int fst_sign = pow(-1, (sign/2));
+//         int snd_sign = pow(-1, (sign % 2));
 
-        if (!propagate ()) {
-            // analyze ();
-            // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
-            backtrack ();
-            continue;
-        }
+//         int fst_val = fst_sign * i;
+//         int snd_val = snd_sign * j;
 
-        if (val (snd_val)) {
-            backtrack ();
-            continue;
-        }
+
+//         // printf("making the decisions (randomly) %d and %d \n", fst_val, snd_val);
+//         if (val (fst_val))
+//             continue;
+
+//         // printf("    deciding first val \n");
+//         search_assume_decision(fst_val);
+
+//         if (!propagate ()) {
+//             // analyze ();
+//             // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
+//             backtrack ();
+//             continue;
+//         }
+
+//         if (val (snd_val)) {
+//             backtrack ();
+//             continue;
+//         }
         
-        // printf("    deciding second val \n");
-        search_assume_decision(snd_val);
-        // printf("    made second search_assume_decision");
+//         // printf("    deciding second val \n");
+//         search_assume_decision(snd_val);
+//         // printf("    made second search_assume_decision");
 
-        if (!propagate ()) {
-            // analyze ();
-            // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
-            backtrack ();
-            continue;
-        }
+//         if (!propagate ()) {
+//             // analyze ();
+//             // seems like I do need a backtrack here, since analyze () will not necessarily backtrack to level 0 
+//             backtrack ();
+//             continue;
+//         }
 
-        // printf("DOING A GLOBAL CHECK!!! \n");
-        global_counter = global_counter + 1;
-        least_conditional_part (outFile, outFile_pr);
-        backtrack ();
-    }
-  }
-//   decide ();
-//   propagate ();
+//         // printf("DOING A GLOBAL CHECK!!! \n");
+//         global_counter = global_counter + 1;
+//         least_conditional_part (outFile, outFile_pr);
+//         backtrack ();
+//     }
+//   }
+// //   decide ();
+// //   propagate ();
 
-//   decide ();
-//   propagate ();
+// //   decide ();
+// //   propagate ();
 
   
 
@@ -1214,29 +1218,27 @@ bool Internal::globalling_decide () {
 
 
 
-  // runtime for  
-//   if (global_counter % 8 != 0) {
-//     return false;
-//   }
+//   // runtime for  
+// //   if (global_counter % 8 != 0) {
+// //     return false;
+// //   }
 
-//   global_counter = global_counter + 1;
+// //   global_counter = global_counter + 1;
 
 
-//   if (level <= averages.current.jump)
-//     return false; // Main heuristic.
+// //   if (level <= averages.current.jump)
+// //     return false; // Main heuristic.
 
-  // made this false for right now
-  return false;
+//   // made this false for right now
+//   return false;
 
-//   if (!stats.current.irredundant)
-//     return false;
-//   double remain = active ();
-//   if (!remain)
-//     return false;
-//   double ratio = stats.current.irredundant / remain;
-//   return ratio <= opts.globalmaxrat;
-}
-
-    
+// //   if (!stats.current.irredundant)
+// //     return false;
+// //   double remain = active ();
+// //   if (!remain)
+// //     return false;
+// //   double ratio = stats.current.irredundant / remain;
+// //   return ratio <= opts.globalmaxrat;
+// }
 
 } // namespace CaDiCaL

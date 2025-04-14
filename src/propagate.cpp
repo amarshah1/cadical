@@ -109,7 +109,7 @@ inline void Internal::search_assign (int lit, Clause *reason) {
   const int idx = vidx (lit);
   const bool from_external = reason == external_reason;
   LOG("val: %d", val (idx));
-  // printf("Search assume on literal %d with value %d\n", lit, val (idx));
+  printf("Search assume on literal %d with value %d\n", lit, val (idx));
   assert (!val (idx));
   LOG("In search_assign with the literal: %d which has been eliminated: %d\n", lit, flags (idx).eliminated ());
   // LOG("We are considering the clause: ");

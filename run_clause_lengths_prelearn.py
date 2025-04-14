@@ -13,19 +13,19 @@ TIMEOUT = 30  # seconds
 TIMEOUT_GBC = 5 # timeout for checking if a gbc is trival
 NUM_SCRAMBLES = 10
 
-unsat_files_prelearn = [
-    "8704094951693f99fd21403a039c8131-mchess_16.cnf",
-    "ec84eecb124c63d4757e083dd0e5a9ff-mchess_15.cnf",
-    "2c3c28f6d939d157e909c57a265fc908-mchess_17.cnf",
-    "cb2e8b7fada420c5046f587ea754d052-clique_n2_k10.sanitized.cnf"
-]
+# unsat_files_prelearn = [
+#     "8704094951693f99fd21403a039c8131-mchess_16.cnf",
+#     "ec84eecb124c63d4757e083dd0e5a9ff-mchess_15.cnf",
+#     "2c3c28f6d939d157e909c57a265fc908-mchess_17.cnf",
+#     "cb2e8b7fada420c5046f587ea754d052-clique_n2_k10.sanitized.cnf"
+# ]
 
-sat_files_prelearn = [
-    "8b18bb75459a4161633ba2a3c8ee183e-x9-11062.sat.sanitized.cnf",
-    "c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf",
-    "a45a0358685867bd4f1c7f7c0b0e379c-x9-10014.sat.sanitized.cnf",
-    "3a75ad246dbc750a7391ad887c5b0835-x9-11093.sat.sanitized.cnf"
-]
+# sat_files_prelearn = [
+#     "8b18bb75459a4161633ba2a3c8ee183e-x9-11062.sat.sanitized.cnf",
+#     "c801a020a6c8bc3c287fea495203b114-worker_20_40_20_0.95.cnf",
+#     "a45a0358685867bd4f1c7f7c0b0e379c-x9-10014.sat.sanitized.cnf",
+#     "3a75ad246dbc750a7391ad887c5b0835-x9-11093.sat.sanitized.cnf"
+# ]
 
 
 def filter_gbc(original_formula, gbc_file, output_folder, file_name):
@@ -123,6 +123,7 @@ def filter_gbc(original_formula, gbc_file, output_folder, file_name):
                     print(f"1. The file {file_name} returned UNSAT in time {elapsed_time}!")   
                 else:
                     print(f"1.The file {file_name} returned a non-zero exit {result.returncode} status in time {elapsed_time} with cmd: {cmd}") 
+                    print(cmd)
 
 
             # print(f"the num_conflicts is {num_conflicts}")
@@ -170,10 +171,13 @@ def process_file(file_name, input_dir, results_directory):
 
         # gbc_file_path = f"{sub_directory}/global_clauses/{new_file_name}_{i}.global_clauses.txt"
         sub_absolute_dir = "/ocean/projects/cis230065p/ashah12/cadical/" + sub_directory
-        sub_absolute_dir = ".."
+        # sub_absolute_dir = ".."
 
         cmd = f'/ocean/projects/cis230065p/ashah12/PReLearn/PReLearn/sadical {sub_absolute_dir}/{new_file_name}_scramble{i}.cnf'
 
+        if not os.path.exists(new_file_path):
+            print(f"Renaming new_file_path to {file_path}")
+            new_file_path = file_path
 
         start_time = time.time()
         prelearn_absolute_dir = "/ocean/projects/cis230065p/ashah12/cadical/" + prelearn_directory
@@ -197,12 +201,12 @@ def process_file(file_name, input_dir, results_directory):
                 print(f"The file {file_name} returned a non-zero exit status {result.returncode} in time {elapsed_time}!")   
 
         # creating a filter version of the gbc
-
-        print(f"Filter pass on {prelearn_absolute_dir}" + "pr_clauses.cnf")
-        try:
-            filter_gbc(new_file_path, prelearn_absolute_dir + "pr_clauses.cnf", f"{sub_directory}/test_files", file_name)
-        except Exception as e:
-            print(f"Error in filter_gbc: {e}")
+        if False:
+            print(f"Filter pass on {prelearn_absolute_dir}" + "pr_clauses.cnf")
+            try:
+                filter_gbc(new_file_path, prelearn_absolute_dir + "pr_clauses.cnf", f"{sub_directory}/test_files", file_name)
+            except Exception as e:
+                print(f"Error in filter_gbc: {e}")
 
         # try: 
         #     shutil.rmtree(f"{sub_directory}/test_files")
@@ -217,7 +221,7 @@ def run_clause_lengths(results_directory="results", total_number = None):
     # todo: note i added the gbc one instead
     # input_dir = "satcomp_benchmarks/"
 
-    input_dir = "satcomp_benchmarks/"
+    input_dir = "satcomp_benchmarks23/"
     # proofs_dir = f"{results_directory}/proofs"
     # clauses_dir = f"{results_directory}/global_clauses"
     # scramble_dir = f"{results_directory}/scramble"

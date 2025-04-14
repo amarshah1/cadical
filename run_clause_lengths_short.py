@@ -9,7 +9,7 @@ import sys
 # from run_add_gbc_as_assumptions import *
 
 # Configuration
-TIMEOUT = 60  # seconds
+TIMEOUT = 30  # seconds
 TIMEOUT_GBC = 5 # timeout for checking if a gbc is trival
 NUM_SCRAMBLES = 10
 
@@ -176,16 +176,25 @@ def process_file(file_name, input_dir, results_directory, mode, gbc_appendix):
             new_file_path = f'{sub_directory}/{file_name}'
         else:
             new_file_path = f'{sub_directory}/{new_file_name}_scramble{i}.cnf'
+
+        
         scramble_cmd = f'../scranfilize/scranfilize -c 1 -f 0 -v 0 --force {file_path} {new_file_path}'
         gbc_file_path = f"{sub_directory}/global_clauses/{new_file_name}_{i}_preprocessing{gbc_appendix}.txt"
 
 
         if True:
-            if False:
+            # num_lines = sum(1 for _ in open(file_path))
+            if False and num_lines < 100000:
                 try:
+                    print(f"We are scranfilizing on {file_name} with cmd {scramble_cmd}")
                     subprocess.run(scramble_cmd, shell = True)
                 except Exception as e:
+                    print(f"We hit an exception scranfilizing on {file_name}")
                     print(e)
+
+            if not os.path.exists(new_file_path):
+                print(f"Renaming new_file_path to {file_path}")
+                new_file_path = file_path
 
             proof_path = f"{sub_directory}/proofs/{new_file_name}_{i}.proof_preprocessing{gbc_appendix}.pr"
             cmd = f'CADICAL_FILENAME="{gbc_file_path}" build/cadical --report=true --chrono=false '
@@ -246,7 +255,7 @@ def run_clause_lengths(gbc_appendix,results_directory="results", bcp=False, tota
     # todo: note i added the gbc one instead
     # input_dir = "satcomp_benchmarks/"
 
-    input_dir = "satcomp_benchmarks/"
+    input_dir = "satcomp_benchmarks23/"
     # proofs_dir = f"{results_directory}/proofs"
     # clauses_dir = f"{results_directory}/global_clauses"
     # scramble_dir = f"{results_directory}/scramble"
