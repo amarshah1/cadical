@@ -1141,6 +1141,7 @@ struct Internal {
   void custom_sort_alpha_a(std::vector<int>& alpha_a);
   pair<vector<int>, vector<int>> greedy_sort_alpha_a(std::vector<int> alpha_a, std::vector<int> alpha_c);
   bool check_if_clause_trivial(vector<int> c);
+  bool clause_add(vector<int> clause);
   bool in_check_if_clause_trivial = false;
   bool least_conditional_part(std::ofstream& outFile, std::ofstream& outFile_pr);
   void print_assignment();

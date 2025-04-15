@@ -103,6 +103,8 @@ OPTION( globalalphaagreedy,0,  0,  1,0,0,1, "sorts alpha_a using a greedy approx
 OPTION( globalalphaasort,  0,  0,  1,0,0,1, "sorts alpha_a respecting the partial order given by implication") \
 OPTION( globalbcp,         0,  0,  1,0,0,1, "will shrink GBCs based on binary clauses not propagation") \
 OPTION( globalfiltertriv,  0,  0,  1,0,0,1, "will filter out the trivial clauses") \
+OPTION( globalfilterbin,   0,  0,  1,0,0,1, "will filter out clauses longer than len 2") \
+OPTION( globalfiltertern,  0,  0,  1,0,0,1, "will filter out clauses longer than len 3") \
 OPTION( globallearn,       1,  0,  1,0,0,1, "learn clauses in the globally blocked step") \
 OPTION( globalnoshrink,    0,  0,  1,0,0,1, "will not shrink globally blocked clauses") \
 OPTION( globalpreprocess,  0,  0,  1,0,0,1, "will learn gbc's in a preprocessing step") \

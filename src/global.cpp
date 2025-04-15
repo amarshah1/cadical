@@ -357,6 +357,14 @@ bool Internal::check_if_clause_trivial(vector<int> c) {
     return is_trivial;
 }
 
+bool Internal::clause_add(vector<int> clause) {
+    if (opts.globalfiltertriv && !check_if_clause_trivial (clause)) return false;
+    size_t clause_size = clause.size();
+    if (opts.globalfilterbin && clause_size > 2) return false;
+    if (opts.globalfiltertern && clause_size > 3) return false;
+    return true;
+}
+
 bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& outFile_pr) {
 
     START (global);
@@ -827,16 +835,16 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
             if (new_clause.size() > 1) {
                 int last_element = new_clause.back ();
                 sort_vec_by_decision_level(&new_clause);
-                bool is_clause_trivial = opts.globalfiltertriv && check_if_clause_trivial (new_clause);
+                bool add_clause = clause_add(new_clause);
                 clause = new_clause;
                 // todo : got rid of non-shrunk clause learning for rn
-                printf("With is_clause-triv: %d, we are adding the globally blocked clause (non-shrunk):", is_clause_trivial);
+                // printf("With is_clause-triv: %d, we are adding the globally blocked clause (non-shrunk):", is_clause_trivial);
                 print_vector(clause);
                 printf("\n");
                 vector<int> neg_alpha_c_a(neg_alpha_c);
                 neg_alpha_c_a.push_back(last_element);
 
-                if (opts.globalrecord && !is_clause_trivial) {
+                if (opts.globalrecord && add_clause) {
                     outFile_pr << last_element << " ";
                     outFile_pr <<  " ";
                     for (int val : neg_alpha_c_a) {
@@ -854,7 +862,8 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
 
                 if (opts.globallearn) {
                     printf("Learning the original clause (no shrink)! \n ");
-                    if (!is_clause_trivial)   
+                    // if (!is_clause_trivial)   
+                    if (add_clause)
                         Clause* c = new_learned_weak_irredundant_global_clause (last_element, neg_alpha_c_a, alpha_a, 1);
                 }
 
@@ -868,7 +877,7 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
             vector<int> neg_alpha_c_minus_c0_alpha_a(neg_alpha_c_minus_c0);
             neg_alpha_c_minus_c0_alpha_a.insert(neg_alpha_c_minus_c0_alpha_a.end(), alpha_a_useful.begin(), alpha_a_useful.end());
             printf("checking if this clauses is trivial");
-            bool is_clause_trivial = opts.globalfiltertriv && check_if_clause_trivial (neg_alpha_c_minus_c0_alpha_a);
+            bool add_clause = clause_add(neg_alpha_c_minus_c0_alpha_a);
             clause = neg_alpha_c_minus_c0_alpha_a;
             sort_vec_by_decision_level(&clause);
             // printf("We are adding the reduced globally blocked clause:");
@@ -877,10 +886,11 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
                 if (clause.size () > 1) {
                     printf("actually learning the clause!");
                     // todo remove this only taking binary clause
-                    if (!is_clause_trivial)
+                    // if (!is_clause_trivial)
+                    if (add_clause)
                         Clause* c = new_learned_weak_irredundant_global_clause (alpha_a_useful.back(), neg_alpha_c_minus_c0_alpha_a, alpha_a, 1);
                     // Clause* c = new_learned_redundant_clause (1);
-                    printf("With is_clause_trivial %d, we are adding the globally blocked clause: ", is_clause_trivial);
+                    // printf("With is_clause_trivial %d, we are adding the globally blocked clause: ", is_clause_trivial);
                     print_vector(alpha_a_useful);
                     printf(" ");
                     print_vector(neg_alpha_c_minus_c0_alpha_a);
@@ -894,7 +904,8 @@ bool Internal::least_conditional_part(std::ofstream& outFile, std::ofstream& out
                 }
             }
             // printf("made it past the learning! \n");
-            if (opts.globalrecord && !is_clause_trivial) {
+            // if (opts.globalrecord && !is_clause_trivial) {
+            if (add_clause) {
                 // printf("actually recording the clause!");
                     outFile_pr << alpha_a_useful.back() << " ";
                     for (int val : neg_alpha_c_minus_c0_alpha_a) {
