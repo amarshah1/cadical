@@ -372,83 +372,84 @@ int Internal::cdcl_loop_with_inprocessing () {
       res = 20;
     }
     // changed this to globalling decide
-    else if (globalling ()) {
-      bool added_a_clause = least_conditional_part(outFile, outFile_pr);
+    // else if (globalling ()) {
+    //   bool added_a_clause = least_conditional_part(outFile, outFile_pr);
 
-      // unecessary because we return false if we find a conflict through propagation
-      // if (unsat) {
-      //   continue;
-      // }
+    //   // unecessary because we return false if we find a conflict through propagation
+    //   // if (unsat) {
+    //   //   continue;
+    //   // }
 
-      // remake the same old decision -> this is super hacky
-      // I currently need this because the solver expects us to be at a certain decsion level
-      // todo: find a better way to do this
-      if (added_a_clause && !opts.globalbcp) {
-        backtrack ();
-        // print_assignment ();
-        // if (!propagate ()) {
-        //   printf("found a conflict here!");
-        //   analyze ();
-        // }
-        printf("propagated once at level %d! \n", level);
-        // decide ();
-        Flags &f = flags (global_decision1);
-        bool second_propagate = true;
-        if (!(f.status == Flags::FIXED)) {
-          printf("Literal %d is not fixed \n", global_decision1);
-          search_assume_decision (global_decision1);
-          // printf("At internal position 1; propagated: %d; trail.size: %d \n", propagated, trail.size ());
-          if (!propagate ()) {
-            // printf("At internal position 2; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+    //   // remake the same old decision -> this is super hacky
+    //   // I currently need this because the solver expects us to be at a certain decsion level
+    //   // todo: find a better way to do this
+    //   if (added_a_clause && !opts.globalbcp) {
+    //     backtrack ();
+    //     // print_assignment ();
+    //     // if (!propagate ()) {
+    //     //   printf("found a conflict here!");
+    //     //   analyze ();
+    //     // }
+    //     printf("propagated once at level %d! \n", level);
+    //     // decide ();
+    //     Flags &f = flags (global_decision1);
+    //     bool second_propagate = true;
+    //     if (!(f.status == Flags::FIXED)) {
+    //       printf("Literal %d is not fixed \n", global_decision1);
+    //       search_assume_decision (global_decision1);
+    //       // printf("At internal position 1; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+    //       if (!propagate ()) {
+    //         // printf("At internal position 2; propagated: %d; trail.size: %d \n", propagated, trail.size ());
 
-            printf("found a conflict here!");
-            analyze ();
-            // printf("At internal position 3; propagated: %d; trail.size: %d \n", propagated, trail.size ());
-            if (!propagate ()) {
-              // printf("At internal position 4; propagated: %d; trail.size: %d \n", propagated, trail.size ());
-              printf("Found a double conflict on first propagate!");
-              second_propagate = false;
-            }
-          }
-        }
-        // printf("At internal position 5; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+    //         printf("found a conflict here!");
+    //         analyze ();
+    //         // printf("At internal position 3; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+    //         if (!propagate ()) {
+    //           // printf("At internal position 4; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+    //           printf("Found a double conflict on first propagate!");
+    //           second_propagate = false;
+    //         }
+    //       }
+    //     }
+    //     // printf("At internal position 5; propagated: %d; trail.size: %d \n", propagated, trail.size ());
 
-        printf("propagated twice at level %d! \n", level);
-        // decide ();
-        // kinda hacky ~but I was running into a problem with pigeonhole where global_decision2 was 0
-        if (global_decision2 && second_propagate) {
-          Flags &g = flags (global_decision2);
-          if (!(g.status == Flags::FIXED) && !val (global_decision2)) {
-            printf("Literal %d is not fixed \n", global_decision2);
-            search_assume_decision (global_decision2);
-              // printf("At internal position 6; propagated: %d; trail.size: %d \n", propagated, trail.size ());
-            if (!propagate ()) {
-              printf("found a conflict here!");
-              analyze ();
-               if (!propagate ()) {
-                  printf("Found a double conflict on second propagate!");
-                  analyze ();
-                  // todo: might need to propagate after this
-                }
-            }
-          }
-        }
-        printf("propagated thrice at level %d! \n", level);
-        // todo: not sure if this will actually do what I want it to do
-        reset_assumptions ();
-      }
+    //     printf("propagated twice at level %d! \n", level);
+    //     // decide ();
+    //     // kinda hacky ~but I was running into a problem with pigeonhole where global_decision2 was 0
+    //     if (global_decision2 && second_propagate) {
+    //       Flags &g = flags (global_decision2);
+    //       if (!(g.status == Flags::FIXED) && !val (global_decision2)) {
+    //         printf("Literal %d is not fixed \n", global_decision2);
+    //         search_assume_decision (global_decision2);
+    //           // printf("At internal position 6; propagated: %d; trail.size: %d \n", propagated, trail.size ());
+    //         if (!propagate ()) {
+    //           printf("found a conflict here!");
+    //           analyze ();
+    //            if (!propagate ()) {
+    //               printf("Found a double conflict on second propagate!");
+    //               analyze ();
+    //               // todo: might need to propagate after this
+    //             }
+    //         }
+    //       }
+    //     }
+    //     printf("propagated thrice at level %d! \n", level);
+    //     // todo: not sure if this will actually do what I want it to do
+    //     reset_assumptions ();
+    //   }
 
 
-      if (in_assumptions) { // && added_a_clause) {
-        // trying to reduce after each round of assumptions
-        // seems to make things slightly faster:
-        // can do pigeonhole 40 in  134.11 seconds
-        // reduce (); // collect useless clauses
-        res = 20;
-      } else {
-        // printf("we are NOT in assumptions! \n");
-      }
-    } else
+    //   if (in_assumptions) { // && added_a_clause) {
+    //     // trying to reduce after each round of assumptions
+    //     // seems to make things slightly faster:
+    //     // can do pigeonhole 40 in  134.11 seconds
+    //     // reduce (); // collect useless clauses
+    //     res = 20;
+    //   } else {
+    //     // printf("we are NOT in assumptions! \n");
+    //   }
+    // } 
+    else
       res = decide (); // next decision
   }
 
